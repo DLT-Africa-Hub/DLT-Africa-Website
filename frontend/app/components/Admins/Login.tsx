@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 
@@ -47,22 +47,17 @@ const Login: React.FC = () => {
 
     setIsSubmitting(true);
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/team/login`, formData)
+    apiClient
+      .post("/team/login", formData)
       .then((response) => {
         setIsSubmitting(false);
         localStorage.setItem("isLoggedIn", "true");
         setFormCompleted(true);
         router.push("/admin-dashboard");
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         setIsSubmitting(false);
-        if (error.response && error.response.status === 400) {
-          setFormValidMessage("Invalid login credentials.");
-          return;
-        }
-
-        setFormValidMessage("Server error. Please try again later.");
+        setFormValidMessage(getApiErrorMessage(error));
       });
   };
 

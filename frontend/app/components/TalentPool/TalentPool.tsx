@@ -32,7 +32,7 @@ const TalentPool: React.FC = () => {
   const [allTalents, setAllTalents] = useState<Talent[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>(["Frontend"]);
   const [currentPage, setCurrentPage] = useState<number>(
-    PAGINATION_CONFIG.DEFAULT_PAGE
+    PAGINATION_CONFIG.DEFAULT_PAGE,
   );
   const [itemsPerPage] = useState<number>(PAGINATION_CONFIG.ITEMS_PER_PAGE);
   const [totalTalents, setTotalTalents] = useState<number>(0);
@@ -50,7 +50,7 @@ const TalentPool: React.FC = () => {
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.SKILLS}`,
         {
           signal: abortController.signal,
-        }
+        },
       );
       return response.data;
     };
@@ -59,14 +59,14 @@ const TalentPool: React.FC = () => {
       fetchSkills,
       (data) => {
         const skillCategories = Object.keys(data).filter(
-          (key) => key !== "_id" && key !== "__v"
+          (key) => key !== "_id" && key !== "__v",
         );
         setAvailableSkills(skillCategories);
       },
       (error) => {
         console.error("Error fetching skills:", error);
         toast.error(`${ERROR_MESSAGES.FETCH_SKILLS}: ${error}`);
-      }
+      },
     );
 
     return () => {
@@ -82,7 +82,7 @@ const TalentPool: React.FC = () => {
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TALENTS}`,
         {
           signal: abortController.signal,
-        }
+        },
       );
       return response.data;
     };
@@ -97,7 +97,7 @@ const TalentPool: React.FC = () => {
       (error) => {
         console.error("Error fetching talents:", error);
         toast.error(`${ERROR_MESSAGES.FETCH_TALENTS}: ${error}`);
-      }
+      },
     );
 
     return () => {
@@ -115,12 +115,12 @@ const TalentPool: React.FC = () => {
     (talent) =>
       talent.skills &&
       Array.isArray(talent.skills) &&
-      selectedSkills.every((skill) => talent.skills.includes(skill))
+      selectedSkills.every((skill) => talent.skills.includes(skill)),
   );
 
   const paginatedTalents = filteredTalents.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleSkillChange = (skill: string): void => {

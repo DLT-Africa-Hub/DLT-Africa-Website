@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Image from "next/image";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,8 +14,6 @@ interface TeamData {
   role: string;
   isVerified: boolean;
 }
-
-const BACKEND_URL = process.env.BACKEND_URL;
 
 const TeamPreview: React.FC = () => {
   const [teamData, setTeamData] = useState<TeamData[]>([]);
@@ -37,9 +34,7 @@ const TeamPreview: React.FC = () => {
     setIsLoading(true);
     const fetchTeamData = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/team/team-details`
-        );
+        const response = await apiClient.get("/team/team-details");
         // The team API returns the teams array directly (not wrapped in { success: true, data: [...] })
         if (Array.isArray(response.data)) {
           setTeamData(response.data);
@@ -47,14 +42,10 @@ const TeamPreview: React.FC = () => {
           setTeamData([]);
           setMessage("Invalid data format received");
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Error fetching team data:", error);
         setTeamData([]);
-        if (error.response && error.response.status == 400) {
-          setMessage("Cannot fetch data");
-          return;
-        }
-        setMessage("Server error");
+        setMessage(getApiErrorMessage(error));
       }
       setIsLoading(false);
     };

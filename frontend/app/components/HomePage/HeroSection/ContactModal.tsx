@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 
 interface FormData {
   orgName: string;
@@ -37,10 +37,11 @@ const ContactModal: React.FC<ContactModalProps> = ({ onClose }) => {
         toast.error("All fields are required");
         return;
       }
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/contact/contactUs`,
-        formData
-      );
+      await apiClient.post("/contact/contactUs", {
+        name: orgName,
+        email: emailAddress,
+        message,
+      });
 
       onClose();
       setIsSubmitting(false);
@@ -48,14 +49,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ onClose }) => {
       setFormValidMessage(
         `Thanks for your message! We will get back to you soon.`
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       setIsSubmitting(false);
       setFormCompleted(false);
-      setFormValidMessage(
-        `${
-          error.response?.data?.message || "Unable to process your submission"
-        }`
-      );
+      setFormValidMessage(getApiErrorMessage(error));
     } finally {
       setIsSubmitting(false);
     }

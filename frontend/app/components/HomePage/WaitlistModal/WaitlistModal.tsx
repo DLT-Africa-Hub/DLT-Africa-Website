@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Button, Input, Typography } from "@material-tailwind/react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 
 interface FormData {
   name: string;
@@ -70,13 +70,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
     setMessage("");
 
     try {
-      const response = await axios.post(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://dlt-backend.vercel.app/api/v1"
-        }/api/v1/waitlist/join`,
-        formData
-      );
+      const response = await apiClient.post("/waitlist/join", formData);
 
       if (response.status === 201) {
         setMessage(
@@ -92,13 +86,9 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
           setMessageType("");
         }, 2000);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error joining waitlist:", error);
-      setMessage(
-        error.response?.data?.error ||
-          error.response?.data?.message ||
-          "Failed to join waitlist. Please try again."
-      );
+      setMessage(getApiErrorMessage(error));
       setMessageType("error");
     } finally {
       setIsSubmitting(false);

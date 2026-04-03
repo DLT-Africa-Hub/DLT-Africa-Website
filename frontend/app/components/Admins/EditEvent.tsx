@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { apiClient } from "@/lib/apiClient";
 
 interface EditEventPageProps {
   eventId: string;
@@ -35,8 +35,8 @@ const EditEventPage: React.FC<EditEventPageProps> = ({ eventId, onClose }) => {
 
   const fetchEventDetails = async (): Promise<void> => {
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/get-single-event/${eventId}`
+      const response = await apiClient.get(
+        `/events/get-single-event/${eventId}`
       );
       setFormData(response.data);
     } catch (error) {
@@ -49,10 +49,7 @@ const EditEventPage: React.FC<EditEventPageProps> = ({ eventId, onClose }) => {
   ): Promise<void> => {
     e.preventDefault();
     try {
-      const updateResponse = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/update-event/${eventId}`,
-        formData
-      );
+      await apiClient.patch(`/events/update-event/${eventId}`, formData);
 
       onClose();
     } catch (error) {

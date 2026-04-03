@@ -1,6 +1,6 @@
 import { FaCheck } from "react-icons/fa";
 import React, { useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -20,13 +20,13 @@ const ChangeStatus: React.FC<ChangeStatusProps> = ({ id }) => {
     }
     setIsLoading(true);
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/cohorts/upgrade-admission`,
-        { status: studentStatus, id }
-      );
+      await apiClient.post("/cohorts/upgrade-admission", {
+        status: studentStatus,
+        id,
+      });
       router.push("/admin-dashboard");
-    } catch (error) {
-      toast.error("Failed to update status");
+    } catch (error: unknown) {
+      toast.error(getApiErrorMessage(error));
     } finally {
       setIsLoading(false);
     }

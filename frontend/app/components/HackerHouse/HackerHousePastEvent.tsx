@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient } from "@/lib/apiClient";
 import {
   Tabs,
   TabsHeader,
@@ -40,9 +40,7 @@ const HackerHousePastEvent: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/get-all-events`
-        );
+        const response = await apiClient.get("/events/get-all-events");
         if (
           response.data &&
           response.data.success &&

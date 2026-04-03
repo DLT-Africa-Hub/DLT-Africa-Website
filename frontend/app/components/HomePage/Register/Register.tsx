@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { apiClient } from "@/lib/apiClient";
 import WaitlistModal from "../WaitlistModal/WaitlistModal";
 
 const RegisterOnline: React.FC = () => {
@@ -12,12 +12,7 @@ const RegisterOnline: React.FC = () => {
   useEffect(() => {
     const fetchWaitlistStatus = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${
-            process.env.NEXT_PUBLIC_API_BASE_URL ||
-            "https://dlt-backend.vercel.app/api/v1"
-          }/api/v1/settings/waitlist-status`
-        );
+        const response = await apiClient.get("/settings/waitlist-status");
         setWaitlistActive(response.data.waitlistActive);
       } catch (error) {
         console.error("Error fetching waitlist status:", error);
@@ -93,12 +88,7 @@ const RegisterOffline: React.FC = () => {
   useEffect(() => {
     const fetchWaitlistStatus = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${
-            process.env.NEXT_PUBLIC_API_BASE_URL ||
-            "https://dlt-backend.vercel.app/api/v1"
-          }/api/v1/settings/waitlist-status`
-        );
+        const response = await apiClient.get("/settings/waitlist-status");
         setWaitlistActive(response.data.waitlistActive);
       } catch (error) {
         console.error("Error fetching waitlist status:", error);

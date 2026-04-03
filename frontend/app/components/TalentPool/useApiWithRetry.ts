@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import axios, { AxiosError } from 'axios';
+import { getApiErrorMessage } from '@/lib/apiClient';
 
 interface RetryConfig {
     maxRetries: number;
@@ -45,9 +45,8 @@ export const useApiWithRetry = <T>(
                     setState({ data, loading: false, error: null });
                     onSuccess?.(data);
                     return data;
-                } catch (error) {
-                    const axiosError = error as AxiosError;
-                    lastError = (axiosError.response?.data as any)?.message || axiosError.message || 'An error occurred';
+                } catch (error: unknown) {
+                    lastError = getApiErrorMessage(error);
 
                     if (attempt === config.maxRetries) {
                         setState(prev => ({ ...prev, loading: false, error: lastError }));

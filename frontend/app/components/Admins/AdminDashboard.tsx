@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import Link from "next/link";
 import ChangeStatus from "@/app/components/ChangeStatus/ChangeStatus";
 
@@ -35,9 +35,7 @@ const AdminDashboard: React.FC = () => {
     setIsLoading(true);
     const fetchAdmissions = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/cohorts/get-all-admissions`
-        );
+        const response = await apiClient.get("/cohorts/get-all-admissions");
         if (
           response.data &&
           response.data.success &&
@@ -50,14 +48,10 @@ const AdminDashboard: React.FC = () => {
           setAdmissionData([]);
           setMessage("Invalid data format received");
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Error fetching admissions:", error);
         setAdmissionData([]);
-        if (error.response && error.response.status == 400) {
-          setMessage("Cannot fetch data");
-          return;
-        }
-        setMessage("Server error");
+        setMessage(getApiErrorMessage(error));
       }
       setIsLoading(false);
     };

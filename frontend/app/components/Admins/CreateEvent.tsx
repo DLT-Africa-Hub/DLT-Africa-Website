@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Input, Typography } from "@material-tailwind/react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
 import EventPreview from "./EventPreview";
 
@@ -80,31 +80,20 @@ const CreateEvent: React.FC = () => {
 
       setIsSubmitting(true);
 
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/create-event`,
-          formData
-        )
+      apiClient
+        .post("/events/create-event", formData)
         .then(function (response) {
           setIsSubmitting(false);
           setFormCompleted(true);
           router.push("/event-list");
         })
-        .catch(function (error: any) {
+        .catch(function (error: unknown) {
           setIsSubmitting(false);
-          if (error.response && error.response.status == 400) {
-            setFormValidMessage(
-              "An event with the same details already exists."
-            );
-            return;
-          }
-
-          setFormValidMessage(
-            "Server error: unable to process your event registration."
-          );
+          setFormValidMessage(getApiErrorMessage(error));
         });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error submitting form:", error);
+      setFormValidMessage(getApiErrorMessage(error));
     }
   };
 

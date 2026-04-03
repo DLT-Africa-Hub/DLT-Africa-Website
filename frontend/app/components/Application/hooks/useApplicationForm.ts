@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { FormData, CheckboxesChecked, APPLICATION_DEADLINE } from "../constants";
 
 export const useApplicationForm = () => {
@@ -123,25 +123,12 @@ export const useApplicationForm = () => {
         };
 
         try {
-            await axios.post(
-                `${process.env.NEXT_PUBLIC_API_BASE_URL}/cohorts/studentreg`,
-                submitData
-            );
+            await apiClient.post("/cohorts/studentreg", submitData);
             setIsSubmitting(false);
             router.push("/congrats");
-        } catch (error: any) {
+        } catch (error: unknown) {
             setIsSubmitting(false);
-
-            if (error.response && error.response.status === 400) {
-                setFormValidMessage(
-                    "Applicant with the same email address already exist"
-                );
-                return;
-            }
-
-            setFormValidMessage(
-                "Server error, unable to process your registration"
-            );
+            setFormValidMessage(getApiErrorMessage(error));
         }
     };
 

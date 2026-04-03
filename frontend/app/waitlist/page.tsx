@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import Link from "next/link";
 
 const WaitlistAdmin = () => {
@@ -27,20 +27,13 @@ const WaitlistAdmin = () => {
     setIsLoading(true);
     const fetchWaitlist = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/waitlist/`
-        );
+        const response = await apiClient.get("/waitlist/");
         setWaitlistData(response.data.data);
         setIsLoading(false);
-      } catch (error: any) {
+      } catch (error: unknown) {
         setIsLoading(false);
         console.error("Error fetching waitlist:", error);
-        if (error.response && error.response.status === 400) {
-          setMessage("Cannot fetch waitlist data");
-          return;
-        }
-
-        setMessage("Server error");
+        setMessage(getApiErrorMessage(error));
       }
     };
     fetchWaitlist();
@@ -50,12 +43,11 @@ const WaitlistAdmin = () => {
   useEffect(() => {
     const fetchWaitlistStatus = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/settings/waitlist-status`
-        );
+        const response = await apiClient.get("/settings/waitlist-status");
         setWaitlistActive(response.data.waitlistActive);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Error fetching waitlist status:", error);
+        setMessage(getApiErrorMessage(error));
       }
     };
     fetchWaitlistStatus();
@@ -77,17 +69,15 @@ const WaitlistAdmin = () => {
       window.confirm("Are you sure you want to delete this waitlist entry?")
     ) {
       try {
-        await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/waitlist/${id}`
-        );
+        await apiClient.delete(`/waitlist/${id}`);
         setWaitlistData(
           waitlistData.filter((entry: WaitlistEntry) => entry._id !== id)
         );
         setMessage("Waitlist entry deleted successfully");
         setTimeout(() => setMessage(""), 3000);
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Error deleting waitlist entry:", error);
-        setMessage("Failed to delete waitlist entry");
+        setMessage(getApiErrorMessage(error));
         setTimeout(() => setMessage(""), 3000);
       }
     }
@@ -127,17 +117,16 @@ const WaitlistAdmin = () => {
   const toggleWaitlistStatus = async () => {
     setIsUpdatingStatus(true);
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/settings/waitlist-status`,
-        { waitlistActive: !waitlistActive }
-      );
+      const response = await apiClient.put("/settings/waitlist-status", {
+        waitlistActive: !waitlistActive,
+      });
 
       setWaitlistActive(!waitlistActive);
       setMessage(response.data.message);
       setTimeout(() => setMessage(""), 3000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating waitlist status:", error);
-      setMessage("Failed to update waitlist status");
+      setMessage(getApiErrorMessage(error));
       setTimeout(() => setMessage(""), 3000);
     } finally {
       setIsUpdatingStatus(false);

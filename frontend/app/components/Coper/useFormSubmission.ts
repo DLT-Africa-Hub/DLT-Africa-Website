@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
-import axios from 'axios';
+import { apiClient, getApiErrorMessage } from '@/lib/apiClient';
 import { useRouter } from 'next/navigation';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from './constants';
 
 interface FormData {
     fullName: string;
@@ -37,8 +36,8 @@ export const useFormSubmission = () => {
         });
 
         try {
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_BASE_URL}/cohorts/corperreg`,
+            const response = await apiClient.post(
+                '/cohorts/corperreg',
                 formData,
                 {
                     timeout: 30000, // 30 second timeout
@@ -65,34 +64,10 @@ export const useFormSubmission = () => {
             } else {
                 throw new Error(`Unexpected response status: ${response.status}`);
             }
-        } catch (error) {
-            let errorMessage: string = ERROR_MESSAGES.SERVER_ERROR;
-
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                    // Server responded with error status
-                    const status = error.response.status;
-                    const data = error.response.data;
-
-                    if (status === 400) {
-                        errorMessage = ERROR_MESSAGES.DUPLICATE_EMAIL;
-                    } else if (status === 422) {
-                        errorMessage = data?.message || "Please check your form data and try again.";
-                    } else if (status >= 500) {
-                        errorMessage = "Server is temporarily unavailable. Please try again later.";
-                    }
-                } else if (error.request) {
-                    // Network error
-                    errorMessage = ERROR_MESSAGES.NETWORK_ERROR;
-                } else {
-                    // Other error
-                    errorMessage = error.message || ERROR_MESSAGES.SERVER_ERROR;
-                }
-            }
-
+        } catch (error: unknown) {
             setSubmissionState({
                 isSubmitting: false,
-                error: errorMessage,
+                error: getApiErrorMessage(error),
                 success: false,
             });
 

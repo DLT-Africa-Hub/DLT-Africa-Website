@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
 import { Button, Input, Typography } from "@material-tailwind/react";
 
@@ -54,30 +54,17 @@ const Register: React.FC = () => {
 
     setIsSubmitting(true);
 
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/team/register-team`,
-        formData
-      )
+    apiClient
+      .post("/team/register-team", formData)
       .then((response) => {
         setIsSubmitting(false);
         localStorage.setItem("isLoggedIn", "true");
         setFormCompleted(true);
         router.push("/admin-dashboard");
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         setIsSubmitting(false);
-
-        if (error.response && error.response.status === 400) {
-          setFormValidMessage(
-            "An applicant with the same email address already exists."
-          );
-          return;
-        }
-
-        setFormValidMessage(
-          "Server error. Unable to process your registration."
-        );
+        setFormValidMessage(getApiErrorMessage(error));
       });
   };
 

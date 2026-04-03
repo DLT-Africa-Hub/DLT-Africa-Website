@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaPen } from "react-icons/fa";
@@ -47,16 +47,14 @@ const EventPreview: React.FC = () => {
   const router = useRouter();
   const handleDelete = async (eventId: string): Promise<void> => {
     try {
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/delete/${eventId}`
-      );
+      await apiClient.delete(`/events/delete/${eventId}`);
       if (Array.isArray(eventData)) {
         setEventData(eventData.filter((event) => event._id !== eventId));
       }
       setMessage("Event deleted successfully");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error deleting event:", error);
-      setMessage("Error deleting event");
+      setMessage(getApiErrorMessage(error));
     }
   };
 
@@ -64,9 +62,7 @@ const EventPreview: React.FC = () => {
     setIsLoading(true);
     const fetchEvents = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/get-all-events`
-        );
+        const response = await apiClient.get("/events/get-all-events");
         if (
           response.data &&
           response.data.success &&
@@ -77,14 +73,10 @@ const EventPreview: React.FC = () => {
           setEventData([]);
           setMessage("Invalid data format received");
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Error fetching events:", error);
         setEventData([]);
-        if (error.response && error.response.status == 400) {
-          setMessage("Cannot fetch data");
-          return;
-        }
-        setMessage("Server error");
+        setMessage(getApiErrorMessage(error));
       }
       setIsLoading(false);
     };

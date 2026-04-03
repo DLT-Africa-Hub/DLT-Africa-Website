@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 
 interface Event {
   _id: string;
@@ -37,9 +37,7 @@ const CurrentAndUpcoming: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async (): Promise<void> => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/get-all-events`
-        );
+        const response = await apiClient.get("/events/get-all-events");
         if (
           !response.data ||
           !response.data.success ||
@@ -51,14 +49,10 @@ const CurrentAndUpcoming: React.FC = () => {
         }
 
         setEventData(response.data.data);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Error fetching events:", error);
         setEventData([]);
-        setMessage(
-          error.response && error.response.status === 400
-            ? "Cannot fetch data"
-            : "Server error"
-        );
+        setMessage(getApiErrorMessage(error));
       }
       setIsLoading(false);
     };

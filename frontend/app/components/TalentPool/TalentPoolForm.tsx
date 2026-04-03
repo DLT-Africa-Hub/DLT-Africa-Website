@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { getApiErrorMessage } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
 import { Button, Input } from "@material-tailwind/react";
 
@@ -66,23 +67,10 @@ const NewForm: React.FC<NewFormProps> = ({
         handleCloseModal();
         router.push("/talent-pool");
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error("Error submitting form:", error);
         setIsSubmitting(false);
-        if (error.response) {
-          setFormValidMessage(
-            `Server error: ${
-              error.response.data.message || "Unable to process your submission"
-            }`
-          );
-        } else if (error.request) {
-          setFormValidMessage(
-            "No response from server. Please try again later."
-          );
-          return;
-        }
-
-        setFormValidMessage("Request setup error: " + error.message);
+        setFormValidMessage(getApiErrorMessage(error));
       });
   };
 

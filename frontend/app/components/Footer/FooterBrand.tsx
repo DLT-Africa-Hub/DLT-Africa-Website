@@ -1,0 +1,28 @@
+import Image from "next/image";
+import Link from "next/link";
+
+import type { FooterBrand as FooterBrandData } from "./footer.types";
+
+type Props = { brand: FooterBrandData };
+
+export default function FooterBrand({ brand }: Props) {
+  return (
+    <div className="flex flex-col items-center text-center md:items-start md:text-left">
+      <Link
+        href={brand.logoHref}
+        className="inline-block transition-opacity hover:opacity-90"
+      >
+        <Image
+          src={brand.logoSrc}
+          alt={brand.logoAlt}
+          width={126}
+          height={51}
+          className="h-[51px] w-[126px] object-contain"
+        />
+      </Link>
+      <p className="mt-4 max-w-xs font-poppins text-sm text-[#1C1C1C] md:text-base">
+        {brand.tagline}
+      </p>
+    </div>
+  );
+}

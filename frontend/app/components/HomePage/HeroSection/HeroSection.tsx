@@ -1,90 +1,110 @@
 "use client";
+
+import Image from "next/image";
 import Link from "next/link";
-import Lottie from "lottie-react";
-import animationData from "../../../json-data/color-render.json";
-import { forwardRef, useEffect, useState } from "react";
-import ContactModal from "@/app/components/HomePage/HeroSection/ContactModal";
+import { forwardRef } from "react";
+
+import { buttonVariants } from "@/app/constants/buttonStyles";
 
 interface HeroSectionProps {
   className?: string;
 }
 
-const HeroSection = forwardRef<HTMLElement, HeroSectionProps>((props, ref) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
-
-  const openModal = (): void => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
-      if (isModalOpen) {
-        document.body.style.overflow = "hidden";
-        return;
-      }
-
-      document.body.style.overflow = "auto";
-      return () => {
-        if (typeof document !== "undefined") {
-          document.body.style.overflow = "auto";
-        }
-      };
-    }
-  }, [isModalOpen]);
-
+function HeroSparkles() {
+  const spots = [
+    "left-[8%] top-[12%] h-5 w-5 opacity-[0.22]",
+    "left-[18%] top-[28%] h-5 w-5 opacity-[0.18]",
+    "right-[12%] top-[16%] h-5 w-5 opacity-[0.2]",
+    "right-[22%] top-[35%] h-5 w-5 opacity-[0.16]",
+    "left-[14%] top-[42%] h-5 w-5 opacity-[0.25]",
+    "right-[30%] top-[22%] h-5 w-5 opacity-[0.2]",
+    "left-[40%] top-[8%] h-5 w-5 opacity-[0.15]",
+  ];
   return (
-    <section ref={ref} className={props.className}>
-      <div className="flex flex-col-reverse md:flex-row bg-[#F6F7F6] lg:gap-[30px] md:gap-[22.76px]  p-[30px] 2xl:px-[60px] items-center justify-between  min-h-[657px] relative">
-        <div className="lg:w-[500px] mt-[30px] md:mt-0 md:w-[369px]  xl:w-[800px]  2xl:w-[800px] flex flex-col md:justify-center  ">
-          <h2 className="text-[#1C1C1C] text-4xl md:text-center lg:text-left lg:text-5xl 2xl:text-7xl md:text-[36px]  leading-[120%] tracking-[3.36px] font-serif">
-            We build top talents,{" "}
-            <span className="text-[#FC7C13] lg:text-5xl md:text-[36px] 2xl:text-7xl  tracking-[3.36px] font-serif">
-              To bring top projects to life.
-            </span>
-          </h2>
-
-          <p className="lg:w-[347px] 2xl:w-full md:w-[326px] mt-[15px] lg:text-[20px] 2xl:text-3xl md:text-[16px] font-Poppins text-[#1C1C1C] leading-[120%] text-opacity-[0.75]">
-            Our studio trains top talents across different technical skillset to
-            support top global founders in bringing their projects to life.
-          </p>
-
-          <button
-            className="bg-[#FC7C13] p-[10px] 
-            flex mt-[15px] w-[100%] h-[55px] 
-            rounded-[10px] items-center 
-            justify-center text-[#F7FCFE]
-            text-[16px]
-            font-Poppins
-            font-medium
-            transition duration-500 ease-in-out transform hover:-translate-y-1 lg:w-[195px] "
-            onClick={openModal}
-          >
-            Contact Us
-          </button>
-        </div>
-
-        <div className="flex">
-          {mounted ? (
-            <Lottie animationData={animationData} loop={true} />
-          ) : (
-            <div className="w-[400px] h-[400px] bg-gray-200 rounded-lg animate-pulse"></div>
-          )}
-        </div>
-
-        {isModalOpen && <ContactModal onClose={closeModal} />}
-      </div>
-    </section>
+    <div
+      className="pointer-events-none absolute inset-x-0 top-0 h-[55%] overflow-hidden"
+      aria-hidden
+    >
+      {spots.map((cls, i) => (
+        <svg
+          key={i}
+          className={`absolute text-[#1C7800] ${cls}`}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 1.5l2.2 7.3L21 12l-6.8 3.2L12 22.5l-2.2-7.3L3 12l6.8-3.2L12 1.5z" />
+        </svg>
+      ))}
+    </div>
   );
-});
+}
+
+const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
+  ({ className = "" }, ref) => {
+    return (
+      <section
+        ref={ref}
+        className={`relative overflow-hidden ${className}`.trim()}
+      >
+        <div
+          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8"
+          style={{
+            background:
+              "radial-gradient(ellipse 115% 75% at 50% -5%, rgba(239, 255, 226, 0.42) 0%, transparent 52%), linear-gradient(180deg, #FFFFFF 0%, #FAFDF9 22%, #F2FCE8 40%, #E2F5D4 58%, #D0ECC4 78%, #C2E2B6 100%)",
+          }}
+        >
+          <HeroSparkles />
+
+          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+            <h1 className="font-sfPro text-[25px] font-bold leading-[1.2] tracking-tight text-[#083700] sm:text-4xl md:text-[48px] lg:text-[48px] lg:leading-[1.15]">
+              Join our intensive{" "}
+              <span className="font-dmSerifDisplay text-[48px] font-normal italic text-[#1C7800]">
+                Bootcamp
+              </span>{" "}
+              and learn to ship with confidence
+            </h1>
+
+            <p className="mt-5 max-w-2xl font-poppins text-sm leading-relaxed text-[#5C6670] sm:mt-6 sm:text-base md:text-lg">
+              Hands-on cohort training in full-stack development—live
+              instruction, peer support, and portfolio-ready projects from day
+              one.
+            </p>
+
+            <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+              <Link
+                href="/bootcamp"
+                className={`${buttonVariants.neutral} w-full justify-center sm:w-auto sm:min-w-[160px]`}
+              >
+                Enroll now
+              </Link>
+              <Link
+                href="/courses"
+                className={`${buttonVariants.solidGreen} w-full justify-center sm:w-auto sm:min-w-[160px]`}
+              >
+                View Courses
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative z-0 mx-auto mt-8 w-full sm:mt-10 md:mt-12 lg:mt-14">
+            <div className="relative mx-auto h-[200px] w-full max-w-sm overflow-hidden sm:max-w-md md:h-[240px] md:max-w-lg lg:h-[260px] lg:max-w-xl">
+              <div className="absolute left-1/2 top-0 h-[min(680px,80vh)] w-[min(90vw,360px)] -translate-x-1/2 sm:w-[min(88vw,400px)] md:w-[min(86vw,440px)] lg:w-[min(82vw,480px)]">
+                <Image
+                  src="/images/ban.png"
+                  alt=""
+                  fill
+                  className="object-contain object-top"
+                  sizes="(max-width: 768px) 360px, 480px"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  },
+);
 
 HeroSection.displayName = "HeroSection";
 

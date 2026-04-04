@@ -17,7 +17,7 @@ export const buttonVariants = {
   solidGreen: `${buttonTypography} ${buttonLayout} px-6 py-3 bg-[#1C7800] text-white hover:bg-[#155a00]`,
 
   /** Light gray fill (#FAFAFA) */
-  neutral: `${buttonTypography} ${buttonLayout} px-6 py-3 bg-[#FAFAFA] text-[#1C7800] border border-[#1C7800] hover:bg-[#1C7800]/10`,
+  neutral: `${buttonTypography} ${buttonLayout} px-6 py-3 text-[#1C7800] border border-[#1C7800] hover:bg-[#1C7800]/10`,
 
   /**
    * Fixed 175×65, 10px padding & gap, light green (#EFFFE2 / --green-colors-50).

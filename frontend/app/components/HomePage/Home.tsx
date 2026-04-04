@@ -28,7 +28,7 @@ const IndexHome: React.FC = () => {
   // Always return the same structure to prevent hydration mismatch
   return (
     <div className="relative">
-      <HeroSection
+      {/* <HeroSection
         ref={(el: HTMLElement | null) => {
           if (el && !elementsRef.current.includes(el)) {
             elementsRef.current.push(el);
@@ -53,7 +53,7 @@ const IndexHome: React.FC = () => {
       </div>
       <div className={visibleClass}>
         <CurrentAndUpcoming />
-      </div>
+      </div> */}
     </div>
   );
 };

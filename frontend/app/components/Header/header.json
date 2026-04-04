@@ -1,0 +1,24 @@
+{
+  "logo": {
+    "src": "/images/dlt-logo.png",
+    "alt": "DLT Africa",
+    "href": "/"
+  },
+  "nav": [
+    { "label": "Start Learning", "href": "/#" },
+    { "label": "About Us", "href": "/#" },
+    { "label": "Collaborate", "href": "/#" }
+  ],
+  "cta": [
+    {
+      "label": "Enroll now",
+      "href": "/#",
+      "buttonStyle": "neutral"
+    },
+    {
+      "label": "Contact Us",
+      "href": "/#",
+      "buttonStyle": "solidGreen"
+    }
+  ]
+}

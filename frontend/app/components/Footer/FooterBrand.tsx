@@ -7,7 +7,7 @@ type Props = { brand: FooterBrandData };
 
 export default function FooterBrand({ brand }: Props) {
   return (
-    <div className="flex flex-col items-center text-center md:items-start md:text-left">
+    <div className="flex flex-col items-center justify-center text-center md:items-start">
       <Link
         href={brand.logoHref}
         className="inline-block transition-opacity hover:opacity-90"

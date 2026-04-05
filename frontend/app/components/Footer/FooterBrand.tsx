@@ -8,9 +8,8 @@ type Props = { brand: FooterBrandData };
 export default function FooterBrand({ brand }: Props) {
   return (
     <div className="flex flex-col items-center justify-center text-center md:items-start">
-      <Link
-        href={brand.logoHref}
-        className="inline-block transition-opacity hover:opacity-90"
+      <div
+        className="inline-block"
       >
         <Image
           src={brand.logoSrc}
@@ -19,7 +18,7 @@ export default function FooterBrand({ brand }: Props) {
           height={51}
           className="h-[51px] w-[126px] object-contain"
         />
-      </Link>
+      </div>
       <p className="mt-4 max-w-xs font-poppins text-sm text-[#1C1C1C] md:text-base">
         {brand.tagline}
       </p>

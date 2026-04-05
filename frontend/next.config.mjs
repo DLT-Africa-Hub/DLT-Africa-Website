@@ -14,11 +14,6 @@ const nextConfig = {
   },
 
   trailingSlash: true,
-
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.cache = false;
-    return config;
-  },
 };
 
 export default nextConfig;

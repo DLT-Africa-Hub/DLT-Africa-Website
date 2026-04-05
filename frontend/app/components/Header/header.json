@@ -17,7 +17,7 @@
     },
     {
       "label": "Contact Us",
-      "href": "/#",
+      "href": "/contact",
       "buttonStyle": "solidGreen"
     }
   ]

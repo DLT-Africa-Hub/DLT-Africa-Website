@@ -23,7 +23,6 @@ const cohortSchema = new mongoose.Schema(
     },
     academicQualification: {
       type: String,
-      required: [true, "Academic qualification is required"],
       trim: true,
     },
     courseSelected: {

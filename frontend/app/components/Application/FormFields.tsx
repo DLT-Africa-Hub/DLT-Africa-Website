@@ -4,10 +4,8 @@ import {
   FormData,
   NIGERIAN_STATES,
   GENDER_OPTIONS,
-  ACADEMIC_QUALIFICATIONS,
   CODING_EXPERIENCE,
   CLASS_TYPES,
-  REFERRAL_OPTIONS,
   ONLINE_COURSES,
   PHYSICAL_COURSES,
 } from "./constants";
@@ -129,14 +127,6 @@ const FormFields = ({
       />
 
       <SelectField
-        label="Academic Qualification"
-        name="academicQualification"
-        className="pl-4 text-[18px]"
-        handleChange={onInputChange}
-        options={ACADEMIC_QUALIFICATIONS}
-      />
-
-      <SelectField
         label="Coding Experience"
         className="pl-4 text-[18px]"
         handleChange={onInputChange}
@@ -178,30 +168,6 @@ const FormFields = ({
         name="stateOfResidence"
         handleChange={onInputChange}
         options={NIGERIAN_STATES}
-      />
-
-      <SelectField
-        className="pl-4 text-[18px]"
-        label="How did you hear about us?(optional)"
-        handleChange={onInputChange}
-        name="referralOption"
-        options={REFERRAL_OPTIONS}
-      />
-
-      <Input
-        size="lg"
-        name="referralName"
-        variant="static"
-        label="Referrals Name"
-        className="pl-4 text-[18px]"
-        labelProps={{ className: "!text-black" }}
-        containerProps={{ className: "h-14" }}
-        placeholder="e.g John Doe"
-        value={formData.referralName}
-        onChange={onInputChange}
-        crossOrigin={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
       />
     </div>
   );

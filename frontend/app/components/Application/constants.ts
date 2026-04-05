@@ -8,7 +8,6 @@ export interface FormData {
     firstName: string;
     lastName: string;
     dob: string;
-    academicQualification: string;
     courseSelected: string;
     classType: string;
     stateOfOrigin: string;
@@ -17,8 +16,6 @@ export interface FormData {
     emailAddress: string;
     codeExperience: string;
     stateOfResidence: string;
-    referralOption: string;
-    referralName: string;
 }
 
 export interface CheckboxesChecked {
@@ -73,19 +70,6 @@ export const GENDER_OPTIONS: Option[] = [
     { id: 3, tag: "Prefer Not To Mention" },
 ];
 
-export const REFERRAL_OPTIONS: Option[] = [
-    { id: 1, tag: "Social Media" },
-    { id: 2, tag: "Friend" },
-    { id: 3, tag: "Website" },
-];
-
-export const ACADEMIC_QUALIFICATIONS: Option[] = [
-    { id: 1, tag: "Senior Secondary School Certificate (SSCE)" },
-    { id: 2, tag: "Ordinary National Diploma (OND)" },
-    { id: 3, tag: "Higher National Diploma (HND)" },
-    { id: 4, tag: "BSc" },
-];
-
 export const CODING_EXPERIENCE: Option[] = [
     { id: 1, tag: "Beginner" },
     { id: 2, tag: "Intermediate" },
@@ -111,4 +95,4 @@ export const PHYSICAL_COURSES: Option[] = [
     { id: 4, tag: "Graphics Design" },
 ];
 
-export const APPLICATION_DEADLINE = "2026-01-05";
+export const APPLICATION_DEADLINE = "2026-12-12";

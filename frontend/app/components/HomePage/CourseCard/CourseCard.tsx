@@ -66,15 +66,24 @@ export function CourseCard(props: CourseCardProps) {
   const enrollHref = props.enrollHref ?? "/courses";
 
   if (props.variant === "horizontal") {
+    const compact = props.compactImage === true;
+    const imageShell = compact
+      ? "relative mx-auto h-[200px] w-full max-w-[260px] shrink-0 overflow-hidden rounded-xl sm:h-[210px] sm:max-w-[280px] lg:mx-0 lg:h-[220px] lg:w-[240px] lg:max-w-[240px] xl:w-[260px] xl:max-w-[260px]"
+      : "relative aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-[min(46%,420px)] lg:min-h-[280px]";
+
     return (
       <article className={`${cardShell} flex-col lg:flex-row lg:items-stretch`}>
-        <div className="relative aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-[min(46%,420px)] lg:min-h-[280px]">
+        <div className={imageShell}>
           <Image
             src={props.image}
             alt={props.imageAlt}
             fill
             className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 42vw"
+            sizes={
+              compact
+                ? "(max-width: 1024px) 280px, 260px"
+                : "(max-width: 1024px) 100vw, 42vw"
+            }
           />
         </div>
         <div className="flex min-w-0 flex-1 flex-col p-6 sm:p-8">
@@ -110,7 +119,10 @@ export function CourseCard(props: CourseCardProps) {
         <h3 className="mt-0.5 font-sfPro text-base font-bold leading-tight text-[#1C1C1C] sm:text-lg">
           {props.title}
         </h3>
-        <VerticalCourseMeta duration={props.duration} location={props.location} />
+        <VerticalCourseMeta
+          duration={props.duration}
+          location={props.location}
+        />
         <div className="mt-auto">
           <VerticalCourseFooter price={props.price} enrollHref={enrollHref} />
         </div>

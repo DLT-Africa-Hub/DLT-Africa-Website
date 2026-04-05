@@ -78,8 +78,9 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
                 Enroll now
               </Link>
               <Link
-                href="/courses"
+                href="#courses"
                 className={`${buttonVariants.solidGreen} w-full justify-center sm:w-auto sm:min-w-[160px]`}
+                scroll
               >
                 View Courses
               </Link>

@@ -16,6 +16,8 @@ export type CourseCardProps =
   | (CourseCardShared & {
       variant: "horizontal";
       description: string;
+      /** Smaller image column for the home featured course. */
+      compactImage?: boolean;
     })
   | (CourseCardShared & {
       variant: "vertical";

@@ -12,7 +12,7 @@
   "cta": [
     {
       "label": "Enroll now",
-      "href": "/#",
+      "href": "/application",
       "buttonStyle": "neutral"
     },
     {

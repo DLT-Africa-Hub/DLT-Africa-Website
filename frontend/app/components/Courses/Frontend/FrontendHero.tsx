@@ -2,6 +2,7 @@ import CourseSection from "../CoursesHero/CourseHeroSec";
 
 interface SectionDataItem {
   id: number;
+  intro: string;
   title: string;
   text: string;
   headline1: string;
@@ -14,24 +15,25 @@ interface SectionDataItem {
 
 const sectionData: SectionDataItem[] = [
   {
-    id: 2,
-    title: "Front End Web Development",
-    text: "Dive into our comprehensive program to master frontend development. Gain hands-on experience with real-world projects and elevate your frontend development skills.projects.",
+    id: 1,
+    intro: "Registrations are now open!",
+    title: "Become a Frontend Developer",
+    text: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
     headline1:
-      "Experience a four months full-time learning experience and be ready to take up job opportunities in the high-demand software development industry.",
+      "Graduate in six months, part-time, and start working in the high-demand field of software development.",
     headline2:
       "Meet regularly with an experienced mentor to ask the questions you care about.",
     headline3:
-      "Build your coding skills and launch your career as a front-end software engineer ",
-    button1: "Register for Offline",
-    button2: "Register for Online",
+      "Build your coding skills and launch your software engineering career",
+    button1: "Enroll now",
+    button2: "Speak with Us",
     img: "/images/front-end-hero.png",
   },
 ];
 
-const FrontEndHero: React.FC = () => {
+const FullStackHero: React.FC = () => {
   return (
-    <section className="course" id="course">
+    <section className="course bg-hero-bg" id="course">
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />
@@ -41,4 +43,4 @@ const FrontEndHero: React.FC = () => {
   );
 };
 
-export default FrontEndHero;
+export default FullStackHero;

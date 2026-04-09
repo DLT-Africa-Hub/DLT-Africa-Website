@@ -12,10 +12,14 @@ module.exports = withMT({
 
   theme: {
     extend: {
+      colors: {
+        offWhite: "#FAFAFA",
+      },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         dmSerifDisplay: ["DM Serif Display", "serif"],
         sfPro: ["SF Pro Display", "Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        "sf-pro-display": ["SF Pro Display", "Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
       },
       animation: {
         "infinite-scroll": "infinite-scroll 25s linear infinite",
@@ -27,18 +31,19 @@ module.exports = withMT({
         },
       },
       backgroundImage: {
-        'corper-bg': "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/corperBg.png')"
+        "corper-bg":
+          "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/corperBg.png')",
+        "hero-bg": "linear-gradient(96.95deg, #0F7A00 0%, #2E9E10 100%)",
       },
-      
-      backgroundSize: {
-        auto: 'auto',
-        cover: 'cover',
-        contain: 'contain',
-        70: '70%',
-        80: '80%',
-        90: '90%',
-        100: '100%',
 
+      backgroundSize: {
+        auto: "auto",
+        cover: "cover",
+        contain: "contain",
+        70: "70%",
+        80: "80%",
+        90: "90%",
+        100: "100%",
       },
     },
   },

@@ -1,13 +1,17 @@
+// import CourseSection from "../CoursesHero/CourseHeroSec";
+
 import CourseSection from "../CoursesHero/CourseHeroSec";
 
 interface SectionDataItem {
   id: number;
+  intro: string;
   title: string;
   text: string;
-  headline1: string;
-  headline2: string;
-  headline3: string;
   button1: string;
+  virtual: string;
+  physical: string;
+  virtualPrice: string;
+  physicalPrice: string;
   button2: string;
   img: string;
 }
@@ -15,23 +19,25 @@ interface SectionDataItem {
 const sectionData: SectionDataItem[] = [
   {
     id: 1,
-    title: "Full Stack Web Development",
-    text: "Experience a six months full-time learning experience and be ready to take up job opportunities in the high-demand software development industry.",
-    headline1:
-      "Graduate in six months, part-time, and start working in the high-demand field of software development.",
-    headline2:
-      "Meet regularly with an experienced mentor to ask the questions you care about.",
-    headline3:
-      "Build your coding skills and launch your software engineering career",
-    button1: "Register for Offline",
-    button2: "Register for Online",
-    img: "/images/front-end-hero.png",
+    intro: "Registrations are now open!",
+    title: "Become a Fullstack Developer",
+    text: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
+    virtual: "Virtual",
+    physical: "On-site",
+    virtualPrice: "₦100,000",
+    physicalPrice: "₦640,000",
+    button1: "Enroll now",
+    button2: "Speak with Us",
+    img: "/images/full-stack-hero.png",
   },
 ];
 
 const FullStackHero: React.FC = () => {
   return (
-    <section className="course" id="course">
+    <section
+      className="course bg-hero-bg"
+      id="course"
+    >
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />

@@ -4,36 +4,38 @@ interface SectionDataItem {
   id: number;
   intro: string;
   title: string;
-  text: string;
-  headline1: string;
-  headline2: string;
-  headline3: string;
+  description: string;
   button1: string;
+  virtual: string;
+  physical: string;
+  virtualPrice: string;
+  physicalPrice: string;
   button2: string;
   img: string;
 }
 
 const sectionData: SectionDataItem[] = [
   {
-    id: 1,
+    id: 2,
     intro: "Registrations are now open!",
     title: "Become a Frontend Developer",
-    text: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
-    headline1:
-      "Graduate in six months, part-time, and start working in the high-demand field of software development.",
-    headline2:
-      "Meet regularly with an experienced mentor to ask the questions you care about.",
-    headline3:
-      "Build your coding skills and launch your software engineering career",
+    description: "Master the art of building complete frontend web applications from scratch. Combine responsive design, API integration, CRUD operations, and state management to create powerful and dynamic web applications.",
+    virtual: "Virtual",
+    physical: "On-site",
+    virtualPrice: "₦100,000",
+    physicalPrice: "₦420,000",
     button1: "Enroll now",
     button2: "Speak with Us",
-    img: "/images/front-end-hero.png",
+    img: "/images/full-stack-hero.png",
   },
 ];
 
-const FullStackHero: React.FC = () => {
+const FrontendHero: React.FC = () => {
   return (
-    <section className="course bg-hero-bg" id="course">
+    <section
+      className="course bg-hero-bg"
+      id="course"
+    >
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />
@@ -43,4 +45,4 @@ const FullStackHero: React.FC = () => {
   );
 };
 
-export default FullStackHero;
+export default FrontendHero;

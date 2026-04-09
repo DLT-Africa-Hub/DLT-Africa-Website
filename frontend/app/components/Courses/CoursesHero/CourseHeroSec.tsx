@@ -7,11 +7,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface CourseSectionProps {
-  title: string;
   intro?: string;
-  text?: string;
-  headline4?: string;
-  showCheckbox?: boolean;
+  title: string;
+  description?: string;
   virtual?: string;
   physical?: string;
   virtualPrice?: string;
@@ -19,6 +17,7 @@ interface CourseSectionProps {
   button1?: string;
   button2?: string;
   img: string;
+  showCheckbox?: boolean;
 }
 
 const CourseSection: React.FC<CourseSectionProps> = (props) => {
@@ -62,21 +61,21 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
           <h4
             className="w-full font-[700] leading-[120%] lg:mb-[14px] md:mb-[10px] sm:mt-[30px] sm:font-[700] sm:mb-[10px] font-sfPro text-offWhite lg:text-[54px] md:text-[34px] text-[40px]"
           >
-            {props.title === "Become a Fullstack Developer" ? (
+            {props.title.startsWith("Become a") ? (
               <>
                 Become a
                 <br />
-                Fullstack Developer
+                {props.title.replace("Become a ", "")}
               </>
             ) : (
               props.title
             )}
           </h4>
-          {props.text && (
+          {props.description && (
             <p
               className="flex flex-wrap mb-4 lg:text-[20px] md:text-[16px] sm:[12px] font-poppins lg:font-normal leading-[120%] lg:w-[640px] md:w-[326px] sm:w-[326px] sm:text-[16px] mt-[10px] sm:font-[400] text-[#C8E2BE]"
             >
-              {props.text}
+              {props.description}
             </p>
           )}
 
@@ -128,7 +127,6 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
               </Link>
             )}
           </div>
-          <p className="text-gray-700">{props.headline4}</p>
         </div>
 
         <div className="px-[23px] lg:mt-[70px] md:mt-[36px] mt-[20px]">

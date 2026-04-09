@@ -1,12 +1,10 @@
-// import CourseSection from "../CoursesHero/CourseHeroSec";
-
 import CourseSection from "../CoursesHero/CourseHeroSec";
 
 interface SectionDataItem {
   id: number;
   intro: string;
   title: string;
-  text: string;
+  description: string;
   button1: string;
   virtual: string;
   physical: string;
@@ -21,7 +19,7 @@ const sectionData: SectionDataItem[] = [
     id: 1,
     intro: "Registrations are now open!",
     title: "Become a Fullstack Developer",
-    text: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
+    description: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
     virtual: "Virtual",
     physical: "On-site",
     virtualPrice: "₦100,000",

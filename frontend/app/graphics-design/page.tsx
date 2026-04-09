@@ -1,15 +1,19 @@
 "use client";
 
 import GraphicDesignHero from "@/app/components/Courses/Graphics/GraphicDesignHero";
-import GraphicDesignIconSection from "@/app/components/Courses/Graphics/GraphicDesignIconSection";
-import GraphicDesignDetail from "@/app/components/Courses/Graphics/GraphicDesignDetail";
+import GraphicDesignOverview from "../components/Courses/Graphics/GraphicDesignOverview";
+import GraphicDesignOutline from "../components/Courses/Graphics/GraphicDesignOutline";
+import GraphicDesignCareerOpportunities from "../components/Courses/Graphics/GraphicDesignCareerOpportunities";
+import GraphicDesignOffer from "../components/Courses/Graphics/GraphicDesignOffer";
 
 const page = () => {
   return (
     <div>
       <GraphicDesignHero />
-      <GraphicDesignIconSection />
-      <GraphicDesignDetail />
+      <GraphicDesignOverview />
+      <GraphicDesignOutline />
+      <GraphicDesignCareerOpportunities />
+      <GraphicDesignOffer />
     </div>
   );
 };

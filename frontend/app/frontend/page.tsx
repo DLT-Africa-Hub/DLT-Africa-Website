@@ -1,15 +1,19 @@
 "use client";
 
 import FrontendHero from "@/app/components/Courses/Frontend/FrontendHero";
-import FrontendDetail from "@/app/components/Courses/Frontend/FrontendDetail";
-import FrontendIconSection from "@/app/components/Courses/Frontend/FrontendIconSection";
+import FrontendOverview from "../components/Courses/Frontend/FrontendOverview";
+import FrontendOutline from "../components/Courses/Frontend/FrontendOutline";
+import FrontendCareerOpportunities from "../components/Courses/Frontend/FrontendCareerOpportunities";
+import FrontendOffer from "../components/Courses/Frontend/FrontendOffer";
 
 const page = () => {
   return (
     <div>
       <FrontendHero />
-      <FrontendIconSection />
-      <FrontendDetail />
+      <FrontendOverview />
+      <FrontendOutline />
+      <FrontendCareerOpportunities />
+      <FrontendOffer />
     </div>
   );
 };

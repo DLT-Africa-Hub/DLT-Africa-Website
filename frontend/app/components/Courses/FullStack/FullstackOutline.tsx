@@ -5,7 +5,7 @@ const FullstackOutline: React.FC = () => {
   return (
     <CourseOutlineSection
       title="Course Outline & Modules"
-      imageSrc="/images/full-stack-hero.png"
+      imageSrc="/images/fullstack-course-outline.png"
       imageAlt="Fullstack course outline"
       modules={[
         {

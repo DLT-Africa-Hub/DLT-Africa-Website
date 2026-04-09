@@ -7,7 +7,7 @@ const FullstackOffer: React.FC = () => {
             heading="What we offer?"
             description="With DLT Africa, top talents gain access to extensive training spanning through full-stack and smart contract development. Top projects receive all needed technical support in building their projects to allow them focus on the business side of the project through our exceptional in-house engineers."
             imageSrc="/images/fullstack-offer.png"
-            imageAlt="Fullstack offer"
+            imageAlt="Fullstack development offer"
             modules={[
                 {
                     id: 1,

@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
-const cohortSchema = new mongoose.Schema(
+/**
+ * Shared Mongoose schema for cohort student applications.
+ * Used only as a definition — the compiled model is {@link CohortEight} in
+ * `models/cohorts/cohort.eight.js`. Do not register a second model from this file.
+ */
+const cohortStudentApplicationSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -19,11 +24,6 @@ const cohortSchema = new mongoose.Schema(
     dob: {
       type: String,
       required: [true, "Date of birth is required"],
-      trim: true,
-    },
-    academicQualification: {
-      type: String,
-      required: [true, "Academic qualification is required"],
       trim: true,
     },
     courseSelected: {
@@ -50,7 +50,7 @@ const cohortSchema = new mongoose.Schema(
       required: [true, "Gender is required"],
       trim: true,
       enum: {
-        values: ["Male", "Female", "Other"],
+        values: ["Male", "Female", "Other", "Prefer Not To Mention"],
         message: "Please select a valid gender",
       },
     },
@@ -92,22 +92,9 @@ const cohortSchema = new mongoose.Schema(
       type: String,
       default: "Not Paid",
       enum: {
-        values: ["Not Paid", "Paid", "Pending", "Cancelled"],
+        values: ["Not Paid", "Paid", "Pending", "Cancelled", "Accepted"],
         message: "Please select a valid status",
       },
-    },
-    referralOption: {
-      type: String,
-      trim: true,
-      enum: {
-        values: ["Social Media", "Friend", "Website", "Other"],
-        message: "Please select a valid referral option",
-      },
-    },
-    referralName: {
-      type: String,
-      trim: true,
-      maxlength: [100, "Referral name cannot exceed 100 characters"],
     },
   },
   {
@@ -115,10 +102,9 @@ const cohortSchema = new mongoose.Schema(
   }
 );
 
-cohortSchema.index({ emailAddress: 1 });
-cohortSchema.index({ status: 1 });
-cohortSchema.index({ courseSelected: 1 });
-cohortSchema.index({ createdAt: -1 });
+cohortStudentApplicationSchema.index({ emailAddress: 1 });
+cohortStudentApplicationSchema.index({ status: 1 });
+cohortStudentApplicationSchema.index({ courseSelected: 1 });
+cohortStudentApplicationSchema.index({ createdAt: -1 });
 
-const CohortSev = mongoose.model("CohortSeven", cohortSchema);
-module.exports = CohortSev;
+module.exports = cohortStudentApplicationSchema;

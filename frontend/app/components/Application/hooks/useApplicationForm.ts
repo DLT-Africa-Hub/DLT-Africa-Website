@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
+import { computeTuitionFee } from "../applicationFees";
 import { FormData, CheckboxesChecked, APPLICATION_DEADLINE } from "../constants";
+import { validateApplicationFields, normalizePhoneForValidation } from "../applicationValidation";
 
 export const useApplicationForm = () => {
     const router = useRouter();
@@ -9,7 +11,6 @@ export const useApplicationForm = () => {
         firstName: "",
         lastName: "",
         dob: "",
-        academicQualification: "",
         courseSelected: "",
         classType: "",
         stateOfOrigin: "",
@@ -18,8 +19,6 @@ export const useApplicationForm = () => {
         emailAddress: "",
         codeExperience: "",
         stateOfResidence: "",
-        referralOption: "",
-        referralName: "",
     });
 
     const [checkboxesChecked, setCheckboxesChecked] = useState<CheckboxesChecked>({
@@ -43,6 +42,12 @@ export const useApplicationForm = () => {
         };
         checkApplicationDeadline();
     }, []);
+
+    useEffect(() => {
+        setTuitionFee(
+            computeTuitionFee(formData.classType, formData.courseSelected)
+        );
+    }, [formData.classType, formData.courseSelected]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -71,28 +76,19 @@ export const useApplicationForm = () => {
         });
     };
 
+    const setClassType = (value: "Physical" | "Virtual"): void => {
+        setFormValidMessage("");
+        setFormData((prev) => ({
+            ...prev,
+            classType: value,
+            courseSelected: "",
+        }));
+    };
+
     const validateForm = (): boolean => {
-        const requiredFields = [
-            "firstName",
-            "lastName",
-            "dob",
-            "academicQualification",
-            "courseSelected",
-            "classType",
-            "stateOfOrigin",
-            "gender",
-            "phoneNo",
-            "emailAddress",
-            "codeExperience",
-            "stateOfResidence"
-        ];
-
-        const isFormValid = requiredFields.every(field => formData[field as keyof FormData]);
-
-        if (!isFormValid) {
-            setFormValidMessage(
-                "Oops! required field are not filled. Please, go back and fill them"
-            );
+        const clientError = validateApplicationFields(formData);
+        if (clientError) {
+            setFormValidMessage(clientError);
             return false;
         }
         return true;
@@ -106,20 +102,17 @@ export const useApplicationForm = () => {
         setIsSubmitting(true);
 
         const submitData = {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            dob: formData.dob,
-            academicQualification: formData.academicQualification,
-            courseSelected: formData.courseSelected,
-            classType: formData.classType,
-            stateOfOrigin: formData.stateOfOrigin,
-            gender: formData.gender,
-            phoneNo: formData.phoneNo,
-            emailAddress: formData.emailAddress,
-            codeExperience: formData.codeExperience,
-            stateOfResidence: formData.stateOfResidence,
-            referralOption: formData.referralOption,
-            referralName: formData.referralName,
+            firstName: formData.firstName.trim(),
+            lastName: formData.lastName.trim(),
+            dob: formData.dob.trim(),
+            courseSelected: formData.courseSelected.trim(),
+            classType: formData.classType.trim(),
+            stateOfOrigin: formData.stateOfOrigin.trim(),
+            gender: formData.gender.trim(),
+            phoneNo: normalizePhoneForValidation(formData.phoneNo),
+            emailAddress: formData.emailAddress.trim().toLowerCase(),
+            codeExperience: formData.codeExperience.trim(),
+            stateOfResidence: formData.stateOfResidence.trim(),
         };
 
         try {
@@ -146,5 +139,6 @@ export const useApplicationForm = () => {
         handleCheckboxChange,
         handleSubmit,
         setTuitionFee,
+        setClassType,
     };
 };

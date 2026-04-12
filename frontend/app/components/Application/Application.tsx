@@ -1,10 +1,12 @@
 "use client";
 
-import { Button } from "@material-tailwind/react";
-import FormHeader from "./FormHeader";
-import FormFields from "./FormFields";
+import { buttonVariants } from "@/app/constants/buttonStyles";
+import EnrollmentFormFields from "./EnrollmentFormFields";
+import EnrollmentSummary from "./EnrollmentSummary";
 import FormCheckboxes from "./FormCheckboxes";
 import { useApplicationForm } from "./hooks/useApplicationForm";
+
+const FORM_ID = "enrollment-form";
 
 const Application: React.FC = () => {
   const {
@@ -18,71 +20,82 @@ const Application: React.FC = () => {
     handleInputChange,
     handleCheckboxChange,
     handleSubmit,
-    setTuitionFee,
+    setClassType,
   } = useApplicationForm();
 
-  return (
-    <div
-      className="bg-auto bg-no-repeat bg-left-top"
-      style={{ backgroundImage: `url(/images/application-page-bg.svg)` }}
-    >
-      <div
-        className="bg-auto bg-no-repeat bg-[right_bottom_16rem]"
-        style={{
-          backgroundImage: `url(/images/application-page-right-bg.svg)`,
-        }}
-      >
-        <div className="flex flex-col pt-[103px] px-4 lg:px-12">
-          <FormHeader />
+  const submitDisabled =
+    !allCheckboxesChecked || isSubmitting || isApplicationClosed;
 
-          <div className="mt-5 mb-20 p-2">
+  return (
+    <div className="min-h-screen bg-white pb-16 pt-[103px]">
+      <div className="mx-auto max-w-6xl px-4 lg:px-8">
+        {isApplicationClosed && (
+          <div
+            className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 font-poppins text-sm text-amber-900"
+            role="status"
+          >
+            Applications are currently closed.
+          </div>
+        )}
+
+        <div className="grid gap-10 lg:grid-cols-[1fr,min(340px,100%)] lg:items-start lg:gap-12">
+          <div>
+            <h1 className="font-sfPro text-3xl font-bold text-[#083700] sm:text-4xl">
+              Enroll and start your tech journey
+            </h1>
+
             <form
-              className="w-full lg:min-w-[75%] 2xl:min-w-[70%] lg:max-w-[75%] 2xl:max-w-[70%] rounded-2xl bg-[#FFEFD4] py-[69px] px-8 lg:px-[86px] mx-auto"
+              id={FORM_ID}
+              className="mt-8 rounded-2xl border border-[#EEF1F4] bg-white p-6 shadow-sm sm:p-8 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none"
               onSubmit={handleSubmit}
             >
-              <FormFields
+              <EnrollmentFormFields
                 formData={formData}
                 onInputChange={handleInputChange}
-                onTuitionFeeChange={setTuitionFee}
-                tuitionFee={tuitionFee}
+                setClassType={setClassType}
               />
 
-              <FormCheckboxes
-                checkboxesChecked={checkboxesChecked}
-                onCheckboxChange={handleCheckboxChange}
-                tuitionFee={tuitionFee}
-              />
+              <div className="mt-10 border-t border-[#EEF1F4] pt-8">
+                <FormCheckboxes
+                  checkboxesChecked={checkboxesChecked}
+                  onCheckboxChange={handleCheckboxChange}
+                  tuitionFee={tuitionFee}
+                />
+              </div>
 
-              <Button
+              <button
                 type="submit"
-                size="lg"
-                className={`capitalize px-16 py-4 mt-5 bg-[#FC7C13] ${!allCheckboxesChecked && "pointer-events-none opacity-50"
-                  }`}
-                disabled={
-                  !allCheckboxesChecked || isSubmitting || isApplicationClosed
-                }
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                disabled={submitDisabled}
+                className={`${buttonVariants.solidGreen} mt-8 w-full justify-center py-3.5 disabled:pointer-events-none disabled:opacity-50 sm:w-auto sm:min-w-[200px]`}
               >
-                {isSubmitting ? "Submitting..." : "Register"}
-              </Button>
+                {isSubmitting ? "Submitting…" : "Enroll now"}
+              </button>
 
               {formValidMessage && (
-                <div className="event-page-registration-error-message">
+                <div
+                  className="event-page-registration-error-message mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 font-poppins text-sm text-red-800"
+                  role="alert"
+                >
                   {formValidMessage}
                 </div>
               )}
             </form>
 
-            {/* Phone Number Display */}
-            <div className="text-center mt-6">
-              <p className="text-gray-600 text-sm">
-                Need help or having issues registering? Call us at: <span className="font-semibold text-[#FC7C13]">+234-8156509701</span>
+            <div className="mt-8 text-center lg:text-left">
+              <p className="font-poppins text-sm text-[#5C6670]">
+                Need help or having issues registering? Call us at:{" "}
+                <span className="font-semibold text-[#1C7800]">
+                  +234-8156509701
+                </span>
               </p>
             </div>
-
           </div>
+
+          <EnrollmentSummary
+            courseName={formData.courseSelected}
+            classType={formData.classType}
+            tuitionFee={tuitionFee}
+          />
         </div>
       </div>
     </div>

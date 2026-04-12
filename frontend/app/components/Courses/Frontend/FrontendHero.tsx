@@ -2,12 +2,14 @@ import CourseSection from "../CoursesHero/CourseHeroSec";
 
 interface SectionDataItem {
   id: number;
+  intro: string;
   title: string;
-  text: string;
-  headline1: string;
-  headline2: string;
-  headline3: string;
+  description: string;
   button1: string;
+  virtual: string;
+  physical: string;
+  virtualPrice: string;
+  physicalPrice: string;
   button2: string;
   img: string;
 }
@@ -15,23 +17,25 @@ interface SectionDataItem {
 const sectionData: SectionDataItem[] = [
   {
     id: 2,
-    title: "Front End Web Development",
-    text: "Dive into our comprehensive program to master frontend development. Gain hands-on experience with real-world projects and elevate your frontend development skills.projects.",
-    headline1:
-      "Experience a four months full-time learning experience and be ready to take up job opportunities in the high-demand software development industry.",
-    headline2:
-      "Meet regularly with an experienced mentor to ask the questions you care about.",
-    headline3:
-      "Build your coding skills and launch your career as a front-end software engineer ",
-    button1: "Register for Offline",
-    button2: "Register for Online",
-    img: "/images/front-end-hero.png",
+    intro: "Registrations are now open!",
+    title: "Become a Frontend Developer",
+    description: "Master the art of building complete frontend web applications from scratch. Combine responsive design, API integration, CRUD operations, and state management to create powerful and dynamic web applications.",
+    virtual: "Virtual",
+    physical: "On-site",
+    virtualPrice: "₦100,000",
+    physicalPrice: "₦420,000",
+    button1: "Enroll now",
+    button2: "Speak with Us",
+    img: "/images/full-stack-hero.png",
   },
 ];
 
-const FrontEndHero: React.FC = () => {
+const FrontendHero: React.FC = () => {
   return (
-    <section className="course" id="course">
+    <section
+      className="course bg-hero-bg"
+      id="course"
+    >
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />
@@ -41,4 +45,4 @@ const FrontEndHero: React.FC = () => {
   );
 };
 
-export default FrontEndHero;
+export default FrontendHero;

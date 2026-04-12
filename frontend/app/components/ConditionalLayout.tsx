@@ -14,16 +14,19 @@ export default function ConditionalLayout({
 }: ConditionalLayoutProps) {
   const pathname = usePathname();
 
-  // Routes where Header and Footer should NOT be shown
-  const hideHeaderFooterRoutes: string[] = ["/"];
+  const hideHeaderFooterRoutes: string[] = [];
 
   const shouldHideHeaderFooter = hideHeaderFooterRoutes.includes(pathname);
 
+  if (shouldHideHeaderFooter) {
+    return <>{children}</>;
+  }
+
   return (
-    <>
-      {!shouldHideHeaderFooter && <Header />}
-      {children}
-      {!shouldHideHeaderFooter && <Footer />}
-    </>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex min-h-0 w-full flex-1 flex-col">{children}</main>
+      <Footer />
+    </div>
   );
 }

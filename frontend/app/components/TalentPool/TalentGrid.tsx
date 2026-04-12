@@ -1,7 +1,7 @@
 import React from "react";
 import TalentCard from "./TalentCard";
 import TalentCardSkeleton from "./TalentCardSkeleton";
-import { PAGINATION_CONFIG, ERROR_MESSAGES } from "./constants";
+import { ERROR_MESSAGES } from "./constants";
 
 interface Talent {
   _id: string;
@@ -32,9 +32,12 @@ const TalentGrid: React.FC<TalentGridProps> = ({
   onCardClick,
   onContactClick,
 }) => {
+  const gridClass =
+    "grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6 md:gap-8 lg:grid-cols-3";
+
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[20px] md:gap-[25px] lg:grid-cols-3 px-[10px] py-[50px] w-full">
+      <div className={`${gridClass} pb-8`}>
         {Array.from({ length: itemsPerPage }).map((_, index) => (
           <TalentCardSkeleton key={index} />
         ))}
@@ -44,18 +47,19 @@ const TalentGrid: React.FC<TalentGridProps> = ({
 
   if (talents.length === 0) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[20px] md:gap-[25px] lg:grid-cols-3 px-[10px] py-[50px] w-full">
-        <div className="col-span-full text-center w-full">
-          <p className="text-[20px] my-10 text-center">
-            {ERROR_MESSAGES.NO_TALENTS}
-          </p>
-        </div>
+      <div className="w-full pb-12 pt-4">
+        <p className="text-center font-poppins text-base text-[#1C1C1C]/60 sm:text-lg">
+          {ERROR_MESSAGES.NO_TALENTS}
+        </p>
+        <p className="mx-auto mt-2 max-w-md text-center font-poppins text-sm text-[#1C1C1C]/45">
+          Try toggling a different combination of skills above.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[20px] md:gap-[25px] lg:grid-cols-3 px-[10px] py-[50px] w-full">
+    <div className={`${gridClass} pb-4`}>
       {talents.map((talent, index) => (
         <TalentCard
           key={talent._id || index}

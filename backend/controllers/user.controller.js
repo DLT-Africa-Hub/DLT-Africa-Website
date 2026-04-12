@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const CohortEight = require("../models/cohorts/cohort.eight");
+const CohortNine = require("../models/cohorts/cohort.nine");
 const Corper = require("../models/corpers");
 const {
   sendEmail,
@@ -23,9 +23,45 @@ const BANK_DETAILS = {
   accountNumber: "1709346763",
 };
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const PHONE_REGEX = /^(\+234|234|0)?[789][01]\d{8}$/;
+const ALLOWED_GENDER = ["Male", "Female", "Other", "Prefer Not To Mention"];
+const ALLOWED_CODE_EXPERIENCE = [
+  "Beginner",
+  "Intermediate",
+  "Advanced",
+  "Expert",
+];
+
 /**
- * Validates user registration input
- * @param {Object} reqBody - Request body
+ * Trims string fields for cohort application (matches frontend payload).
+ * @param {Object} body - Raw request body
+ * @returns {Object} Normalized body
+ */
+const normalizeStudentApplicationBody = (body) => {
+  const str = (v) => (typeof v === "string" ? v.trim() : v);
+  return {
+    ...body,
+    firstName: str(body.firstName),
+    lastName: str(body.lastName),
+    dob: str(body.dob),
+    courseSelected: str(body.courseSelected),
+    classType: str(body.classType),
+    stateOfOrigin: str(body.stateOfOrigin),
+    gender: str(body.gender),
+    phoneNo:
+      typeof body.phoneNo === "string"
+        ? body.phoneNo.replace(/[\s-]/g, "").trim()
+        : body.phoneNo,
+    emailAddress: str(body.emailAddress).toLowerCase(),
+    codeExperience: str(body.codeExperience),
+    stateOfResidence: str(body.stateOfResidence),
+  };
+};
+
+/**
+ * Validates user registration input (aligned with `cohortStudentApplicationSchema` / CohortNine)
+ * @param {Object} reqBody - Request body (already normalized)
  * @throws {Error} If validation fails
  */
 const validateUserInput = (reqBody) => {
@@ -33,7 +69,6 @@ const validateUserInput = (reqBody) => {
     firstName,
     lastName,
     dob,
-    academicQualification,
     courseSelected,
     classType,
     stateOfOrigin,
@@ -49,7 +84,6 @@ const validateUserInput = (reqBody) => {
     firstName,
     lastName,
     dob,
-    academicQualification,
     courseSelected,
     classType,
     stateOfOrigin,
@@ -62,12 +96,37 @@ const validateUserInput = (reqBody) => {
 
   const missingFields = Object.entries(requiredFields)
     .filter(
-      ([key, value]) => !value || (typeof value === "string" && !value.trim())
+      ([key, value]) => !value || (typeof value === "string" && !value.trim()),
     )
     .map(([key]) => key);
 
   if (missingFields.length > 0) {
     throw new Error(`Missing required fields: ${missingFields.join(", ")}`);
+  }
+
+  if (firstName.length < 2 || firstName.length > 50) {
+    throw new Error("First name must be between 2 and 50 characters");
+  }
+  if (lastName.length < 2 || lastName.length > 50) {
+    throw new Error("Last name must be between 2 and 50 characters");
+  }
+
+  if (!EMAIL_REGEX.test(emailAddress)) {
+    throw new Error("Please enter a valid email address");
+  }
+
+  if (!PHONE_REGEX.test(phoneNo)) {
+    throw new Error(
+      "Please enter a valid Nigerian phone number (e.g. 08031234567 or +2348031234567)",
+    );
+  }
+
+  if (!ALLOWED_GENDER.includes(gender)) {
+    throw new Error("Please select a valid gender option");
+  }
+
+  if (!ALLOWED_CODE_EXPERIENCE.includes(codeExperience)) {
+    throw new Error("Please select a valid coding experience level");
   }
 
   // Validate course and class type using utils
@@ -111,7 +170,7 @@ const validateCorpersInput = (reqBody) => {
 
   const missingFields = Object.entries(requiredFields)
     .filter(
-      ([key, value]) => !value || (typeof value === "string" && !value.trim())
+      ([key, value]) => !value || (typeof value === "string" && !value.trim()),
     )
     .map(([key]) => key);
 
@@ -312,20 +371,23 @@ const generateStatusUpdateEmail = (user, status) => {
  * @access Public
  */
 const registerUser = asyncHandler(async (req, res) => {
-  const { emailAddress } = req.body;
+  const normalized = normalizeStudentApplicationBody(req.body);
+  const { emailAddress } = normalized;
 
-  // Validate input
-  validateUserInput(req.body);
+  // Validate input (same rules as Mongoose schema + course list)
+  validateUserInput(normalized);
 
   // Check if user already exists
-  const userExists = await CohortEight.findOne({ emailAddress });
+  const userExists = await CohortNine.findOne({
+    emailAddress: emailAddress.toLowerCase(),
+  });
   if (userExists) {
     res.status(400);
     throw new Error("Email already in use.");
   }
 
   // Create user
-  const user = await CohortEight.create(req.body);
+  const user = await CohortNine.create(normalized);
 
   if (!user) {
     res.status(400);
@@ -350,7 +412,6 @@ const registerUser = asyncHandler(async (req, res) => {
       firstName,
       lastName,
       dob,
-      academicQualification,
       courseSelected,
       classType,
       stateOfOrigin,
@@ -371,7 +432,6 @@ const registerUser = asyncHandler(async (req, res) => {
         firstName,
         lastName,
         dob,
-        academicQualification,
         courseSelected,
         classType,
         stateOfOrigin,
@@ -385,6 +445,7 @@ const registerUser = asyncHandler(async (req, res) => {
         tuitionFee: formatCurrency(tuitionFee),
       },
     });
+    console.log("User created successfully", user);
   } catch (error) {
     // If email sending fails, still return success but log the error
     console.error("Email sending failed:", error);
@@ -440,7 +501,7 @@ const corpersReg = asyncHandler(async (req, res) => {
     // Send confirmation email to corper
     const corperEmailOptions = generateCorpersConfirmationEmail(
       corper,
-      tuitionFee
+      tuitionFee,
     );
     await sendEmail(corperEmailOptions);
 
@@ -535,7 +596,7 @@ const getCorpers = asyncHandler(async (req, res) => {
  */
 const getAdmissions = asyncHandler(async (req, res) => {
   try {
-    const admissions = await CohortEight.find().sort("-createdAt");
+    const admissions = await CohortNine.find().sort("-createdAt");
 
     res.status(200).json({
       success: true,
@@ -580,13 +641,13 @@ const upgradeData = asyncHandler(async (req, res) => {
   if (!validStatuses.includes(status)) {
     res.status(400);
     throw new Error(
-      `Invalid status. Must be one of: ${validStatuses.join(", ")}`
+      `Invalid status. Must be one of: ${validStatuses.join(", ")}`,
     );
   }
 
   try {
     // Find user
-    const user = await CohortEight.findById(id);
+    const user = await CohortNine.findById(id);
     if (!user) {
       res.status(404);
       throw new Error("User not found");

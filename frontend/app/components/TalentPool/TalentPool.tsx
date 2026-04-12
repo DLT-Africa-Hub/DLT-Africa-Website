@@ -35,7 +35,6 @@ const TalentPool: React.FC = () => {
     PAGINATION_CONFIG.DEFAULT_PAGE,
   );
   const [itemsPerPage] = useState<number>(PAGINATION_CONFIG.ITEMS_PER_PAGE);
-  const [totalTalents, setTotalTalents] = useState<number>(0);
   const [selectedTalent, setSelectedTalent] = useState<Talent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -92,7 +91,6 @@ const TalentPool: React.FC = () => {
       (data) => {
         const talentsArray = data.data || data;
         setAllTalents(talentsArray);
-        setTotalTalents(Array.isArray(talentsArray) ? talentsArray.length : 0);
       },
       (error) => {
         console.error("Error fetching talents:", error);
@@ -163,40 +161,50 @@ const TalentPool: React.FC = () => {
 
   return (
     <section
-      className="h-auto bg-[#f3f6f6] flex flex-col items-center pb-4"
+      className="min-h-[60vh] bg-[#F5F6F6] pb-16 pt-20 sm:pb-20 sm:pt-24"
       aria-label={ACCESSIBILITY_CONFIG.ARIA_LABELS.TALENT_POOL}
     >
-      <h1 className="text-[#441606] text-center font-dmSerifDisplay text-[36px] md:text-[36px] mt-[85px] mb-[61px] font-[400]">
-        DLT Africa Talent Pool
-      </h1>
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
+        <header className="mb-10 max-w-2xl text-center sm:mb-12">
+          <h1 className="font-sfPro text-3xl font-bold tracking-tight text-[#1C1C1C] sm:text-4xl">
+            DLT Africa Talent Pool
+          </h1>
+          <p className="mt-3 font-poppins text-sm leading-relaxed text-[#1C1C1C]/65 sm:text-base">
+            Browse graduates and professionals by skill. Select one or more
+            filters to narrow the list.
+          </p>
+        </header>
 
-      <SkillFilter
-        availableSkills={availableSkills}
-        selectedSkills={selectedSkills}
-        onSkillChange={handleSkillChange}
-        loading={skillsApi.loading}
-      />
+        <SkillFilter
+          availableSkills={availableSkills}
+          selectedSkills={selectedSkills}
+          onSkillChange={handleSkillChange}
+          loading={skillsApi.loading}
+        />
 
-      <TalentGrid
-        talents={paginatedTalents}
-        selectedTalent={selectedTalent}
-        loading={talentsApi.loading}
-        itemsPerPage={itemsPerPage}
-        onCardClick={handleCardClick}
-        onContactClick={handleContactClick}
-      />
+        <TalentGrid
+          talents={paginatedTalents}
+          selectedTalent={selectedTalent}
+          loading={talentsApi.loading}
+          itemsPerPage={itemsPerPage}
+          onCardClick={handleCardClick}
+          onContactClick={handleContactClick}
+        />
 
-      <Pagination
-        currentPage={currentPage}
-        totalItems={filteredTalents.length}
-        itemsPerPage={itemsPerPage}
-        loading={talentsApi.loading}
-        onPageChange={handlePageChange}
-      />
+        {filteredTalents.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredTalents.length}
+            itemsPerPage={itemsPerPage}
+            loading={talentsApi.loading}
+            onPageChange={handlePageChange}
+          />
+        )}
+      </div>
 
       {isModalOpen && selectedTalent && (
         <div
-          className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-90 w-screen"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"

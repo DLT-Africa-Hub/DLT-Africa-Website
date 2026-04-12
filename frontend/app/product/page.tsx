@@ -1,15 +1,17 @@
 "use client";
 
-import ProductDesignDetail from "@/app/components/Courses/Product/ProductDesignDetail";
 import ProductDesignHero from "@/app/components/Courses/Product/ProductDesignHero";
-import ProductDesignIconSection from "@/app/components/Courses/Product/ProductDesignIconSection";
+import ProductDesignOverview from "../components/Courses/Product/ProductDesignOverview";
+import ProductDesignCareerOpportunities from "../components/Courses/Product/ProductDesignCareerOpportunities";
+import ProductDesignOutline from "../components/Courses/Product/ProductDesignOutline";
 
 const page = () => {
   return (
     <div>
       <ProductDesignHero />
-      <ProductDesignIconSection />
-      <ProductDesignDetail />
+      <ProductDesignOverview />
+      <ProductDesignOutline />
+      <ProductDesignCareerOpportunities />
     </div>
   );
 };

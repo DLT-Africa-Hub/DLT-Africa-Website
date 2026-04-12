@@ -1,433 +1,401 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useId, useState } from "react";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { FaChevronDown } from "react-icons/fa";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 
-import { Drawer } from "@material-tailwind/react";
+import headerConfig from "./header.json";
+import HeaderLinkButton from "./HeaderLinkButton";
+import type { ButtonVariantName } from "@/app/constants/buttonStyles";
+import {
+  navLinkActiveClass,
+  navLinkInteractiveClass,
+} from "@/app/constants/navLinkStyles";
 
-const Header: React.FC = () => {
-  const [openRight, setOpenRight] = useState<boolean>(false);
-  const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+type NavDropdownItem = { label: string; href: string; external?: boolean };
 
-  useEffect(() => {
-    // Check if we're on the client side
-    if (typeof window === "undefined") {
-      return;
-    }
+type NavItemConfig = {
+  label: string;
+  href: string;
+  external?: boolean;
+  items?: NavDropdownItem[];
+};
 
-    const loggedIn = localStorage.getItem("isLoggedIn");
+type CtaItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+  buttonStyle?: ButtonVariantName;
+};
 
-    setIsLoggedIn(loggedIn === "true");
-  }, []);
+type HeaderJson = {
+  logo: { src: string; alt: string; href: string };
+  nav: NavItemConfig[];
+  cta: CtaItem[];
+};
 
-  const handleLogout = (): void => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("isLoggedIn");
-    }
-    setIsLoggedIn(false);
-  };
+const { logo, nav, cta } = headerConfig as HeaderJson;
 
-  const openDrawerRight = (): void => setOpenRight(true);
-  const closeDrawerRight = (): void => setOpenRight(false);
+function isExternalHref(href: string, external?: boolean) {
+  return Boolean(external || /^https?:\/\//i.test(href));
+}
 
-  // Prevent background scrolling when drawer is open
-  useEffect(() => {
-    // Check if we're on the client side
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
-    }
+function NavOrCtaLink({
+  href,
+  external,
+  className,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  if (isExternalHref(href, external)) {
+    return (
+      <a
+        href={href}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
-    if (openRight) {
-      // Prevent scrolling when drawer is open
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-      return;
-    }
+function navItemActive(pathname: string, item: NavItemConfig): boolean {
+  if (isExternalHref(item.href, item.external)) return false;
+  const selfMatch =
+    pathname === item.href ||
+    (item.href !== "/" && pathname.startsWith(item.href));
+  if (selfMatch) return true;
+  if (item.items?.length) {
+    return item.items.some((sub) => {
+      if (isExternalHref(sub.href, sub.external)) return false;
+      return (
+        pathname === sub.href ||
+        (sub.href !== "/" && pathname.startsWith(sub.href))
+      );
+    });
+  }
+  return false;
+}
 
-    // Restore scrolling when drawer is closed
-    document.body.style.overflow = "";
-    document.body.style.height = "";
-    document.body.style.position = "";
-    document.body.style.width = "";
+const dropdownPanelClass =
+  "min-w-[260px] rounded-xl border border-gray-200 bg-white py-2 shadow-lg";
 
-    // Cleanup function to restore scroll when component unmounts
-    return () => {
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "";
-        document.body.style.height = "";
-        document.body.style.position = "";
-        document.body.style.width = "";
-      }
-    };
-  }, [openRight]);
+const dropdownItemClass =
+  "block px-4 py-2.5 text-left text-[14px] font-medium text-[#1C1C1C] transition-colors hover:bg-[#F4F6F8] hover:text-[#1C7800]";
+
+function NavDesktopItem({
+  item,
+  pathname,
+}: {
+  item: NavItemConfig;
+  pathname: string;
+}) {
+  const active = navItemActive(pathname, item);
+  const hasItems = Boolean(item.items && item.items.length > 0);
 
   return (
-    <div>
-      <div
-        className="flex justify-between py-[10px]  sm:py-5 px-[20px] sm:px-[10px] md:px-[50px] "
-        style={{
-          backgroundColor:
-            pathname === "/hacker-house/" ? "#031700" : "#F6F7F6",
-        }}
+    <div className="group relative flex items-center py-1">
+      <NavOrCtaLink
+        href={item.href}
+        external={item.external}
+        className={`inline-flex items-center gap-1.5 ${navLinkInteractiveClass} ${
+          active ? navLinkActiveClass : ""
+        }`}
       >
-        <div className="sm:py-0 sm:px-0">
-          <Link href={"/bootcamp"}>
-            <img
-              src="/images/wilddlt.png"
-              className="w-[180px]  "
-              loading="lazy"
-              alt="DLT Africa Logo"
-            />
-          </Link>
-        </div>
-        <div className="flex flex-end">
-          <div
-            className="flex flex-col items-end justify-center gap-2 cursor-pointer"
-            onClick={openDrawerRight}
+        <span>{item.label}</span>
+        <FaChevronDown
+          className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:-rotate-180"
+          aria-hidden
+        />
+      </NavOrCtaLink>
+      <div className="invisible absolute left-0 top-full z-[120] pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover:visible group-hover:opacity-100">
+        {hasItems ? (
+          <ul
+            className={dropdownPanelClass}
+            role="menu"
+            aria-label={item.label}
           >
-            <div className="w-[50px] h-[5px] bg-orange-500 transition-all duration-300 ease-in-out"></div>
-            <div className="w-[25px] h-[5px] bg-orange-500 hover:w-[45px] transition-all duration-300 ease-in-out"></div>
-          </div>
-          <Drawer
-            placement="right"
-            open={openRight}
-            onClose={closeDrawerRight}
-            className="flex justify-between items-start pt-6 bg-gradient-to-b from-gray-50 to-white"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            <div className="flex flex-col gap-6 w-full h-full">
-              {/* Header Section */}
-              <div className="w-full flex items-center justify-between p-6 pt-0 border-b border-gray-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#FC7C13] rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">DLT</span>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-800">
-                    DLT Africa
-                  </span>
-                </div>
-                <button
-                  onClick={closeDrawerRight}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            {item.items!.map((sub) => (
+              <li key={sub.label + sub.href} role="none">
+                <NavOrCtaLink
+                  href={sub.href}
+                  external={sub.external}
+                  className={dropdownItemClass}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="h-6 w-6 text-gray-600"
-                  >
-                    <path
-                      d="M18 6L6 18M6 6L18 18"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Navigation Section */}
-              <div className="flex flex-col gap-2 w-full px-6 flex-1">
-                {/* Admin Section */}
-                {isLoggedIn && (
-                  <div className="mb-4">
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
-                      Admin
-                    </div>
-                    <div className="space-y-1">
-                      <Link
-                        className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50 rounded-lg transition-all duration-200 group"
-                        href={"/admin-dashboard"}
-                        onClick={closeDrawerRight}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-400 group-hover:text-[#FC7C13]"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                          />
-                        </svg>
-                        <span className="font-medium">Dashboard</span>
-                      </Link>
-                      <button
-                        className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 group w-full text-left"
-                        onClick={() => {
-                          handleLogout();
-                          closeDrawerRight();
-                        }}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-400 group-hover:text-red-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                          />
-                        </svg>
-                        <span className="font-medium">Logout</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* Main Navigation */}
-                <div className="mb-4">
-                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
-                    Navigation
-                  </div>
-                  <div className="space-y-1">
-                    <Link
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                        pathname === "/courses" ||
-                        pathname.startsWith("/courses/") ||
-                        pathname === "/frontend" ||
-                        pathname === "/fullstack" ||
-                        pathname === "/blockchain" ||
-                        pathname === "/graphics-design" ||
-                        pathname === "/product"
-                          ? "text-[#FC7C13] bg-orange-50"
-                          : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                      }`}
-                      href={"/courses"}
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className={`w-5 h-5 ${
-                          pathname === "/courses" ||
-                          pathname.startsWith("/courses/") ||
-                          pathname === "/frontend" ||
-                          pathname === "/fullstack" ||
-                          pathname === "/blockchain" ||
-                          pathname === "/graphics-design" ||
-                          pathname === "/product"
-                            ? "text-[#FC7C13]"
-                            : "text-gray-400 group-hover:text-[#FC7C13]"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                        />
-                      </svg>
-                      <span className="font-medium">Courses</span>
-                    </Link>
-
-                    <Link
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                        pathname === "/event" || pathname.startsWith("/event")
-                          ? "text-[#FC7C13] bg-orange-50"
-                          : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                      }`}
-                      href={"/event"}
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className={`w-5 h-5 ${
-                          pathname === "/event" || pathname.startsWith("/event")
-                            ? "text-[#FC7C13]"
-                            : "text-gray-400 group-hover:text-[#FC7C13]"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                      <span className="font-medium">Events</span>
-                    </Link>
-
-                    {pathname != "/hacker-house" && (
-                      <Link
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                          pathname === "/hacker-house" ||
-                          pathname.startsWith("/hacker-house")
-                            ? "text-[#FC7C13] bg-orange-50"
-                            : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                        }`}
-                        href={"/hacker-house"}
-                        onClick={closeDrawerRight}
-                      >
-                        <svg
-                          className={`w-5 h-5 ${
-                            pathname === "/hacker-house" ||
-                            pathname.startsWith("/hacker-house")
-                              ? "text-[#FC7C13]"
-                              : "text-gray-400 group-hover:text-[#FC7C13]"
-                          }`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                          />
-                        </svg>
-                        <span className="font-medium">Hacker House</span>
-                      </Link>
-                    )}
-
-                    <Link
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                        pathname === "/team" || pathname.startsWith("/team")
-                          ? "text-[#FC7C13] bg-orange-50"
-                          : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                      }`}
-                      href={"/team"}
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className={`w-5 h-5 ${
-                          pathname === "/team" || pathname.startsWith("/team")
-                            ? "text-[#FC7C13]"
-                            : "text-gray-400 group-hover:text-[#FC7C13]"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                        />
-                      </svg>
-                      <span className="font-medium">Our Team</span>
-                    </Link>
-
-                    <Link
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                        pathname === "/talent-pool" ||
-                        pathname.startsWith("/talent-pool")
-                          ? "text-[#FC7C13] bg-orange-50"
-                          : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                      }`}
-                      href={"/talent-pool"}
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className={`w-5 h-5 ${
-                          pathname === "/talent-pool" ||
-                          pathname.startsWith("/talent-pool")
-                            ? "text-[#FC7C13]"
-                            : "text-gray-400 group-hover:text-[#FC7C13]"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"
-                        />
-                      </svg>
-                      <span className="font-medium">Talent Pool</span>
-                    </Link>
-
-                    <Link
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group ${
-                        pathname === "/codecorps" ||
-                        pathname.startsWith("/codecorps") ||
-                        pathname === "/corpers"
-                          ? "text-[#FC7C13] bg-orange-50"
-                          : "text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50"
-                      }`}
-                      href={"/codecorps"}
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className={`w-5 h-5 ${
-                          pathname === "/codecorps" ||
-                          pathname.startsWith("/codecorps") ||
-                          pathname === "/corpers"
-                            ? "text-[#FC7C13]"
-                            : "text-gray-400 group-hover:text-[#FC7C13]"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
-                      <span className="font-medium">Corper's Registration</span>
-                    </Link>
-                  </div>
-                </div>
-
-                {/* External Links */}
-                <div className="mb-4">
-                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
-                    Resources
-                  </div>
-                  <div className="space-y-1">
-                    <a
-                      className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:text-[#FC7C13] hover:bg-orange-50 rounded-lg transition-all duration-200 group"
-                      href="https://medium.com/@DLTAfrica"
-                      onClick={closeDrawerRight}
-                    >
-                      <svg
-                        className="w-5 h-5 text-gray-400 group-hover:text-[#FC7C13]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                        />
-                      </svg>
-                      <span className="font-medium">Blog</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Drawer>
-        </div>
+                  {sub.label}
+                </NavOrCtaLink>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div
+            className={`${dropdownPanelClass} min-h-[2.5rem] py-3`}
+            aria-hidden
+          />
+        )}
       </div>
     </div>
+  );
+}
+
+const Header: React.FC = () => {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [mobileOpenIndex, setMobileOpenIndex] = useState<number | null>(null);
+  const drawerTitleId = useId();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  useEffect(() => {
+    closeMenu();
+    setMobileOpenIndex(null);
+  }, [pathname, closeMenu]);
+
+  useEffect(() => {
+    if (!menuOpen) setMobileOpenIndex(null);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen, closeMenu]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) closeMenu();
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [closeMenu]);
+
+  const mobileDrawer =
+    mounted &&
+    createPortal(
+      <div
+        className={`fixed inset-0 z-[100] lg:hidden ${
+          menuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+        aria-hidden={!menuOpen}
+      >
+        <button
+          type="button"
+          tabIndex={menuOpen ? 0 : -1}
+          className={`absolute inset-0 z-0 bg-black/40 transition-opacity duration-300 ease-out ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          aria-label="Close menu"
+          onClick={closeMenu}
+        />
+
+        <aside
+          id="header-mobile-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={drawerTitleId}
+          aria-hidden={!menuOpen}
+          className={`absolute left-0 top-0 z-10 flex h-full w-[min(100vw-2.5rem,20rem)] max-w-[min(100vw-2.5rem,320px)] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
+            menuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="sr-only">
+            <h2 id={drawerTitleId}>Menu</h2>
+          </div>
+
+          <div className="mt-12 flex flex-1 flex-col overflow-y-auto px-4 pb-8 pt-4">
+            <div className="flex flex-col">
+              {nav.map((item, i) => {
+                const hasItems = Boolean(item.items && item.items.length > 0);
+                const expanded = mobileOpenIndex === i;
+
+                return (
+                  <div
+                    key={item.label + item.href}
+                    className={`border-b border-gray-100 transition-all duration-300 ease-out ${
+                      menuOpen
+                        ? "translate-x-0 opacity-100"
+                        : "-translate-x-2 opacity-0"
+                    }`}
+                    style={{
+                      transitionDelay: menuOpen ? `${80 + i * 45}ms` : "0ms",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between gap-2 py-3.5 text-left text-[15px] font-medium text-[#1C1C1C]"
+                      aria-expanded={expanded}
+                      onClick={() => setMobileOpenIndex(expanded ? null : i)}
+                    >
+                      <span className="min-w-0 flex-1">{item.label}</span>
+                      <FaChevronDown
+                        className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
+                          expanded ? "-rotate-180" : ""
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
+
+                    {expanded && hasItems && (
+                      <div className="border-t border-gray-50 pb-3 pl-2 pt-1">
+                        {item.items!.map((sub) => (
+                          <HeaderLinkButton
+                            key={sub.label + sub.href}
+                            intent="nav"
+                            href={sub.href}
+                            external={sub.external}
+                            active={
+                              !isExternalHref(sub.href, sub.external) &&
+                              (pathname === sub.href ||
+                                (sub.href !== "/" &&
+                                  pathname.startsWith(sub.href)))
+                            }
+                            className="block w-full rounded-lg py-2.5 pl-6 pr-2 text-left text-[14px]"
+                            onClick={closeMenu}
+                          >
+                            {sub.label}
+                          </HeaderLinkButton>
+                        ))}
+                      </div>
+                    )}
+
+                    {expanded && !hasItems && (
+                      <div
+                        className="border-t border-gray-50 pb-3 pl-6 pt-2 text-sm text-[#9CA3AF]"
+                        aria-hidden
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div
+              className={`mt-6 flex flex-col gap-3 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-2 opacity-0"
+              }`}
+              style={{
+                transitionDelay: menuOpen
+                  ? `${80 + nav.length * 45 + 60}ms`
+                  : "0ms",
+              }}
+            >
+              {cta.map((item, index) => (
+                <HeaderLinkButton
+                  key={item.label + item.href}
+                  intent="cta"
+                  href={item.href}
+                  external={item.external}
+                  ctaVariant={
+                    item.buttonStyle ?? (index === 0 ? "solidGreen" : "neutral")
+                  }
+                  className="w-full justify-center"
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </HeaderLinkButton>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>,
+      document.body,
+    );
+
+  return (
+    <header className="sticky top-0 z-[110] border-b border-gray-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <div className="relative flex items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <NavOrCtaLink
+          href={logo.href}
+          className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-90"
+        >
+          <Image
+            src={logo.src}
+            alt={logo.alt}
+            width={120}
+            height={36}
+            className="h-8 w-auto"
+            priority
+          />
+        </NavOrCtaLink>
+
+        <nav
+          className="hidden flex-1 justify-center gap-6 text-[14px] font-medium text-[#1C1C1C] lg:flex lg:gap-8"
+          aria-label="Main"
+        >
+          {nav.map((item) => (
+            <NavDesktopItem
+              key={item.label + item.href}
+              item={item}
+              pathname={pathname}
+            />
+          ))}
+        </nav>
+
+        <div className="hidden shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3 lg:flex">
+          {cta.map((item, index) => (
+            <HeaderLinkButton
+              key={item.label + item.href}
+              intent="cta"
+              href={item.href}
+              external={item.external}
+              ctaVariant={
+                item.buttonStyle ?? (index === 0 ? "solidGreen" : "neutral")
+              }
+            >
+              {item.label}
+            </HeaderLinkButton>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#1C1C1C] transition-colors hover:bg-gray-100 hover:text-[#1C7800] lg:hidden"
+          aria-expanded={menuOpen}
+          aria-controls="header-mobile-drawer"
+          aria-haspopup="dialog"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          {menuOpen ? (
+            <HiX className="h-7 w-7" aria-hidden />
+          ) : (
+            <HiMenuAlt3 className="h-7 w-7" aria-hidden />
+          )}
+        </button>
+      </div>
+
+      {mobileDrawer}
+    </header>
   );
 };
 

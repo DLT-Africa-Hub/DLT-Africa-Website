@@ -1,10 +1,3 @@
-import {
-  Checkbox,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Typography,
-} from "@material-tailwind/react";
 import { CheckboxesChecked } from "./constants";
 
 interface FormCheckboxesProps {
@@ -13,129 +6,61 @@ interface FormCheckboxesProps {
   tuitionFee: number;
 }
 
+const inputClass =
+  "mt-0.5 h-[18px] w-[18px] shrink-0 rounded border border-[#C5CED6] accent-[#1C7800] focus:outline-none focus:ring-2 focus:ring-[#1C7800]/25";
+
 const FormCheckboxes = ({
   checkboxesChecked,
   onCheckboxChange,
   tuitionFee,
 }: FormCheckboxesProps) => {
+  const feeLabel =
+    tuitionFee > 0
+      ? `NGN ${tuitionFee.toLocaleString("en-NG")}`
+      : "the listed fee";
+
   return (
-    <div className="mt-5 flex w-full flex-col gap-3">
-      <List
-        className="flex-col"
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        <ListItem
-          className="p-0 hover:bg-transparent"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <label className="flex w-full cursor-pointer items-center py-2">
-            <ListItemPrefix
-              className="mr-3"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <Checkbox
-                ripple={false}
-                containerProps={{ className: "p-0" }}
-                onChange={() => onCheckboxChange("newsletter")}
-                checked={checkboxesChecked.newsletter}
-                required
-                crossOrigin={undefined}
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            </ListItemPrefix>
-            <Typography
-              className="font-normal text-sm text-gray-600"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              I would like to be kept up to date with new training programs,
-              events, promotions, and marketing.
-            </Typography>
-          </label>
-        </ListItem>
+    <div className="flex w-full flex-col gap-4">
+      <label className="flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          checked={checkboxesChecked.newsletter}
+          onChange={() => onCheckboxChange("newsletter")}
+          className={inputClass}
+          required
+        />
+        <span className="font-poppins text-sm leading-relaxed text-[#252A24]">
+          I would like to be kept up to date with new training programs, events,
+          promotions, and marketing.
+        </span>
+      </label>
 
-        <ListItem
-          className="p-0 hover:bg-transparent"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <label className="flex w-full cursor-pointer items-center py-2">
-            <ListItemPrefix
-              className="mr-3"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <Checkbox
-                ripple={false}
-                containerProps={{ className: "p-0" }}
-                onChange={() => onCheckboxChange("privacyPolicy")}
-                checked={checkboxesChecked.privacyPolicy}
-                required
-                crossOrigin={undefined}
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            </ListItemPrefix>
-            <Typography
-              className="font-normal text-sm text-gray-600"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              By submitting this form, I accept DLT Africa's Privacy Policy.
-            </Typography>
-          </label>
-        </ListItem>
+      <label className="flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          checked={checkboxesChecked.privacyPolicy}
+          onChange={() => onCheckboxChange("privacyPolicy")}
+          className={inputClass}
+          required
+        />
+        <span className="font-poppins text-sm leading-relaxed text-[#252A24]">
+          By submitting this form, I accept DLT Africa&apos;s Privacy Policy.
+        </span>
+      </label>
 
-        <ListItem
-          className="p-0 hover:bg-transparent"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <label className="flex w-full cursor-pointer items-center py-2">
-            <ListItemPrefix
-              className="mr-3"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <Checkbox
-                ripple={false}
-                containerProps={{ className: "p-0" }}
-                onChange={() => onCheckboxChange("payment")}
-                checked={checkboxesChecked.payment}
-                required
-                crossOrigin={undefined}
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            </ListItemPrefix>
-            <Typography
-              className="font-normal text-sm text-gray-600"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              Are you sure you want to apply for this course at the specified
-              fee of ₦{tuitionFee.toFixed(2)}?
-            </Typography>
-          </label>
-        </ListItem>
-      </List>
+      <label className="flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          checked={checkboxesChecked.payment}
+          onChange={() => onCheckboxChange("payment")}
+          className={inputClass}
+          required
+        />
+        <span className="font-poppins text-sm leading-relaxed text-[#252A24]">
+          I confirm I am applying for this course at the specified fee of{" "}
+          {feeLabel}.
+        </span>
+      </label>
     </div>
   );
 };

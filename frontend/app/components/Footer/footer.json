@@ -1,0 +1,52 @@
+{
+  "cta": {
+    "title": "Join Our Next Cohort",
+    "subtitle": "Comprehensive tech stack for all your digital needs",
+    "buttonLabel": "Enroll now",
+    "buttonHref": "/bootcamp"
+  },
+  "brand": {
+    "logoSrc": "/images/dlt-logo.png",
+    "logoAlt": "DLT Africa",
+    "logoHref": "/",
+    "tagline": "Innovating through technology"
+  },
+  "contact": {
+    "address": "2, Sheikh Zakariyah Adebayo Yusuf Street, PEGAMUT, 102112, Ota, Ogun State",
+    "phone": "(234) 815 650 9701",
+    "phoneRaw": "+2348156509701",
+    "email": "info@dltafrica.io"
+  },
+  "quickLinks": [
+    { "label": "About Us", "href": "/" },
+    { "label": "Our Team", "href": "/team" },
+    { "label": "FAQs", "href": "/bootcamp" }
+  ],
+  "social": [
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/share/1C7CRtQDN31XBgVb/?mibextid=LQQJ4d",
+      "icon": "facebook"
+    },
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/dlta_frica/",
+      "icon": "instagram"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/dlt-africa/",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Twitter",
+      "href": "https://twitter.com/dlt_africa",
+      "icon": "twitter"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/DLT-Africa",
+      "icon": "github"
+    }
+  ]
+}

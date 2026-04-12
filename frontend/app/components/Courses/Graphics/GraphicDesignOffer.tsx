@@ -1,4 +1,5 @@
 import CourseOfferSection from "../CourseOffer/CourseOfferSection";
+import { withBasePath } from "@/lib/basePath";
 
 const GraphicDesignOffer: React.FC = () => {
     return (
@@ -6,7 +7,7 @@ const GraphicDesignOffer: React.FC = () => {
             tag="About the course"
             heading="What we offer?"
             description="Our Graphics Design program equips you with the creative and technical skills needed to bring ideas to life visually. Learn how to design stunning visuals, build strong brand identities, and communicate effectively through design using industry-standard tools."
-            imageSrc="/images/fullstack-offer.png"
+            imageSrc={withBasePath("/images/fullstack-offer.png")}
             imageAlt="Graphics design offer"
             modules={[
                 {

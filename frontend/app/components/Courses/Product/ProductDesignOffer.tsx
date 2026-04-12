@@ -1,4 +1,5 @@
 import CourseOfferSection from "../CourseOffer/CourseOfferSection";
+import { withBasePath } from "@/lib/basePath";
 
 const ProductDesignOffer: React.FC = () => {
     return (
@@ -6,7 +7,7 @@ const ProductDesignOffer: React.FC = () => {
             tag="About the course"
             heading="What we offer?"
             description="Our Product Design program teaches you how to design intuitive, user-centered digital products from start to finish. Learn how to solve real user problems through research, wireframing, prototyping, and high-fidelity design using industry-standard tools."
-            imageSrc="/images/fullstack-offer.png"
+            imageSrc={withBasePath("/images/fullstack-offer.png")}
             imageAlt="Product design offer"
             modules={[
                 {

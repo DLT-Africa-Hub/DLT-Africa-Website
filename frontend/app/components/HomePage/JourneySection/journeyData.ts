@@ -1,7 +1,9 @@
 import type { JourneyStepBoxProps } from "./journeyStepBox.types";
 
 /** Replace with your asset under `public/images/`. */
-export const JOURNEY_IMAGE = "/images/zainab.jpg";
+import { withBasePath } from "@/lib/basePath";
+
+export const JOURNEY_IMAGE = withBasePath("/images/zainab.jpg");
 
 export const JOURNEY_IMAGE_ALT =
   "Placeholder: learner working with code on screen";

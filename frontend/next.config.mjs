@@ -1,13 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: "export", // Static export enabled
+const basePath = "/bootcamp";
 
-  // Required for `next/image` with static export (no image optimization server)
-  images: {
-    unoptimized: true,
+const nextConfig = {
+  output: "export", // Static export
+
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
 
- 
+  images: {
+    unoptimized: true, // Required for static hosting
+  },
+
+  basePath,
+  assetPrefix: `${basePath}/`,
 
   trailingSlash: true,
 };

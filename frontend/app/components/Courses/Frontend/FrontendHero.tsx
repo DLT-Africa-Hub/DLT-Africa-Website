@@ -1,4 +1,5 @@
 import CourseSection from "../CoursesHero/CourseHeroSec";
+import { withBasePath } from "@/lib/basePath";
 
 interface SectionDataItem {
   id: number;
@@ -26,7 +27,7 @@ const sectionData: SectionDataItem[] = [
     physicalPrice: "₦420,000",
     button1: "Enroll now",
     button2: "Speak with Us",
-    img: "/images/full-stack-hero.png",
+    img: withBasePath("/images/full-stack-hero.png"),
   },
 ];
 

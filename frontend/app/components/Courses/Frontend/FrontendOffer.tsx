@@ -1,4 +1,5 @@
 import CourseOfferSection from "../CourseOffer/CourseOfferSection";
+import { withBasePath } from "@/lib/basePath";
 
 const FrontendOffer: React.FC = () => {
     return (
@@ -6,7 +7,7 @@ const FrontendOffer: React.FC = () => {
             tag="About the course"
             heading="What we offer?"
             description="With our Frontend Development program, you’ll gain hands-on experience building modern, responsive web applications. Learn how to turn designs into interactive user interfaces using industry-standard tools and frameworks, while mastering best practices used by professional frontend developers."
-            imageSrc="/images/fullstack-offer.png"
+            imageSrc={withBasePath("/images/fullstack-offer.png")}
             imageAlt="Frontend development offer"
             modules={[
                 {

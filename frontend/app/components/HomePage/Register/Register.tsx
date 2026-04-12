@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { apiClient } from "@/lib/apiClient";
+import { withBasePath } from "@/lib/basePath";
 import WaitlistModal from "../WaitlistModal/WaitlistModal";
 
 const RegisterOnline: React.FC = () => {
@@ -31,7 +32,7 @@ const RegisterOnline: React.FC = () => {
         <div className="flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-20">
           <img
             className="w-full lg:w-auto lg:max-w-[527px] h-[204px] lg:h-[344px] flex-shrink-0 rounded-[20px] "
-            src="/images/hero-section.png"
+            src={withBasePath("/images/hero-section.png")}
             loading="lazy"
             alt="Hero section"
           />
@@ -153,7 +154,7 @@ const RegisterOffline: React.FC = () => {
         </div>
         <div className="absolute xl:right-[-380px] lg:right-[-290px] md:right-[-200px] sm:right-[-200px] bottom-0 right-[-100px]">
           <img
-            src="/images/Group164.png"
+            src={withBasePath("/images/Group164.png")}
             alt="image"
             className="h-[300px]"
             loading="lazy"

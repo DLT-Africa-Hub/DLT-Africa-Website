@@ -1,5 +1,7 @@
 /** Hero image for the contact page (swap path when you have the final asset). */
-export const CONTACT_HERO_IMAGE = "/images/lateefat.png";
+import { withBasePath } from "@/lib/basePath";
+
+export const CONTACT_HERO_IMAGE = withBasePath("/images/lateefat.png");
 
 export const CONTACT_HERO_ALT =
   "DLT Africa team member ready to help with your enquiry";

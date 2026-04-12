@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/ThemeProvider";
 import ConditionalLayout from "@/app/components/ConditionalLayout";
+import { withBasePath } from "@/lib/basePath";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
           <title>DLT Africa Official Website</title>
           <meta name="description" content="DLT Africa Official Website" />
 
-          <link rel="icon" href="/images/ban.png" type="image/png" />
+          <link rel="icon" href={withBasePath("/images/ban.png")} type="image/png" />
         </head>
         <body className={inter.className}>
           <ConditionalLayout>{children}</ConditionalLayout>

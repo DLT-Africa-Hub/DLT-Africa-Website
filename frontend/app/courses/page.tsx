@@ -1,12 +1,14 @@
 import Link from "next/link";
 
+import { withBasePath } from "@/lib/basePath";
+
 const coursesList = [
   {
     id: 1,
     courseName: "UI/UX and Prototyping (Product Design)",
     description:
       "User Interface (UI) and User Experience(UX) design are in great demand and are applicable across products and industry domain. With customer experience being the centerfold...  ",
-    media: "/images/Course3.png",
+    media: withBasePath("/images/Course3.png"),
     url: "/product",
   },
   {
@@ -14,7 +16,7 @@ const coursesList = [
     courseName: "Frontend Web Development",
     description:
       "Start off your career today as a Front-End Web Developer. Learn to build high quality websites with dynamic applications to create stunning user experiences… ",
-    media: "/images/Course2.png",
+    media: withBasePath("/images/Course2.png"),
     url: "/frontend",
   },
   {
@@ -22,7 +24,7 @@ const coursesList = [
     courseName: "Fullstack Web Development",
     description:
       "Acquire the skills and knowledge needed build a complete web development project from scratch to finish. Our Full-Stack Developer's Program is a 6 months program.",
-    media: "/images/Course1.png",
+    media: withBasePath("/images/Course1.png"),
     url: "/fullstack",
   },
   {
@@ -30,7 +32,7 @@ const coursesList = [
     courseName: "Graphics Design",
     description:
       "Graphic design is in high demand and essential across industries and products. As a key tool for visual communication, it strengthens brand identity and enhances customer experiences.",
-    media: "/images/Course5.png",
+    media: withBasePath("/images/Course5.png"),
     url: "/graphics-design",
   },
   // {

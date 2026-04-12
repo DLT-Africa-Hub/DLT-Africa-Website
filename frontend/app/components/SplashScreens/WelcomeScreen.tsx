@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
+import { withBasePath } from "@/lib/basePath";
+
 interface WelcomeScreenProps {
   onContinue: () => void;
 }
@@ -32,7 +34,7 @@ export default function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
   return (
     <div className="flex justify-center items-center h-screen bg-[#F6F6F6] overflow-hidden">
       <Image
-        src="/splash/splash-image.svg"
+        src={withBasePath("/splash/splash-image.svg")}
         alt="DLT Hub Background"
         width={100}
         height={100}

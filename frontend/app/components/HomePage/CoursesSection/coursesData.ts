@@ -1,11 +1,13 @@
 import type { CourseCardProps } from "../CourseCard/courseCard.types";
 
 /** Swap these paths when your course images are ready. */
-export const PLACEHOLDER_IMAGE = "/images/course-placeholder.svg";
-export const FrontendImage = "/images/home-frontend.jpg";
-export const FullStackImage = "/images/hm-fs.jpg";
-export const ProductDesignImage = "/images/home-pd.jpg";
-export const GraphicDesignImage = "/images/home-gd.png";
+import { withBasePath } from "@/lib/basePath";
+
+export const PLACEHOLDER_IMAGE = withBasePath("/images/course-placeholder.svg");
+export const FrontendImage = withBasePath("/images/home-frontend.jpg");
+export const FullStackImage = withBasePath("/images/hm-fs.jpg");
+export const ProductDesignImage = withBasePath("/images/home-pd.jpg");
+export const GraphicDesignImage = withBasePath("/images/home-gd.png");
 
 export const homeOnlineCourses: Extract<
   CourseCardProps,

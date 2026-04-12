@@ -1,6 +1,8 @@
 import type { AlumniTestimonialEntry } from "./alumniCard.types";
 
-const AVATAR = "/images/alumni-avatar-placeholder.svg";
+import { withBasePath } from "@/lib/basePath";
+
+const AVATAR = withBasePath("/images/alumni-avatar-placeholder.svg");
 
 export const alumniTestimonials: AlumniTestimonialEntry[] = [
   {

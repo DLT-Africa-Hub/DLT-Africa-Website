@@ -1,4 +1,5 @@
 import CourseSection from "../CoursesHero/CourseHeroSec";
+import { withBasePath } from "@/lib/basePath";
 
 interface SectionData {
   id: number;
@@ -27,7 +28,7 @@ const sectionData: SectionData[] = [
     headline4: "",
     button1: "Register for Offline",
     button2: "Register for Online",
-    img: "/images/front-end-hero.png",
+    img: withBasePath("/images/front-end-hero.png"),
   },
 ];
 

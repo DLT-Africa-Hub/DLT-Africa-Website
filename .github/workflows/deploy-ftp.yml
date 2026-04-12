@@ -1,12 +1,12 @@
 # Deploy static frontend (Next.js export) to Namecheap via FTP/FTPS.
-# Required repo secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_SERVER_DIR
-# See deploy/ftp.env.example
+# Secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
+# Uploads to the FTP account root — point the account at the site folder in cPanel (e.g. public_html/bootcamp).
 
 name: Deploy frontend (FTP)
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, master, develop]
     paths:
       - "frontend/**"
       - ".github/workflows/deploy-ftp.yml"
@@ -37,6 +37,12 @@ jobs:
           npm install
           npm run build
 
+      - name: 📋 Build fingerprint (verify CI output changes)
+        run: |
+          test -f frontend/out/index.html
+          echo "out/index.html bytes: $(wc -c < frontend/out/index.html)"
+          echo "git SHA: ${{ github.sha }}"
+
       - name: 📤 Upload to hosting (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -47,4 +53,3 @@ jobs:
           protocol: ftps
           security: loose
           local-dir: ./frontend/out/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}

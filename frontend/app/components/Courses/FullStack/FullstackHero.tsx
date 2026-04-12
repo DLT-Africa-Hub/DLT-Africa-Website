@@ -19,14 +19,15 @@ const sectionData: SectionDataItem[] = [
     id: 1,
     intro: "Registrations are now open!",
     title: "Become a Fullstack Developer",
-    description: "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
+    description:
+      "Learn to build complete web applications from start to finish — combining frontend design, backend logic, and database management into one powerful skill set.",
     virtual: "Virtual",
     physical: "On-site",
     virtualPrice: "₦100,000",
     physicalPrice: "₦640,000",
     button1: "Enroll now",
     button2: "Speak with Us",
-    img: "/images/full-stack-hero.png",
+    img: "/images/hm-fs.jpg",
   },
 ];
 

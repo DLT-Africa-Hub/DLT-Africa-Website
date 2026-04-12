@@ -33,7 +33,7 @@ const sectionData: SectionDataItem[] = [
 const GraphicDesignHero: React.FC = () => {
   return (
     <section
-      className="course bg-hero-bg"
+      className="course bg-[#FFA751]"
       id="course"
     >
       <div>

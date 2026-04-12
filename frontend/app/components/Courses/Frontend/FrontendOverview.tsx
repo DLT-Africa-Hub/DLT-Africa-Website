@@ -22,7 +22,7 @@ const FrontendOverview: React.FC = () => {
                     icon: <TbWorld className="h-5 w-5" />,
                 },
             ]}
-            imageSrc="/images/full-stack-overview.png"
+            imageSrc="/images/course-overview-one.jpg"
             imageAlt="Frontend course overview"
         />
     );

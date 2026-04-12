@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 interface OverviewCardItem {
   id: number;
@@ -56,10 +57,12 @@ const CourseOverviewSection: React.FC<CourseOverviewSectionProps> = ({
         </div>
 
         <div>
-          <img
+          <Image
             src={imageSrc}
             alt={imageAlt}
-            className="h-[635px] w-[784px] rounded-[20px] object-cover sm:h-[340px] md:h-[420px] lg:h-[635px]"
+            width={784}
+            height={635}
+            className="rounded-[20px] object-cover sm:h-[340px] md:h-[420px] lg:h-[635px]"
             loading="lazy"
           />
         </div>

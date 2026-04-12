@@ -2,26 +2,12 @@ import React from "react";
 
 const TalentCardSkeleton: React.FC = () => {
   return (
-    <div className="h-[500px] md:h-[473px] m-2 bg-white rounded-[10px] flex justify-end flex-col overflow-hidden relative">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100 animate-pulse">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+    <div className="relative m-0 flex h-[500px] flex-col justify-end overflow-hidden rounded-2xl bg-neutral-200/80 shadow-md ring-1 ring-black/[0.06] md:h-[473px]">
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse" />
+      <div className="relative z-10 space-y-3 bg-gradient-to-t from-black/20 to-transparent px-4 pb-5 pt-16">
+        <div className="h-7 w-3/4 max-w-[200px] rounded-md bg-white/40" />
+        <div className="h-4 w-1/2 max-w-[120px] rounded-md bg-white/30" />
       </div>
-
-      {/* Content skeleton with better animations */}
-      <div className="p-4 relative z-10 bg-gradient-to-r from-white/40 to-white/20 backdrop-blur-lg backdrop-brightness-125">
-        {/* Name skeleton with wave animation */}
-        <div className="h-8 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded mb-2 w-3/4 animate-shimmer bg-[length:200%_100%]"></div>
-        {/* Role skeleton with wave animation */}
-        <div className="h-4 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 rounded w-1/2 animate-shimmer bg-[length:200%_100%]"></div>
-      </div>
-
-      {/* Floating elements for more dynamic feel */}
-      <div className="absolute top-4 right-4 w-8 h-8 bg-gray-200 rounded-full animate-bounce"></div>
-      <div
-        className="absolute top-12 right-8 w-4 h-4 bg-gray-300 rounded-full animate-bounce"
-        style={{ animationDelay: "0.5s" }}
-      ></div>
     </div>
   );
 };

@@ -1,60 +1,64 @@
 import type { CourseCardProps } from "../CourseCard/courseCard.types";
 
+/** Swap these paths when your course images are ready. */
 export const PLACEHOLDER_IMAGE = "/images/course-placeholder.svg";
+export const FrontendImage = "/images/home-frontend.jpg";
+export const FullStackImage = "/images/hm-fs.jpg";
+export const ProductDesignImage = "/images/home-pd.jpg";
+export const GraphicDesignImage = "/images/home-gd.png";
 
-export const homeFeaturedCourse: Extract<
-  CourseCardProps,
-  { variant: "horizontal" }
-> = {
-  variant: "horizontal",
-  compactImage: true,
-  image: PLACEHOLDER_IMAGE,
-  imageAlt: "Front-end development cohort in session",
-  category: "Engineering",
-  title: "FrontEnd Development",
-  description:
-    "Learn modern interfaces with HTML, CSS, JavaScript, and component-driven frameworks—responsive layouts, accessibility, and performance so you can ship polished UIs.",
-  duration: "3 months",
-  location: "Virtual",
-  price: "#100,000",
-  enrollHref: "/courses",
-};
-
-export const homeGridCourses: Extract<
+export const homeOnlineCourses: Extract<
   CourseCardProps,
   { variant: "vertical" }
 >[] = [
   {
     variant: "vertical",
-    image: PLACEHOLDER_IMAGE,
+    image: FrontendImage,
+    imageAlt: "Frontend development course",
+    category: "Engineering",
+    title: "FrontEnd Development",
+    duration: "4 months",
+    location: "Virtual",
+    price: "₦100,000",
+    enrollHref: "/application",
+  },
+  {
+    variant: "vertical",
+    image: ProductDesignImage,
     imageAlt: "Product design course",
     category: "Design",
     title: "Product Design",
-    duration: "3 months",
+    duration: "4 months",
     location: "Virtual",
-    price: "#50,000",
-    enrollHref: "/courses",
+    price: "₦50,000",
+    enrollHref: "/application",
   },
   {
     variant: "vertical",
-    image: PLACEHOLDER_IMAGE,
+    image: GraphicDesignImage,
     imageAlt: "Graphic design course",
     category: "Design",
     title: "Graphic Design",
-    duration: "2 months",
+    duration: "4 months",
     location: "Virtual",
-    price: "#40,000",
-    enrollHref: "/courses",
-  },
-  {
-    variant: "vertical",
-    image: PLACEHOLDER_IMAGE,
-    imageAlt: "Full stack development course",
-    category: "Engineering",
-    title: "Full Stack Development",
-    duration: "6 months",
-    location: "On-site",
-    price: "#640,000",
-    enrollHref: "/courses",
+    price: "₦40,000",
+    enrollHref: "/application",
   },
 ];
+
+export const homeOnsiteCourse: Extract<
+  CourseCardProps,
+  { variant: "horizontal" }
+> = {
+  variant: "horizontal",
+  image: FullStackImage,
+  imageAlt: "Full stack development bootcamp",
+  category: "Engineering",
+  title: "Full Stack Development",
+  description:
+    "Build end-to-end web applications with modern front-end frameworks, APIs, databases, and deployment—intensive onsite training at our bootcamp for deeper focus and mentorship.",
+  duration: "6 months",
+  location: "On-Site",
+  price: "₦640,000",
+  enrollHref: "/application",
+};

@@ -2,37 +2,37 @@ import type { AlumniTestimonialEntry } from "./alumniCard.types";
 
 const AVATAR = "/images/alumni-avatar-placeholder.svg";
 
-const PLACEHOLDER_QUOTE =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
 export const alumniTestimonials: AlumniTestimonialEntry[] = [
   {
     id: "alumni-1",
-    name: "John Tope",
-    role: "Product Design Cohort",
-    quote: PLACEHOLDER_QUOTE,
+    name: "Naheem Oloyede",
+    role: "Software Developer ",
+    quote:
+      "DLT gave me more than theory—I shipped real projects, got comfortable with the stack employers ask for, and left with a portfolio I’m proud to show in interviews.",
     image: AVATAR,
-    imageAlt: "John Tope",
+    imageAlt: "Naheem Oloyede",
     theme: "coral",
     layoutClassName: "md:-rotate-[4deg] md:translate-y-2",
   },
   {
     id: "alumni-2",
-    name: "John Tope",
-    role: "Project manager",
-    quote: PLACEHOLDER_QUOTE,
+    name: "Kehinde Abubakar",
+    role: "Frontend Developer",
+    quote:
+      "The cohort was intense in the best way: clear structure, supportive mentors, and peers who pushed me to think like a PM—not just pass assignments.",
     image: AVATAR,
-    imageAlt: "John Tope",
+    imageAlt: "Kehinde Abubakar",
     theme: "brown",
     layoutClassName: "md:z-10 md:-translate-y-10 md:scale-[1.02]",
   },
   {
     id: "alumni-3",
-    name: "John Tope",
-    role: "Project manager",
-    quote: PLACEHOLDER_QUOTE,
+    name: "Opeyemi Abolaji",
+    role: "Product Designer & Manager",
+    quote:
+      "I joined to level up my career; I left with confidence running sprints, communicating with engineers, and owning outcomes end to end.",
     image: AVATAR,
-    imageAlt: "John Tope",
+    imageAlt: "Opeyemi Abolaji",
     theme: "green",
     layoutClassName: "md:rotate-[4deg] md:translate-y-2",
   },

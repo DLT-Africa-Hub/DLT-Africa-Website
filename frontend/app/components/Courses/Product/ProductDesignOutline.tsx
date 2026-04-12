@@ -5,26 +5,26 @@ const ProductDesignOutline: React.FC = () => {
     return (
         <CourseOutlineSection
             title="Course Outline & Modules"
-            imageSrc="/images/full-stack-hero.png"
+            imageSrc="/images/course-overview-two.jpg"
             imageAlt="Product design course outline"
             modules={[
                 {
                     id: 1,
-                    title: "Level 1 - UI/UX Fundamentals (Weeks 1–4)",
+                    title: "Level 1 - UI/UX Fundamentals ",
                     details:
-                        "Understand the basics of user interface and user experience design, including layout, typography, color systems, and usability principles.",
+                        "Learn core principles of user interface and user experience design, including layout, typography, color systems, and usability best practices.",
                 },
                 {
                     id: 2,
-                    title: "Level 2 - User Research & Prototyping (Weeks 5–8)",
+                    title: "Level 2 - User Research & Prototyping ",
                     details:
-                        "Learn how to conduct user research, create wireframes, and design interactive prototypes using tools like Figma.",
+                        "Understand user behavior through research and translate insights into wireframes and interactive prototypes using tools like Figma.",
                 },
                 {
                     id: 3,
-                    title: "Level 3 - Product Design Projects (Weeks 9–12)",
+                    title: "Level 3 - Product Design Projects ",
                     details:
-                        "Design complete digital products from idea to final UI, building a strong portfolio that demonstrates your problem-solving and design thinking skills.",
+                        "Work on end-to-end product design projects—from idea to final design—building a portfolio that showcases your problem-solving and design thinking skills.",
                 },
             ]}
         />

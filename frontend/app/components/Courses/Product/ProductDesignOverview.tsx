@@ -1,7 +1,6 @@
 import React from "react";
 import { PiHandCoins } from "react-icons/pi";
 import { TbWorld } from "react-icons/tb";
-import { MdDesignServices } from "react-icons/md";
 import CourseOverviewSection from "../CourseOverview/CourseOverviewSection";
 
 const ProductDesignOverview: React.FC = () => {
@@ -23,7 +22,7 @@ const ProductDesignOverview: React.FC = () => {
                     icon: <TbWorld className="h-5 w-5" />,
                 }
             ]}
-            imageSrc="/images/full-stack-overview.png"
+            imageSrc="/images/course-overview-one.jpg"
             imageAlt="Product design course overview"
         />
     );

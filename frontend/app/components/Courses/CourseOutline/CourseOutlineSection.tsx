@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
+import Image from "next/image";
 
 interface CourseModuleItem {
   id: number;
@@ -28,10 +29,12 @@ const CourseOutlineSection: React.FC<CourseOutlineSectionProps> = ({
     <section className="bg-[#F6F6F6] px-6 pb-10 md:px-12 lg:px-16">
       <div className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-center">
         <div>
-          <img
+          <Image
             src={imageSrc}
             alt={imageAlt}
-            className="h-[260px] w-full rounded-[20px] object-cover sm:h-[340px] md:h-[420px] lg:h-[530px]"
+            width={260}
+            height={260}
+            className="w-full rounded-[20px] object-cover sm:h-[340px] md:h-[420px] lg:h-[530px] hidden lg:block"
             loading="lazy"
           />
         </div>

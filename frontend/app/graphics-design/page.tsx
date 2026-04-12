@@ -4,7 +4,6 @@ import GraphicDesignHero from "@/app/components/Courses/Graphics/GraphicDesignHe
 import GraphicDesignOverview from "../components/Courses/Graphics/GraphicDesignOverview";
 import GraphicDesignOutline from "../components/Courses/Graphics/GraphicDesignOutline";
 import GraphicDesignCareerOpportunities from "../components/Courses/Graphics/GraphicDesignCareerOpportunities";
-import GraphicDesignOffer from "../components/Courses/Graphics/GraphicDesignOffer";
 
 const page = () => {
   return (
@@ -13,7 +12,6 @@ const page = () => {
       <GraphicDesignOverview />
       <GraphicDesignOutline />
       <GraphicDesignCareerOpportunities />
-      <GraphicDesignOffer />
     </div>
   );
 };

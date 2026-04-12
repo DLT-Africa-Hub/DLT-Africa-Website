@@ -18,43 +18,44 @@ const Pagination: React.FC<PaginationProps> = ({
   loading,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
   const isFirstPage = currentPage === PAGINATION_CONFIG.DEFAULT_PAGE;
-  const isLastPage = currentPage * itemsPerPage >= totalItems;
+  const isLastPage = currentPage >= totalPages;
+
+  const btnBase =
+    "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C7800] disabled:cursor-not-allowed disabled:opacity-40";
 
   return (
     <div
-      className="flex justify-between px-[10px] w-full max-w-[800px] mt-4"
+      className="mt-6 flex w-full max-w-md items-center justify-between gap-4 sm:mt-8"
       role="group"
       aria-label={ACCESSIBILITY_CONFIG.ARIA_LABELS.PAGINATION}
     >
       <button
+        type="button"
         onClick={() => onPageChange("prev")}
-        className={`${
-          isFirstPage || loading ? "opacity-50 cursor-not-allowed" : ""
-        } bg-[#C54809] text-white font-medium p-2 rounded`}
+        className={`${btnBase} bg-[#1C7800] hover:bg-[#155f00]`}
         disabled={isFirstPage || loading}
         aria-label="Go to previous page"
       >
-        <IoIosArrowBack />
+        <IoIosArrowBack className="text-xl" aria-hidden />
       </button>
 
       <span
-        className="flex items-center text-[#C54809] font-medium"
+        className="min-w-0 flex-1 text-center font-poppins text-sm font-medium text-[#1C1C1C]/80"
         aria-live="polite"
       >
         Page {currentPage} of {totalPages}
       </span>
 
       <button
+        type="button"
         onClick={() => onPageChange("next")}
-        className={`${
-          isLastPage || loading ? "opacity-50 cursor-not-allowed" : ""
-        } bg-[#C54809] text-white font-medium p-2 rounded`}
+        className={`${btnBase} bg-[#1C7800] hover:bg-[#155f00]`}
         disabled={isLastPage || loading}
         aria-label="Go to next page"
       >
-        <MdOutlineNavigateNext />
+        <MdOutlineNavigateNext className="text-xl" aria-hidden />
       </button>
     </div>
   );

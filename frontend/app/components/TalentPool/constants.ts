@@ -16,7 +16,6 @@ export const PAGINATION_CONFIG = {
 
 // UI Configuration
 export const UI_CONFIG = {
-    SKILL_BUTTON_COLORS: ["#C54809", "#1E9500", "#C54809", "#1E9500"],
     DESCRIPTION_MAX_LENGTH: 100,
     CARD_HEIGHT: {
         MOBILE: "h-[500px]",

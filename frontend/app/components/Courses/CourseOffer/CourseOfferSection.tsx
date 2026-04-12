@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import Image from "next/image";
 
 export type Module = {
     id: number;
@@ -36,7 +37,6 @@ export default function CourseOfferSection({
         <section className="bg-[#F6F6F6] px-6 py-16 md:px-12 lg:px-20 font-sfPro">
             <div className="mx-auto grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
 
-                {/* LEFT CONTENT */}
                 <div>
                     <p className="mb-2 text-[18px] font-normal text-[#FEA650]">{tag}</p>
 
@@ -84,17 +84,19 @@ export default function CourseOfferSection({
                     </div>
                 </div>
 
-                {/* IMAGE */}
+
                 <div>
-                    <img
+                    <Image
                         src={imageSrc}
                         alt={imageAlt}
-                        className="h-[635px] w-[945px] rounded-[20px] object-cover"
+                        width={945}
+                        height={635}
+                        className="rounded-[20px] object-cover"
                     />
                 </div>
             </div>
 
-            {/* BUTTON */}
+
             <div className="mt-16 flex justify-center">
                 <button className="rounded-lg bg-[#1F7A0C] px-8 py-3 text-white transition hover:bg-[#176608]">
                     {buttonText}

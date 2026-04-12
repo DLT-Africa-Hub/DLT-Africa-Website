@@ -61,7 +61,7 @@ export function AlumniCard({
       >
         {quote}
       </p>
-      <div className="mt-6 flex justify-end">
+      {/* <div className="mt-6 flex justify-end">
         <Image
           src={LOGO_SRC}
           alt="DLT Africa"
@@ -69,7 +69,7 @@ export function AlumniCard({
           height={40}
           className={`h-9 w-auto object-contain opacity-90 sm:h-10 ${logoNeedsInvert ? "brightness-0 invert" : ""}`}
         />
-      </div>
+      </div> */}
     </article>
   );
 }

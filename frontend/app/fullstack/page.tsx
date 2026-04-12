@@ -1,15 +1,17 @@
 "use client";
 
 import FullStackHero from "@/app/components/Courses/FullStack/FullstackHero";
-import FullstackIconSection from "@/app/components/Courses/FullStack/FullstackIconSection";
-import FullstackDetail from "@/app/components/Courses/FullStack/FullstackDetail";
+import FullstackOverview from "@/app/components/Courses/FullStack/FullstackOverview";
+import FullstackOutline from "@/app/components/Courses/FullStack/FullstackOutline";
+import FullstackCareerOpportunities from "@/app/components/Courses/FullStack/FullstackCareerOpportunities";
 
 const page = () => {
   return (
     <div>
       <FullStackHero />
-      <FullstackIconSection />
-      <FullstackDetail />
+      <FullstackOverview />
+      <FullstackOutline />
+      <FullstackCareerOpportunities />
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FiMonitor } from "react-icons/fi";
 import { LuClock, LuMapPin } from "react-icons/lu";
 
 import { buttonVariants } from "@/app/constants/buttonStyles";
@@ -24,6 +25,10 @@ const priceClass = "font-sfPro text-lg font-bold text-[#1C7800] sm:text-xl";
 
 const enrollClass = `${buttonVariants.neutral} shrink-0 px-4 py-2 text-sm`;
 
+/** Same radius on every corner of each image (matches card rounding). */
+const imageRadius = "rounded-2xl";
+const imageFrame = `overflow-hidden ${imageRadius}`;
+
 function CourseMeta({
   duration,
   location,
@@ -31,6 +36,9 @@ function CourseMeta({
   duration: string;
   location: string;
 }) {
+  const isVirtual = /virtual/i.test(location);
+  const LocationIcon = isVirtual ? FiMonitor : LuMapPin;
+
   return (
     <div className={metaClass}>
       <span className="inline-flex items-center gap-2">
@@ -38,7 +46,7 @@ function CourseMeta({
         {duration}
       </span>
       <span className="inline-flex items-center gap-2">
-        <LuMapPin className="h-4 w-4 shrink-0 text-[#5C6670]" aria-hidden />
+        <LocationIcon className="h-4 w-4 shrink-0 text-[#5C6670]" aria-hidden />
         {location}
       </span>
     </div>
@@ -68,23 +76,29 @@ export function CourseCard(props: CourseCardProps) {
   if (props.variant === "horizontal") {
     const compact = props.compactImage === true;
     const imageShell = compact
-      ? "relative mx-auto h-[200px] w-full max-w-[260px] shrink-0 overflow-hidden rounded-xl sm:h-[210px] sm:max-w-[280px] lg:mx-0 lg:h-[220px] lg:w-[240px] lg:max-w-[240px] xl:w-[260px] xl:max-w-[260px]"
-      : "relative aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-[min(46%,420px)] lg:min-h-[280px]";
+      ? `relative mx-auto h-[200px] w-full max-w-[260px] shrink-0 ${imageFrame} sm:h-[210px] sm:max-w-[280px] lg:mx-0 lg:h-[220px] lg:w-[240px] lg:max-w-[240px] xl:w-[260px] xl:max-w-[260px]`
+      : `relative aspect-[16/10] w-full shrink-0 ${imageFrame} lg:aspect-auto lg:min-h-[280px] lg:w-full lg:flex-1`;
+
+    const imageColumnClass = compact
+      ? "w-full shrink-0 p-3 sm:p-4"
+      : "flex w-full shrink-0 flex-col p-3 sm:p-4 lg:w-[min(46%,420px)] lg:min-h-0 lg:max-w-none lg:self-stretch lg:p-5";
 
     return (
       <article className={`${cardShell} flex-col lg:flex-row lg:items-stretch`}>
-        <div className={imageShell}>
-          <Image
-            src={props.image}
-            alt={props.imageAlt}
-            fill
-            className="object-cover"
-            sizes={
-              compact
-                ? "(max-width: 1024px) 280px, 260px"
-                : "(max-width: 1024px) 100vw, 42vw"
-            }
-          />
+        <div className={imageColumnClass}>
+          <div className={imageShell}>
+            <Image
+              src={props.image}
+              alt={props.imageAlt}
+              fill
+              className={`object-cover ${imageRadius}`}
+              sizes={
+                compact
+                  ? "(max-width: 1024px) 280px, 260px"
+                  : "(max-width: 1024px) 100vw, 42vw"
+              }
+            />
+          </div>
         </div>
         <div className="flex min-w-0 flex-1 flex-col p-6 sm:p-8">
           <p className={categoryClass}>{props.category}</p>
@@ -103,26 +117,30 @@ export function CourseCard(props: CourseCardProps) {
 
   return (
     <article className={`${cardShell} h-full flex-col`}>
-      <div className="relative h-[160px] w-full shrink-0 sm:h-[180px]">
-        <Image
-          src={props.image}
-          alt={props.imageAlt}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 360px"
-        />
+      <div className="px-3 pt-3 sm:px-4 sm:pt-4">
+        <div
+          className={`relative h-[148px] w-full shrink-0 sm:h-[168px] ${imageFrame}`}
+        >
+          <Image
+            src={props.image}
+            alt={props.imageAlt}
+            fill
+            className={`object-cover ${imageRadius}`}
+            sizes="(max-width: 768px) 100vw, 360px"
+          />
+        </div>
       </div>
-      <div className="flex min-h-0 flex-1 flex-col p-4">
-        <p className="font-poppins text-[11px] font-medium text-[#FFA751] sm:text-xs">
-          {props.category}
-        </p>
-        <h3 className="mt-0.5 font-sfPro text-base font-bold leading-tight text-[#1C1C1C] sm:text-lg">
+      <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-5">
+        <p className={categoryClass}>{props.category}</p>
+        <h3 className="mt-1 font-sfPro text-base font-bold leading-tight text-[#1C1C1C] sm:text-lg">
           {props.title}
         </h3>
-        <VerticalCourseMeta
-          duration={props.duration}
-          location={props.location}
-        />
+        <div className="mt-4 border-t border-[#EEF1F4] pt-4">
+          <VerticalCourseMeta
+            duration={props.duration}
+            location={props.location}
+          />
+        </div>
         <div className="mt-auto">
           <VerticalCourseFooter price={props.price} enrollHref={enrollHref} />
         </div>
@@ -138,14 +156,17 @@ function VerticalCourseMeta({
   duration: string;
   location: string;
 }) {
+  const isVirtual = /virtual/i.test(location);
+  const LocationIcon = isVirtual ? FiMonitor : LuMapPin;
+
   return (
-    <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 font-poppins text-xs text-[#5C6670] sm:text-[13px]">
+    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 font-poppins text-xs text-[#5C6670] sm:text-[13px]">
       <span className="inline-flex items-center gap-1.5">
         <LuClock className="h-3.5 w-3.5 shrink-0" aria-hidden />
         {duration}
       </span>
       <span className="inline-flex items-center gap-1.5">
-        <LuMapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+        <LocationIcon className="h-3.5 w-3.5 shrink-0" aria-hidden />
         {location}
       </span>
     </div>

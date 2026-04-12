@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { BsLinkedin, BsTwitterX } from "react-icons/bs";
 
 interface TeamMember {
@@ -11,46 +12,52 @@ interface TeamMember {
   linkedinLink: string | null;
   twitterLink: string;
 }
+function withHttps(url: string): string {
+  const trimmed = url.trim();
+  if (!trimmed) return "#";
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
 
-const teamMember: TeamMember[] = [
-  {
-    id: 1,
-    img: "/images/soliu.jpeg",
-    name: "Soliu Ahmad",
-    role: "Software Developer",
-    description:
-      "Soliu is a software developer, he is a very good team worker. He is always ready to face any challenging projects.",
-    linkedinLink: "https://www.linkedin.com/in/soliu-ahmad-31b049240",
-    twitterLink: "https://twitter.com/Ahmadsoliu1",
-  },
-  {
-    id: 2,
-    img: "/images/naheem.jpeg",
-    name: "Naheem Oloyede",
-    role: "Software Developer & Team Lead",
-    description:
-      "Naheem is a witty and result oriented full stack developer. Naheem is astuteness and zeal for getting excellent results coupled with his exceptional leadership, and HR skills earned him job at DLT Africa..",
-    linkedinLink: "https://www.linkedin.com/in/naheem-oloyede-593809251",
-    twitterLink: "https://twitter.com/OloyedeNaheem",
-  },
-  {
-    id: 3,
-    img: "/images/kenny.png",
-    name: "Kehinde Abubakar",
-    role: "Software Developer",
-    description:
-      "Kehinde is a strong software developer and a dependable team player. He consistently brings a collaborative attitude to every project and doesn’t shy away from difficult or complex challenges. He’s the kind of engineer who steps up, takes ownership, and delivers.",
-    linkedinLink: "https://www.linkedin.com/in/kehinde-abubakar/",
-    twitterLink: "https://twitter.com/kennySpec",
-  },
+const teamMembers: TeamMember[] = [
+  // {
+  //   id: 1,
+  //   img: "/images/soliu.jpeg",
+  //   name: "Soliu Ahmad",
+  //   role: "Software Developer",
+  //   description:
+  //     "Soliu is a software developer, he is a very good team worker. He is always ready to face any challenging projects.",
+  //   linkedinLink: "https://www.linkedin.com/in/soliu-ahmad-31b049240",
+  //   twitterLink: "https://twitter.com/Ahmadsoliu1",
+  // },
+  // {
+  //   id: 2,
+  //   img: "/images/naheem.jpeg",
+  //   name: "Naheem Oloyede",
+  //   role: "Software Developer & Team Lead",
+  //   description:
+  //     "Naheem is a witty and result oriented full stack developer. Naheem is astuteness and zeal for getting excellent results coupled with his exceptional leadership, and HR skills earned him job at DLT Africa..",
+  //   linkedinLink: "https://www.linkedin.com/in/naheem-oloyede-593809251",
+  //   twitterLink: "https://twitter.com/OloyedeNaheem",
+  // },
+  // {
+  //   id: 3,
+  //   img: "/images/kenny.png",
+  //   name: "Kehinde Abubakar",
+  //   role: "Software Developer",
+  //   description:
+  //     "Kehinde is a strong software developer and a dependable team player. He consistently brings a collaborative attitude to every project and doesn’t shy away from difficult or complex challenges. He’s the kind of engineer who steps up, takes ownership, and delivers.",
+  //   linkedinLink: "https://www.linkedin.com/in/kehinde-abubakar/",
+  //   twitterLink: "https://twitter.com/kennySpec",
+  // },
   {
     id: 4,
     img: "/images/abdullah.jpeg",
     name: "Abdullah Raji",
     role: "Software Developer",
     description:
-      "With a passion for coding, I have dedicated expertise to shaping innovative solutions in the realm of technology.",
-    linkedinLink: "www.linkedin.com/in/alameer98",
+      "With a passion for coding, I dedicate my expertise to shaping innovative solutions in technology.",
+    linkedinLink: "https://www.linkedin.com/in/alameer98",
     twitterLink: "https://twitter.com/17_alAmeer",
   },
   {
@@ -59,7 +66,7 @@ const teamMember: TeamMember[] = [
     name: "Aliyu Anate",
     role: "Software Developer",
     description:
-      "Creative software engineer blending innovation with hard work and humor for impactful solutions",
+      "Creative software engineer blending innovation with hard work and humor for impactful solutions.",
     linkedinLink: "https://www.linkedin.com/in/aliyu-anate-9773b22b8",
     twitterLink: "https://twitter.com/anate669288",
   },
@@ -69,7 +76,7 @@ const teamMember: TeamMember[] = [
     name: "Fawaz Dada",
     role: "Graphic Designer",
     description:
-      "A highly creative, fast-working, and adaptable graphic designer who can quickly grasp the concept of the brief he has been given. He has a strong understanding of the principles of design and he is able to apply them to create visually appealing and effective designs..",
+      "A highly creative, fast-working designer who grasps briefs quickly and applies strong design principles to craft clear, visually effective work.",
     linkedinLink: null,
     twitterLink: "https://twitter.com/dadaXxf",
   },
@@ -79,7 +86,7 @@ const teamMember: TeamMember[] = [
     name: "Oluwaseyi Abolaji",
     role: "Product Designer & Manager",
     description:
-      "Oluwaseyi is a Product designer with a background in Computer Science. Keeping the users needs and expectations in mind while not losing sight of the business goals, enables him to make sound design decisions that benefit the user and the business.",
+      "Product designer with a computer science background—balancing user needs with business goals to make sound design decisions.",
     linkedinLink: "https://www.linkedin.com/in/oluwaseyi-abolaji-8b936a213",
     twitterLink: "https://twitter.com/Oluwaseyi_7",
   },
@@ -95,133 +102,88 @@ const teamMember: TeamMember[] = [
   // },
 ];
 
-const backgoundImage =
-  "https://s3-alpha-sig.figma.com/img/30e7/ba92/c51479ec9db1e5601ae0aae5613f39bc?Expires=1712534400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UO3zPE9bTChfdGKwlcUwVL33ZpwtdldQBQxILTnFZEemkufw55Ze6QiKilY2r35Akpd~2K61p3yPojAM423UK5yIg9W8ZDu1A9Zfku1WzjKp84~96Uxhwdfx5cqvIRSqn4J52VSVv03QUTiQtXYkmtO5ZHfBzj45tBFAOBTgyXqgz8igSRKfdWymye1~QBstRYcnDPsMZDKs~ty-AwnAiGdc4nlJr2vTURScGQ5n8uXRu2-G7GJtoELWPlBDNwCb2LEMKgBNMfRvP4k21HrITmPVUs8WyngXIRvIZQGzJyBtPh6pMasg81aLYl6KuXaH3wDZajLLNcPXL3qEvW4kmA__";
-
 const Team: React.FC = () => {
   return (
-    <div className="">
-      <div
-        className="mt-[185px] 
-                text-center 
-                mb-[111px] 
-                text-[#441606] 
-                text-[36px] 
-                font-[normal] 
-                leading-[120%] 
-                tracking-[2.52px]
-                "
-      >
-        {" "}
-        Meet the Team
-      </div>
-
-      <div
-        className="grid gap-6 
-                w-full 
-                px-10 
-                pt-10 
-                md:grid-cols-2 
-                lg:grid-cols-3
-                place-content-center
-                "
-      >
-        {teamMember.map((member: TeamMember) => (
-          <div
-            className="flex 
-                        flex-col 
-                        w-full 
-                        h-auto 
-                        gap-[35px] 
-                        items-center 
-                        flex-shrink-0 
-                        px-50px
-                        border-2 border-orange-100 
-                        rounded-[10px] 
-                        mb-[73px]
-                        "
-            key={member.id}
+    <section
+      className="bg-white px-4 pb-28 pt-24 sm:px-6 lg:px-8"
+      aria-labelledby="team-heading"
+    >
+      <div className="mx-auto max-w-3xl">
+        <header className="mb-16 text-center">
+          <h1
+            id="team-heading"
+            className="font-sfPro text-3xl font-bold tracking-tight text-[#1C1C1C] sm:text-4xl"
           >
-            <div>
-              <img
-                className="w-[180px] 
-                                h-[180px] 
-                                flex 
-                                justify-center 
-                                items-center
-                                mt-5 
-                                rounded-lg"
-                src={member.img}
-                alt="team image"
-                loading="lazy"
-              />
-            </div>
+            Meet the Team
+          </h1>
+          <p className="mx-auto mt-3 max-w-lg font-poppins text-sm leading-relaxed text-[#1C1C1C]/55 sm:text-base">
+            The people behind DLT Africa—building products, curriculum, and
+            community.
+          </p>
+        </header>
 
-            <div className="p-[20px]">
-              <h2
-                className="
-                                text-[22px]
-                                text-[#1C1C1C] 
-                                text-center 
-                                mb-[15px] 
-                                font-Poppins 
-                                leading-[120%] 
-                                font-semibold 
-                                opacity-[0.75]"
-              >
-                {member.name}
-              </h2>
+        <ul className="list-none divide-y divide-[#EAEAEA]">
+          {teamMembers.map((member) => (
+            <li key={member.id} className="py-12 first:pt-0">
+              <article className="flex flex-col gap-8 sm:flex-row sm:gap-10">
+                <div className="relative mx-auto aspect-square h-[7.5rem] w-[7.5rem] shrink-0 overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/[0.06] sm:mx-0 sm:h-[8.5rem] sm:w-[8.5rem]">
+                  <Image
+                    src={member.img}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 120px, 136px"
+                    loading="lazy"
+                  />
+                </div>
 
-              <h3
-                className="text-center 
-                                text-[#1C1C1C] 
-                                text-[16px] 
-                                font-light 
-                                font-[normal] 
-                                leading-[120%] 
-                                opacity-[0.65]
-                                mb-[7px]"
-              >
-                {member.role}
-              </h3>
+                <div className="min-w-0 flex-1 text-left">
+                  <h2 className="font-sfPro text-xl font-semibold text-[#1C1C1C] sm:text-[1.35rem]">
+                    {member.name}
+                  </h2>
+                  <p className="mt-1 font-poppins text-sm font-medium text-[#1C7800]">
+                    {member.role}
+                  </p>
+                  <p className="mt-4 max-w-prose font-poppins text-[0.9375rem] leading-relaxed text-[#1C1C1C]/72">
+                    {member.description}
+                  </p>
 
-              <p
-                className="
-                                text-[14px] 
-                                text-center 
-                                text-[#1C1C1C] 
-                                font-light 
-                                font-[normal] 
-                                leading-[120%] 
-                                opacity-[0.65] "
-              >
-                "{member.description}"
-              </p>
-            </div>
-
-            <div className="flex mb-[16px] w-[40px] h-[40px] gap-[10px]">
-              {member.linkedinLink && (
-                <a
-                  href={member.linkedinLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BsLinkedin className="text-[#0A66C2] text-[25px] transition duration-500 ease-in-out transform hover:translate-y-1 hover:scale-110" />
-                </a>
-              )}
-
-              <a
-                href={member.twitterLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <BsTwitterX className="text-[#000000] text-[25px] transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110" />
-              </a>
-            </div>
-          </div>
-        ))}
+                  <div
+                    className="mt-6 flex items-center gap-2"
+                    aria-label={`Social links for ${member.name}`}
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center">
+                      {member.linkedinLink ? (
+                        <a
+                          href={withHttps(member.linkedinLink)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#0A66C2] transition hover:opacity-80 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A66C2]"
+                          aria-label={`${member.name} on LinkedIn`}
+                        >
+                          <BsLinkedin className="h-6 w-6" aria-hidden />
+                        </a>
+                      ) : null}
+                    </span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center">
+                      <a
+                        href={withHttps(member.twitterLink)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#1C1C1C] transition hover:opacity-70 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C1C1C]"
+                        aria-label={`${member.name} on X`}
+                      >
+                        <BsTwitterX className="h-6 w-6" aria-hidden />
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
 

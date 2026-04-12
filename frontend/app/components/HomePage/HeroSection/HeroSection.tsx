@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { forwardRef } from "react";
 
@@ -47,7 +46,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
         className={`relative overflow-hidden ${className}`.trim()}
       >
         <div
-          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8"
+          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8 h-[600px]"
           style={{
             background:
               "radial-gradient(ellipse 115% 75% at 50% -5%, rgba(239, 255, 226, 0.42) 0%, transparent 52%), linear-gradient(180deg, #FFFFFF 0%, #FAFDF9 22%, #F2FCE8 40%, #E2F5D4 58%, #D0ECC4 78%, #C2E2B6 100%)",
@@ -84,21 +83,6 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
               >
                 View Courses
               </Link>
-            </div>
-          </div>
-
-          <div className="relative z-0 mx-auto mt-8 w-full sm:mt-10 md:mt-12 lg:mt-14">
-            <div className="relative mx-auto h-[200px] w-full max-w-sm overflow-hidden sm:max-w-md md:h-[240px] md:max-w-lg lg:h-[260px] lg:max-w-xl">
-              <div className="absolute left-1/2 top-0 h-[min(680px,80vh)] w-[min(90vw,360px)] -translate-x-1/2 sm:w-[min(88vw,400px)] md:w-[min(86vw,440px)] lg:w-[min(82vw,480px)]">
-                <Image
-                  src="/images/ban.png"
-                  alt=""
-                  fill
-                  className="object-contain object-top"
-                  sizes="(max-width: 768px) 360px, 480px"
-                  priority
-                />
-              </div>
             </div>
           </div>
         </div>

@@ -82,17 +82,18 @@ export const CLASS_TYPES: Option[] = [
     { id: 2, tag: "Physical" },
 ];
 
+/** `fee` = amount shown on enrollment summary & fee-acknowledgement (NGN) */
 export const ONLINE_COURSES: Option[] = [
-    { id: 1, tag: "Frontend Development", fee: 320000 },
-    { id: 2, tag: "Product UI/UX Design", fee: 170000 },
-    { id: 3, tag: "Graphics Design", fee: 150000 },
+    { id: 1, tag: "Frontend Development", fee: 100_000 },
+    { id: 2, tag: "Product UI/UX Design", fee: 50_000 },
+    { id: 3, tag: "Graphics Design", fee: 40_000 },
 ];
 
 export const PHYSICAL_COURSES: Option[] = [
-    { id: 1, tag: "Frontend Development" },
-    { id: 2, tag: "Full-Stack Development" },
-    { id: 3, tag: "Product UI/UX Design" },
-    { id: 4, tag: "Graphics Design" },
+    { id: 1, tag: "Frontend Development", fee: 420_000 },
+    { id: 2, tag: "Full-Stack Development", fee: 630_000 },
+    { id: 3, tag: "Product UI/UX Design", fee: 170_000 },
+    { id: 4, tag: "Graphics Design", fee: 150_000 },
 ];
 
 export const APPLICATION_DEADLINE = "2026-12-12";

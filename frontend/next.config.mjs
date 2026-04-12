@@ -7,11 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  env: {
-    NEXT_PUBLIC_API_BASE_URL:
-      process.env.NEXT_PUBLIC_API_BASE_URL ||
-      "https://dlt-backend.vercel.app/api/v1",
-  },
+ 
 
   trailingSlash: true,
 };

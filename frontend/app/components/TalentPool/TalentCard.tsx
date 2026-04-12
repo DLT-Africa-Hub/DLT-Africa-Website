@@ -34,8 +34,8 @@ const TalentCard: React.FC<TalentCardProps> = ({
     <div
       className={`${UI_CONFIG.CARD_HEIGHT.MOBILE} ${
         UI_CONFIG.CARD_HEIGHT.DESKTOP
-      } m-2 bg-white rounded-[10px] flex justify-end flex-col overflow-hidden relative transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer ${
-        isSelected ? "selected" : ""
+      } relative m-0 flex cursor-pointer flex-col justify-end overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-black/[0.06] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C7800] ${
+        isSelected ? "ring-2 ring-[#1C7800] ring-offset-2 ring-offset-[#F5F6F6]" : ""
       }`}
       onClick={() => onCardClick(talent)}
       onKeyDown={(e) => {
@@ -50,7 +50,7 @@ const TalentCard: React.FC<TalentCardProps> = ({
       aria-expanded={isSelected}
     >
       {isSelected ? (
-        <div className="h-full w-full detail-card px-[20px] sm:px-[40px] py-[20px] sm:py-[30px] flex flex-col items-center gap-[15px] border-orange-400">
+        <div className="detail-card flex h-full w-full flex-col items-center gap-4 px-5 py-6 sm:gap-5 sm:px-8 sm:py-8">
           <div className="w-full flex flex-col items-center gap-[10px]">
             <img
               loading="lazy"
@@ -58,16 +58,16 @@ const TalentCard: React.FC<TalentCardProps> = ({
               className="w-[80px] sm:w-[100px] md:w-[180px] h-[80px] sm:h-[100px] md:h-[180px] rounded-full"
               alt={`${talent.fullName} profile`}
             />
-            <p className="font-dmSerifDisplay font-medium text-[15px] md:text-[22px] text-[#3E493C]">
+            <p className="font-sfPro text-lg font-semibold text-[#1C1C1C] md:text-xl">
               {talent.fullName}
             </p>
-            <p className="font-poppins font-medium text-[14px] sm:text-[16px] text-[#343C33] text-center">
+            <p className="text-center font-poppins text-sm font-medium text-[#1C7800] sm:text-base">
               {capitalizeFirstLetter(talent.role)}
             </p>
           </div>
 
           <div className="w-full flex min-h-[50px] items-center justify-center">
-            <p className="description break-words text-center font-poppins font-light text-[12px] sm:text-[14px] text-[#60705C]">
+            <p className="description break-words text-center font-poppins text-xs font-light leading-relaxed text-[#1C1C1C]/75 sm:text-sm">
               {talent.description.length > UI_CONFIG.DESCRIPTION_MAX_LENGTH
                 ? `${talent.description.substring(
                     0,
@@ -78,7 +78,7 @@ const TalentCard: React.FC<TalentCardProps> = ({
           </div>
 
           <div
-            className="flex items-center justify-center gap-[7px]"
+            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
             role="group"
             aria-label={ACCESSIBILITY_CONFIG.ARIA_LABELS.TALENT_ACTIONS}
           >
@@ -86,8 +86,9 @@ const TalentCard: React.FC<TalentCardProps> = ({
               href={talent.uploadResume}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-[#C54809] border p-[10px] flex items-center justify-center rounded-[10px] text-[#C54809] font-poppins font-medium text-[14px] sm:text-[16px] hover:bg-[#FFF8ED] ease-in duration-300 active:bg-[#FFEFD4]"
+              className="rounded-lg border border-[#1C7800] bg-white px-3 py-2 font-poppins text-xs font-medium text-[#1C7800] transition hover:bg-[#1C7800] hover:text-white sm:text-sm"
               aria-label={`View ${talent.fullName}'s resume`}
+              onClick={(e) => e.stopPropagation()}
             >
               Resume
             </a>
@@ -96,15 +97,20 @@ const TalentCard: React.FC<TalentCardProps> = ({
               href={talent.gitHubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-[#C54809] border p-[10px] flex items-center justify-center rounded-[10px] text-[#C54809] font-poppins font-medium text-[14px] sm:text-[16px] hover:bg-[#FFF8ED] ease-in duration-300 active:bg-[#FFEFD4]"
+              className="rounded-lg border border-[#1C7800] bg-white px-3 py-2 font-poppins text-xs font-medium text-[#1C7800] transition hover:bg-[#1C7800] hover:text-white sm:text-sm"
               aria-label={`View ${talent.fullName}'s GitHub profile`}
+              onClick={(e) => e.stopPropagation()}
             >
               GitHub
             </a>
 
             <button
-              className="border-[#C54809] border p-[10px] rounded-[10px] text-[#C54809] font-poppins font-medium text-[14px] sm:text-[16px] hover:bg-[#FFF8ED] ease-in duration-300 active:bg-[#FFEFD4]"
-              onClick={() => onContactClick(talent)}
+              type="button"
+              className="rounded-lg border border-[#1C7800] bg-[#1C7800] px-3 py-2 font-poppins text-xs font-medium text-white transition hover:bg-[#155f00] sm:text-sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onContactClick(talent);
+              }}
               aria-label={`Contact ${talent.fullName}`}
             >
               Contact
@@ -112,19 +118,18 @@ const TalentCard: React.FC<TalentCardProps> = ({
           </div>
         </div>
       ) : (
-        <div>
+        <div className="relative h-full w-full">
           <img
             src={talent.bgImage}
-            alt={talent.fullName}
-            className="absolute inset-0 w-full h-full object-cover"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
-
-          <div className="p-4 relative z-10 bg-gradient-to-r from-white/30 to-white/10 backdrop-blur-lg backdrop-brightness-125">
-            <h2 className="font-medium md:text-[30px] sm:text-[28px] text-[#000] font-dmSerifDisplay">
+          <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 via-black/35 to-transparent px-4 pb-5 pt-20">
+            <h2 className="font-sfPro text-xl font-semibold text-white drop-shadow sm:text-2xl">
               {talent.fullName}
             </h2>
-            <p className="capitalize text-[14px] sm:text-[16px] font-poppins font-normal text-[#000]">
+            <p className="mt-1 capitalize font-poppins text-sm font-medium text-white/95 sm:text-base">
               {talent.role}
             </p>
           </div>

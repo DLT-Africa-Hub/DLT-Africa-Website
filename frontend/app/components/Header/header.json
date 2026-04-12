@@ -1,13 +1,36 @@
 {
   "logo": {
-    "src": "/images/ban.png",
+    "src": "/images/dlt-logo.png",
     "alt": "DLT Africa",
     "href": "/"
   },
   "nav": [
-    { "label": "Start Learning", "href": "/#" },
-    { "label": "About Us", "href": "/#" },
-    { "label": "Collaborate", "href": "/#" }
+    {
+      "label": "Start Learning",
+      "href": "/courses",
+      "items": [
+        { "label": "Full Stack Development", "href": "/fullstack" },
+        { "label": "Frontend Development", "href": "/frontend" },
+        { "label": "Product UI/UX Design", "href": "/product" },
+        { "label": "Graphics Design", "href": "/graphics-design" }
+      ]
+    },
+    {
+      "label": "About Us",
+      "href": "/",
+      "items": [
+        { "label": "About Us", "href": "/#" },
+        { "label": "Our Team", "href": "/team" }
+      ]
+    },
+    {
+      "label": "Collaborate",
+      "href": "/",
+      "items": [
+        { "label": "Dev Studio", "href": "https://dlthub.org" },
+        { "label": "Hire Talent", "href": "/talent-pool" }
+      ]
+    }
   ],
   "cta": [
     {

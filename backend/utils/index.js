@@ -118,19 +118,55 @@ const generateRandomToken = (length = 32) => {
 };
 
 /**
- * Creates and configures nodemailer transporter
- * @returns {Object} Nodemailer transporter
+ * Default "From" address. Use EMAIL_FROM for display name, e.g. "DLT <info@dlthub.org>".
+ */
+const getDefaultMailFrom = () =>
+  process.env.EMAIL_FROM ||
+  process.env.SMTP_USER ||
+  process.env.EMAIL_USER;
+
+/**
+ * Creates and configures nodemailer transporter.
+ *
+ * **Custom domain / cPanel / most hosts:** set `SMTP_HOST` (+ optional `SMTP_PORT`,
+ * `SMTP_SECURE`). Auth uses `SMTP_USER`/`SMTP_PASS` if set, else `EMAIL_USER`/`EMAIL_PASS`
+ * (the mailbox password from your host — not a Google App Password).
+ *
+ * **Gmail only (legacy):** omit `SMTP_HOST` and keep `EMAIL_USER`/`EMAIL_PASS` with a Google App Password.
  */
 const createEmailTransporter = () => {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    throw new Error("Email credentials not configured");
+  const authUser = process.env.EMAIL_USER;
+  const authPass = process.env.EMAIL_PASS;
+
+  if (!authUser || !authPass) {
+    throw new Error(
+      "Email credentials not configured (set EMAIL_USER/EMAIL_PASS and/or SMTP_USER/SMTP_PASS)"
+    );
+  }
+
+  if (process.env.SMTP_HOST) {
+    const port = Number(process.env.SMTP_PORT) || 587;
+    let secure = false;
+    if (process.env.SMTP_SECURE === "true") secure = true;
+    else if (process.env.SMTP_SECURE === "false") secure = false;
+    else if (port === 465) secure = true;
+
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure,
+      auth: {
+        user: authUser,
+        pass: authPass,
+      },
+    });
   }
 
   return nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.EMAIL_SERVICE || "gmail",
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: authUser,
+      pass: authPass,
     },
   });
 };
@@ -142,9 +178,10 @@ const sendEmail = async (mailOptions) => {
 
   try {
     const transporter = createEmailTransporter();
+    const fromAddress = mailOptions.from || getDefaultMailFrom();
     const result = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
       ...mailOptions,
+      from: fromAddress,
     });
 
     console.log("Email sent successfully to:", mailOptions.to);

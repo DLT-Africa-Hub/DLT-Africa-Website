@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-const DEFAULT_BASE_URL = "http://localhost:8000/api/v1";
-// const DEFAULT_BASE_URL = "https://dlt-backend.vercel.app/api/v1";
+const DEFAULT_BASE_URL = "https://dlt-backend.vercel.app/api/v1";
 
 /** Present on errors rejected by {@link apiClient} after the response interceptor runs. */
 export type ApiClientError = AxiosError & { apiMessage: string };

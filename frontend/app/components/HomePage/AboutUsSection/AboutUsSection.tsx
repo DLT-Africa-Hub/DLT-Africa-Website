@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 
+import { withBasePath } from "@/lib/basePath";
+
 import { FaqAccordion } from "@/app/components/FaqAccordion/FaqAccordion";
 
 import { ABOUT_OFFER_FAQ } from "./offerFaq";
@@ -31,7 +33,7 @@ const AboutUsSection: React.FC = () => {
           <div>
             <div className="relative h-[240px] w-full overflow-hidden rounded-[2rem] sm:h-[300px] md:h-[360px] lg:h-[440px] xl:h-[500px]">
               <Image
-                src="/images/aboutus.jpg"
+                src={withBasePath("/images/aboutus.jpg")}
                 alt="DLT Africa cohort collaborating at laptops"
                 fill
                 className="object-cover"

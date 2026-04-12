@@ -1,4 +1,8 @@
 import withMT from "@material-tailwind/react/utils/withMT";
+
+/** Same as `basePath` in next.config — used for `url()` in generated CSS. */
+const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH || "/bootcamp";
+
 /** @type {import('tailwindcss').Config} */
 
 module.exports = withMT({
@@ -31,8 +35,7 @@ module.exports = withMT({
         },
       },
       backgroundImage: {
-        "corper-bg":
-          "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/corperBg.png')",
+        "corper-bg": `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${ASSET_BASE}/images/corperBg.png')`,
         "hero-bg": "linear-gradient(96.95deg, #0F7A00 0%, #2E9E10 100%)",
       },
 

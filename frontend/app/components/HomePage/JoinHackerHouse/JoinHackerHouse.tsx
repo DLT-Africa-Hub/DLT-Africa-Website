@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { withBasePath } from "@/lib/basePath";
+
 const JoinHackerHouse: React.FC = () => {
   return (
     <div className="font-serif bg-[#f5f3f5]">
@@ -27,7 +29,7 @@ const JoinHackerHouse: React.FC = () => {
 
           <div className="w-full md:w-[490px] md:mb-8 mr-0 md:mr-12 mb-[50px]">
             <img
-              src="/images/Working.png"
+              src={withBasePath("/images/Working.png")}
               className="w-full h-auto"
               alt="Working at Hacker House"
               loading="lazy"

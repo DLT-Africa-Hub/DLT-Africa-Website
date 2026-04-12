@@ -2,6 +2,7 @@ import React from "react";
 import { PiHandCoins } from "react-icons/pi";
 import { TbWorld } from "react-icons/tb";
 import CourseOverviewSection from "../CourseOverview/CourseOverviewSection";
+import { withBasePath } from "@/lib/basePath";
 
 const GraphicDesignOverview: React.FC = () => {
     return (
@@ -22,7 +23,7 @@ const GraphicDesignOverview: React.FC = () => {
                     icon: <TbWorld className="h-5 w-5" />,
                 }
             ]}
-            imageSrc="/images/course-overview-one.jpg"
+            imageSrc={withBasePath("/images/course-overview-one.jpg")}
             imageAlt="Graphic design course overview"
         />
     );

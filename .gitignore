@@ -122,3 +122,6 @@ Thumbs.db
 # Build outputs
 build/
 dist/
+
+# Local FTP deploy notes / credentials (see deploy/ftp.env.example)
+deploy/ftp.env

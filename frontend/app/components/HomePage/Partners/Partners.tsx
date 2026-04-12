@@ -2,6 +2,8 @@
 
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 
+import { withBasePath } from "@/lib/basePath";
+
 interface PartnerItem {
   id: number;
   img: string;
@@ -9,12 +11,12 @@ interface PartnerItem {
 }
 
 const partnerItems: PartnerItem[] = [
-  { id: 1, img: "/images/canza.png", url: "https://canza.io" },
-  { id: 2, img: "/images/celo.png", url: "https://celo.org" },
-  { id: 3, img: "/images/lisk-black.png", url: "https://lisk.com" },
-  { id: 4, img: "/images/bitmama.png", url: "https://bitmama.io" },
-  { id: 5, img: "/images/cartesi.png", url: "https://cartesi.io" },
-  { id: 6, img: "/images/kotanipay.png", url: "https://kotanipay.com" },
+  { id: 1, img: withBasePath("/images/canza.png"), url: "https://canza.io" },
+  { id: 2, img: withBasePath("/images/celo.png"), url: "https://celo.org" },
+  { id: 3, img: withBasePath("/images/lisk-black.png"), url: "https://lisk.com" },
+  { id: 4, img: withBasePath("/images/bitmama.png"), url: "https://bitmama.io" },
+  { id: 5, img: withBasePath("/images/cartesi.png"), url: "https://cartesi.io" },
+  { id: 6, img: withBasePath("/images/kotanipay.png"), url: "https://kotanipay.com" },
 ];
 
 /** Pause between each nudge (ms). */

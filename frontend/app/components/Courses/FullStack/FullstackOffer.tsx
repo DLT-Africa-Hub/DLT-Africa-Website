@@ -1,4 +1,5 @@
 import CourseOfferSection from "../CourseOffer/CourseOfferSection";
+import { withBasePath } from "@/lib/basePath";
 
 const FullstackOffer: React.FC = () => {
     return (
@@ -6,7 +7,7 @@ const FullstackOffer: React.FC = () => {
             tag="About us"
             heading="What we offer?"
             description="With DLT Africa, top talents gain access to extensive training spanning through full-stack and smart contract development. Top projects receive all needed technical support in building their projects to allow them focus on the business side of the project through our exceptional in-house engineers."
-            imageSrc="/images/offer-image.jpg"
+            imageSrc={withBasePath("/images/offer-image.jpg")}
             imageAlt="Fullstack development offer"
             modules={[
                 {

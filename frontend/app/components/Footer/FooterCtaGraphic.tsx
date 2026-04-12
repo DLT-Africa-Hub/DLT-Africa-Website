@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { withBasePath } from "@/lib/basePath";
+
 /** Hidden below `md`; bottom-right bleed on larger viewports. */
 export default function FooterCtaGraphic() {
   return (
@@ -9,7 +11,7 @@ export default function FooterCtaGraphic() {
     >
       <div className="relative h-full min-h-[280px] w-full">
         <Image
-          src="/images/ban.png"
+          src={withBasePath("/images/ban.png")}
           alt=""
           fill
           sizes="(max-width: 1024px) 42vw, 440px"

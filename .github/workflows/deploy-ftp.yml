@@ -1,0 +1,50 @@
+# Deploy static frontend (Next.js export) to Namecheap via FTP/FTPS.
+# Required repo secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_SERVER_DIR
+# See deploy/ftp.env.example
+
+name: Deploy frontend (FTP)
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy-ftp.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ftp-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 🔨 Install and build (static export)
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: 📤 Upload to hosting (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Namecheap cPanel: "Use explicit FTP over TLS" → ftps (port 21)
+          protocol: ftps
+          security: loose
+          local-dir: ./frontend/out/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}

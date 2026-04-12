@@ -1,11 +1,12 @@
 import React from "react";
 import CourseOutlineSection from "../CourseOutline/CourseOutlineSection";
+import { withBasePath } from "@/lib/basePath";
 
 const ProductDesignOutline: React.FC = () => {
     return (
         <CourseOutlineSection
             title="Course Outline & Modules"
-            imageSrc="/images/course-overview-two.jpg"
+            imageSrc={withBasePath("/images/course-overview-two.jpg")}
             imageAlt="Product design course outline"
             modules={[
                 {

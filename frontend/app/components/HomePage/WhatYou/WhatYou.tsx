@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
+import { withBasePath } from "@/lib/basePath";
+
 interface DetailItem {
   id: number;
   img: string;
@@ -11,21 +13,21 @@ interface DetailItem {
 const getDetails: DetailItem[] = [
   {
     id: 1,
-    img: "/images/YouTube.png",
+    img: withBasePath("/images/YouTube.png"),
     name: "300 hours of extensive training",
     description:
       "Embark on a transformative journey with DLTAfrica's comprehensive Full-Stack  Curriculum, designed to empower aspiring developers and seasoned professionals alike. ",
   },
   {
     id: 2,
-    img: "/images/Vector.png",
+    img: withBasePath("/images/Vector.png"),
     name: "Guidance on setting up your own coding environment",
     description:
       "DLT Africa offers comprehensive technical support before, during and after product launch. We have the burden of building product away from non-technical founders to allow them focus on building the business!",
   },
   {
     id: 3,
-    img: "/images/BarChart.png",
+    img: withBasePath("/images/BarChart.png"),
     name: "A progress-oriented user interface and experience",
     description:
       "Our post product launch support includes regular implementation of user request and 24/7 dedicated developers support for all projects in our portfolio.",

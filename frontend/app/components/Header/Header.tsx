@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { FaChevronDown } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
+import { withBasePath } from "@/lib/basePath";
 import headerConfig from "./header.json";
 import HeaderLinkButton from "./HeaderLinkButton";
 import type { ButtonVariantName } from "@/app/constants/buttonStyles";
@@ -339,7 +340,7 @@ const Header: React.FC = () => {
           className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-90"
         >
           <Image
-            src={logo.src}
+            src={withBasePath(logo.src)}
             alt={logo.alt}
             width={120}
             height={36}

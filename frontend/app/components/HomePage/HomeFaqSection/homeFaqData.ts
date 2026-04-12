@@ -1,6 +1,8 @@
 import type { FaqAccordionItem } from "@/app/components/FaqAccordion/FaqAccordion";
 
-export const HOME_FAQ_IMAGE = "/images/lateefat.png";
+import { withBasePath } from "@/lib/basePath";
+
+export const HOME_FAQ_IMAGE = withBasePath("/images/lateefat.png");
 export const HOME_FAQ_IMAGE_ALT =
   "Placeholder: team member supporting learners online";
 

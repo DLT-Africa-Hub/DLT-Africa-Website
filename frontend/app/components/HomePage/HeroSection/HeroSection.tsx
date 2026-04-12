@@ -71,7 +71,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
 
             <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4">
               <Link
-                href="/bootcamp"
+                href="/application"
                 className={`${buttonVariants.neutral} w-full justify-center sm:w-auto sm:min-w-[160px]`}
               >
                 Enroll now

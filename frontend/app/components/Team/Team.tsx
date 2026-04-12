@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { BsLinkedin, BsTwitterX } from "react-icons/bs";
 
+import { withBasePath } from "@/lib/basePath";
+
 interface TeamMember {
   id: number;
   img: string;
@@ -52,7 +54,7 @@ const teamMembers: TeamMember[] = [
   // },
   {
     id: 4,
-    img: "/images/abdullah.jpeg",
+    img: withBasePath("/images/abdullah.jpeg"),
     name: "Abdullah Raji",
     role: "Software Developer",
     description:
@@ -62,7 +64,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: 5,
-    img: "/images/anate.jpeg",
+    img: withBasePath("/images/anate.jpeg"),
     name: "Aliyu Anate",
     role: "Software Developer",
     description:
@@ -72,7 +74,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: 6,
-    img: "/images/fawaz.jpeg",
+    img: withBasePath("/images/fawaz.jpeg"),
     name: "Fawaz Dada",
     role: "Graphic Designer",
     description:
@@ -82,7 +84,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: 7,
-    img: "/images/seyi.jpeg",
+    img: withBasePath("/images/seyi.jpeg"),
     name: "Oluwaseyi Abolaji",
     role: "Product Designer & Manager",
     description:

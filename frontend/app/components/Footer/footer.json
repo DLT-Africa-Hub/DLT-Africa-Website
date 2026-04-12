@@ -3,7 +3,7 @@
     "title": "Join Our Next Cohort",
     "subtitle": "Comprehensive tech stack for all your digital needs",
     "buttonLabel": "Enroll now",
-    "buttonHref": "/bootcamp"
+    "buttonHref": "/application"
   },
   "brand": {
     "logoSrc": "/images/dlt-logo.png",
@@ -20,7 +20,7 @@
   "quickLinks": [
     { "label": "About Us", "href": "/" },
     { "label": "Our Team", "href": "/team" },
-    { "label": "FAQs", "href": "/bootcamp" }
+    { "label": "FAQs", "href": "/" }
   ],
   "social": [
     {

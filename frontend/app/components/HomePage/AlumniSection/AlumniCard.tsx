@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 
+import { withBasePath } from "@/lib/basePath";
+
 import type { AlumniCardProps } from "./alumniCard.types";
 
 const themeShell: Record<AlumniCardProps["theme"], string> = {
@@ -22,7 +24,7 @@ const themeRoleMuted: Record<AlumniCardProps["theme"], string> = {
   green: "text-white/80",
 };
 
-const LOGO_SRC = "/images/ban.png";
+const LOGO_SRC = withBasePath("/images/ban.png");
 
 export function AlumniCard({
   name,

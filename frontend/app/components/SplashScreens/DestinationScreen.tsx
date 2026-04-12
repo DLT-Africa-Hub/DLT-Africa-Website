@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { withBasePath } from "@/lib/basePath";
 import { useState, useEffect } from "react";
 import {
   FaFacebook,
@@ -25,75 +27,75 @@ interface DestinationScreenProps {
 const dynamicContent: DynamicContent[] = [
   {
     id: 1,
-    image: "/splash/predemo.svg",
+    image: withBasePath("/splash/predemo.svg"),
     title: "Welcome to DLT HUB",
     description:
       "Cohorts having their pre-demo, so we filter out the best and rebuild on their ideas.",
   },
   {
     id: 2,
-    image: "/splash/live-training.svg",
+    image: withBasePath("/splash/live-training.svg"),
     title: "Welcome to DLT HUB",
     description:
       "Cohorts getting live training of our bootcamp from industries finest.",
   },
   {
     id: 3,
-    image: "/splash/morph.svg",
+    image: withBasePath("/splash/morph.svg"),
     title: "Welcome to DLT HUB",
     description:
       "DLT Community Live at the Morph Web3 event in Lagos, Nigeria.",
   },
   {
     id: 4,
-    image: "/splash/summer-crash.svg",
+    image: withBasePath("/splash/summer-crash.svg"),
     title: "Welcome to DLT HUB",
     description:
       "Live sessions from our free Summer Crash bootcamp, happening every Summer.",
   },
   {
     id: 5,
-    image: "/splash/akure.svg",
+    image: withBasePath("/splash/akure.svg"),
     title: "Welcome to DLT HUB",
     description:
       "DLT Team members at the Federal University of Akure (FUTA) Nigeria hosting a community event for our partner.",
   },
   {
     id: 6,
-    image: "/splash/crossfi-mainnet.svg",
+    image: withBasePath("/splash/crossfi-mainnet.svg"),
     title: "Welcome to DLT HUB",
     description:
       "DLT Team hosting Crossfi Mainnet Launch Party Live at our bootcamp.",
   },
   {
     id: 7,
-    image: "/splash/summer-winner.svg",
+    image: withBasePath("/splash/summer-winner.svg"),
     title: "Welcome to DLT HUB",
     description: "Winner from one of our Free Summer Crash Bootcamp.",
   },
   {
     id: 8,
-    image: "/splash/live-chat.svg",
+    image: withBasePath("/splash/live-chat.svg"),
     title: "Welcome to DLT HUB",
     description:
       "Live chat session with Sophia Dew DevRel Lead @Celo Foundation",
   },
   {
     id: 9,
-    image: "/splash/friday-games.svg",
+    image: withBasePath("/splash/friday-games.svg"),
     title: "Welcome to DLT HUB",
     description: "Friday Games at DLT Africa.",
   },
   {
     id: 10,
-    image: "/splash/lautech.svg",
+    image: withBasePath("/splash/lautech.svg"),
     title: "Welcome to DLT HUB",
     description:
       "DLT Team Live at Ladoke Akintola University of Technology (LAUTECH)",
   },
   {
     id: 11,
-    image: "/splash/friday-games2.svg",
+    image: withBasePath("/splash/friday-games2.svg"),
     title: "Welcome to DLT HUB",
     description: "Friday Games at DLT Africa.",
   },
@@ -289,7 +291,7 @@ export default function DestinationScreen({
 
         {/* Background Image */}
         <Image
-          src="/splash/splash-image.svg"
+          src={withBasePath("/splash/splash-image.svg")}
           alt="splash Image"
           width={100}
           height={100}

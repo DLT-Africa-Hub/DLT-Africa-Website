@@ -36,10 +36,18 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+          # Increase timeout for external requests
+          npm_config_fetch_timeout: 60000
+          npm_config_fetch_retry_mintimeout: 20000
+          npm_config_fetch_retry_maxtimeout: 120000
 
       - name: 📋 Build fingerprint (verify CI output changes)
         run: |
-          test -f frontend/out/index.html
+          test -f frontend/out/index.html || (echo "Build failed: index.html not found" && exit 1)
+          test -d frontend/out/_next || (echo "Build failed: _next directory not found" && exit 1)
+          echo "✅ Build verification passed"
           echo "out/index.html bytes: $(wc -c < frontend/out/index.html)"
           echo "git SHA: ${{ github.sha }}"
 

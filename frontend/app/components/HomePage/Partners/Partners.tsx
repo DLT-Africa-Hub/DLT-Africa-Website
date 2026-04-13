@@ -13,11 +13,31 @@ interface PartnerItem {
 const partnerItems: PartnerItem[] = [
   { id: 1, img: withBasePath("/images/canza.png"), url: "https://canza.io" },
   { id: 2, img: withBasePath("/images/celo.png"), url: "https://celo.org" },
-  { id: 3, img: withBasePath("/images/lisk-black.png"), url: "https://lisk.com" },
-  { id: 4, img: withBasePath("/images/bitmama.png"), url: "https://bitmama.io" },
-  { id: 5, img: withBasePath("/images/cartesi.png"), url: "https://cartesi.io" },
-  { id: 6, img: withBasePath("/images/kotanipay.png"), url: "https://kotanipay.com" },
-  { id: 7, img: withBasePath("/images/arbitrum.png"), url: "https://arbitrum.io" },
+  {
+    id: 3,
+    img: withBasePath("/images/lisk-black.png"),
+    url: "https://lisk.com",
+  },
+  {
+    id: 4,
+    img: withBasePath("/images/bitmama.png"),
+    url: "https://bitmama.io",
+  },
+  {
+    id: 5,
+    img: withBasePath("/images/cartesi.png"),
+    url: "https://cartesi.io",
+  },
+  {
+    id: 6,
+    img: withBasePath("/images/kotanipay.png"),
+    url: "https://kotanipay.com",
+  },
+  {
+    id: 7,
+    img: withBasePath("/images/arbitrum.png"),
+    url: "https://arbitrum.io",
+  },
 ];
 
 /** Pause between each nudge (ms). */
@@ -89,7 +109,7 @@ const Partners: React.FC = () => {
       if (cell?.offsetWidth) {
         stepRef.current = Math.max(
           28,
-          Math.min(72, Math.round(cell.offsetWidth * 0.5))
+          Math.min(72, Math.round(cell.offsetWidth * 0.5)),
         );
       }
     };

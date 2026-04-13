@@ -11,7 +11,9 @@ interface HeroSectionProps {
   className?: string;
 }
 
-export const HERO_SECTION_ILLUSTRATION = withBasePath("/images/hero-illustration.png");
+export const HERO_SECTION_ILLUSTRATION = withBasePath(
+  "/images/hero-illustration.png",
+);
 function HeroSparkles() {
   const spots = [
     "left-[8%] top-[12%] h-5 w-5 opacity-[0.22]",
@@ -43,7 +45,10 @@ function HeroSparkles() {
 
 function HeroIllustration() {
   return (
-    <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
+    <div
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      aria-hidden
+    >
       <div className="absolute -left-24 top-0 h-[300px] w-[360px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
         <Image
           src={HERO_SECTION_ILLUSTRATION}

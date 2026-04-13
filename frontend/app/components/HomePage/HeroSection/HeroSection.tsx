@@ -49,7 +49,7 @@ function HeroIllustration() {
       className="pointer-events-none absolute inset-0 hidden lg:block"
       aria-hidden
     >
-      <div className="absolute -left-24 top-0 h-[300px] w-[360px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
+      <div className="absolute -left-24 top-0 h-[300px] w-[400px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
         <Image
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
@@ -57,7 +57,7 @@ function HeroIllustration() {
           className="object-contain opacity-80"
         />
       </div>
-      <div className="absolute -right-20 bottom-4 h-[280px] w-[340px] xl:-right-24 xl:h-[320px] xl:w-[390px]">
+      <div className="absolute -right-20 bottom-4 h-[280px] w-[400px] xl:-right-24 xl:h-[320px] xl:w-[400px]">
         <Image
           src={HERO_SECTION_ILLUSTRATION}
           alt=""

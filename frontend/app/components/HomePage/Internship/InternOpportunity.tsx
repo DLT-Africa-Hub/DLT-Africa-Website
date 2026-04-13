@@ -28,7 +28,7 @@ const InternOpportunity: React.FC = () => {
       </div>
 
       <div className="w-full">
-        <div className="mx-auto w-full max-w-[760px]">
+        <div className="">
           <h2
             id="internship-opportunity-heading"
             className="text-left font-sfPro text-[32px] font-bold tracking-tight text-[#FAFAFA] sm:text-[38px] lg:text-[40px]"

@@ -18,9 +18,9 @@ export default function FooterCtaBanner({ cta }: Props) {
     normalizedPath.endsWith("/application");
   return (
     <div className="px-4 pb-4 pt-10 sm:px-6 lg:px-8">
-      <div className="w-full">
+      <div className="max-w-[1306px] mx-auto">
         <div
-          className="relative flex flex-col items-center justify-center gap-6 overflow-hidden rounded-[1.75rem] px-6 py-10 text-center shadow-lg sm:px-10 sm:py-12 md:min-h-[320px] md:flex-row md:items-center md:justify-between md:gap-6 md:px-10 md:py-12 md:text-left lg:min-h-[360px] lg:rounded-[2rem] lg:px-12 lg:py-12"
+          className="relative flex flex-col items-center justify-center gap-6 overflow-hidden rounded-[1.75rem] px-6 py-10 text-center shadow-lg sm:px-10 sm:py-12 md:min-h-[520px] md:flex-row md:items-center md:justify-between md:gap-6 md:px-10 md:py-12 md:text-left  lg:rounded-[2rem] lg:px-12 lg:py-12"
           style={{ background: FOOTER_CTA_BANNER_BACKGROUND }}
         >
           <div className="relative z-10 flex w-full max-w-xl flex-col items-center md:items-start md:flex-1">

@@ -95,8 +95,8 @@ export function CourseCard(props: CourseCardProps) {
   if (props.variant === "horizontal") {
     const compact = props.compactImage === true;
     const imageShell = compact
-      ? `relative mx-auto h-[200px] w-full max-w-[260px] shrink-0 ${imageFrame} sm:h-[210px] sm:max-w-[280px] lg:mx-0 lg:h-[220px] lg:w-[240px] lg:max-w-[240px] xl:w-[260px] xl:max-w-[260px]`
-      : `relative aspect-[16/10] w-full shrink-0 ${imageFrame} lg:aspect-auto lg:min-h-[280px] lg:w-full lg:flex-1`;
+      ? `relative mx-auto h-[230px] w-full max-w-[300px] shrink-0 ${imageFrame} sm:h-[250px] sm:max-w-[320px] lg:mx-0 lg:h-[280px] lg:w-[300px] lg:max-w-[300px] xl:w-[320px] xl:max-w-[320px]`
+      : `relative aspect-[16/10] w-full shrink-0 ${imageFrame} lg:aspect-auto lg:min-h-[290px] lg:w-full lg:flex-1`;
 
     const imageColumnClass = compact
       ? "w-full shrink-0 p-3 sm:p-4"
@@ -142,7 +142,7 @@ export function CourseCard(props: CourseCardProps) {
 
   return (
     <article
-      className={`${cardShell} ${clickableCardClass} h-full flex-col`}
+      className={`${cardShell} ${clickableCardClass} h-full min-h-[430px] flex-col sm:min-h-[460px]`}
       onClick={handleCardActivate}
       onKeyDown={handleCardKeyDown}
       role={courseHref ? "link" : undefined}
@@ -150,7 +150,7 @@ export function CourseCard(props: CourseCardProps) {
     >
       <div className="px-3 pt-3 sm:px-4 sm:pt-4">
         <div
-          className={`relative h-[148px] w-full shrink-0 sm:h-[168px] ${imageFrame}`}
+          className={`relative h-[230px] w-full shrink-0 sm:h-[265px] ${imageFrame}`}
         >
           <Image
             src={props.image}

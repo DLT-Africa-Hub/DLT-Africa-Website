@@ -27,7 +27,7 @@ const sectionData: SectionDataItem[] = [
     physicalPrice: "₦420,000",
     button1: "Enroll now",
     button2: "Speak with Us",
-    img: withBasePath("/images/full-stack-hero.png"),
+    img: withBasePath("/images/hm-fs.jpg"),
   },
 ];
 

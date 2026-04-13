@@ -16,7 +16,7 @@ const HomeFaqSection: React.FC = () => {
       className="bg-white px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
       aria-labelledby="home-faq-heading"
     >
-      <div className="mx-auto max-w-9xl">
+      <div className="w-full">
         <h2
           id="home-faq-heading"
           className="text-center font-sfPro text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"

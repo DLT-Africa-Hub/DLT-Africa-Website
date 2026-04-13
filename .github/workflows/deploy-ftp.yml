@@ -61,3 +61,5 @@ jobs:
           protocol: ftps
           security: loose
           local-dir: ./frontend/out/
+          dangerous-clean-slate: false
+          log-level: verbose

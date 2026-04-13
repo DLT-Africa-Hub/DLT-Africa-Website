@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 
 import { buttonVariants } from "@/app/constants/buttonStyles";
 import { withBasePath } from "@/lib/basePath";
+import Image from "next/image";
 
 interface HeroSectionProps {
   className?: string;
@@ -49,19 +50,19 @@ function HeroIllustration() {
       aria-hidden
     >
       <div className="absolute -left-24 top-0 h-[300px] w-[360px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
-        <img
+        <Image
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
-          className="h-full w-full object-contain opacity-80"
-          loading="lazy"
+          fill
+          className="object-contain opacity-80"
         />
       </div>
       <div className="absolute -right-20 bottom-4 h-[280px] w-[340px] xl:-right-24 xl:h-[320px] xl:w-[390px]">
-        <img
+        <Image
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
-          className="h-full w-full object-contain opacity-70"
-          loading="lazy"
+          fill
+          className="object-contain opacity-70"
         />
       </div>
     </div>

@@ -24,7 +24,7 @@ const themeRoleMuted: Record<AlumniCardProps["theme"], string> = {
   green: "text-white/80",
 };
 
-const LOGO_SRC = withBasePath("/images/ban.png");
+const LOGO_SRC = withBasePath("/images/coral.png");
 
 export function AlumniCard({
   name,
@@ -56,6 +56,15 @@ export function AlumniCard({
           <p className={`mt-0.5 font-poppins text-xs sm:text-sm ${themeRoleMuted[theme]}`}>
             {role}
           </p>
+        </div>
+        <div className="relative ml-auto h-8 w-8 shrink-0">
+          <Image
+            src={LOGO_SRC}
+            alt=""
+            fill
+            className={`object-contain ${logoNeedsInvert ? "brightness-0 invert" : ""}`}
+            sizes="32px"
+          />
         </div>
       </div>
       <p

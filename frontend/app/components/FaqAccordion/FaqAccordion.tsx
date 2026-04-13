@@ -9,18 +9,21 @@ export type FaqAccordionItem = {
 };
 
 export type FaqAccordionVariant = "default" | "pills";
+export type FaqAccordionTone = "light" | "dark";
 
 type FaqAccordionProps = {
   items: readonly FaqAccordionItem[];
   className?: string;
   /** `pills`: stacked rounded cards (home FAQ). `default`: underline list (About). */
   variant?: FaqAccordionVariant;
+  tone?: FaqAccordionTone;
 };
 
 export function FaqAccordion({
   items,
   className = "",
   variant = "default",
+  tone = "light",
 }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const instanceId = useId().replaceAll(":", "");
@@ -45,7 +48,9 @@ export function FaqAccordion({
             key={item.id}
             className={
               pills
-                ? "overflow-hidden rounded-2xl border border-[#E4E8EC] bg-white shadow-sm"
+                ? tone === "dark"
+                  ? "overflow-hidden rounded-full border border-[#6B2B16] bg-transparent"
+                  : "overflow-hidden rounded-2xl border border-[#E4E8EC] bg-white shadow-sm"
                 : "border-b border-[#E8ECF0] last:border-b-0"
             }
           >
@@ -54,7 +59,9 @@ export function FaqAccordion({
               id={headerId}
               className={
                 pills
-                  ? "flex w-full items-start gap-3 px-4 py-3.5 text-left font-sfPro text-sm font-semibold text-[#1C1C1C] transition-colors hover:text-[#083700] sm:px-5 sm:py-4 sm:text-base"
+                  ? tone === "dark"
+                    ? "flex w-full items-start gap-3 px-4 py-3.5 text-left font-sfPro text-sm font-semibold text-[#FAFAFA] transition-colors hover:text-white sm:px-5 sm:py-4 sm:text-base"
+                    : "flex w-full items-start gap-3 px-4 py-3.5 text-left font-sfPro text-sm font-semibold text-[#1C1C1C] transition-colors hover:text-[#083700] sm:px-5 sm:py-4 sm:text-base"
                   : "flex w-full items-start gap-3 py-4 text-left font-sfPro text-sm font-semibold text-[#1C1C1C] transition-colors hover:text-[#083700] sm:text-base"
               }
               aria-expanded={isOpen}
@@ -64,7 +71,9 @@ export function FaqAccordion({
               }
             >
               <span
-                className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center text-lg font-normal leading-none text-black transition-transform duration-300 ease-out motion-reduce:transition-none ${
+                className={`mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center text-lg font-normal leading-none ${
+                  pills && tone === "dark" ? "text-[#FAFAFA]" : "text-black"
+                } transition-transform duration-300 ease-out motion-reduce:transition-none ${
                   isOpen ? "rotate-45" : "rotate-0"
                 }`}
                 aria-hidden
@@ -85,7 +94,9 @@ export function FaqAccordion({
                 <p
                   className={
                     pills
-                      ? "px-4 pb-4 pl-11 pr-4 font-poppins text-sm font-normal leading-relaxed text-[#5C6670] sm:px-5 sm:pb-5 sm:pl-12 sm:text-base"
+                      ? tone === "dark"
+                        ? "px-4 pb-4 pl-11 pr-4 font-poppins text-sm font-normal leading-relaxed text-[#E8D7D2] sm:px-5 sm:pb-5 sm:pl-12 sm:text-base"
+                        : "px-4 pb-4 pl-11 pr-4 font-poppins text-sm font-normal leading-relaxed text-[#5C6670] sm:px-5 sm:pb-5 sm:pl-12 sm:text-base"
                       : "pb-4 pl-8 pr-1 font-poppins text-sm font-normal leading-relaxed text-[#5C6670] sm:text-base sm:pl-9"
                   }
                 >

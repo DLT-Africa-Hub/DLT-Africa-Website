@@ -25,7 +25,7 @@ const sectionData: SectionDataItem[] = [
     virtual: "Virtual",
     physical: "On-site",
     virtualPrice: "₦100,000",
-    physicalPrice: "₦640,000",
+    physicalPrice: "₦630,000",
     button1: "Enroll now",
     button2: "Speak with Us",
     img: withBasePath("/images/hm-fs.jpg"),

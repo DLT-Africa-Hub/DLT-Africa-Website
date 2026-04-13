@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { usePathname } from "next/navigation";
+
 import { buttonVariants } from "@/app/constants/buttonStyles";
 
 import FooterCtaGraphic from "./FooterCtaGraphic";
@@ -9,6 +11,11 @@ import type { FooterCta } from "./footer.types";
 type Props = { cta: FooterCta };
 
 export default function FooterCtaBanner({ cta }: Props) {
+  const pathname = usePathname();
+  const normalizedPath = pathname?.replace(/\/+$/, "") || "/";
+  const isApplicationPage =
+    normalizedPath === "/application" ||
+    normalizedPath.endsWith("/application");
   return (
     <div className="px-4 pb-4 pt-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -23,12 +30,14 @@ export default function FooterCtaBanner({ cta }: Props) {
             <p className="mt-3 max-w-md font-sfPro text-sm leading-relaxed text-white/90 sm:text-base lg:text-lg">
               {cta.subtitle}
             </p>
-            <Link
-              href={cta.buttonHref}
-              className={`${buttonVariants.softGreen} mx-auto mt-6 inline-flex font-semibold !text-[#1C7800] md:mx-0`}
-            >
-              {cta.buttonLabel}
-            </Link>
+            {!isApplicationPage && (
+              <Link
+                href={cta.buttonHref}
+                className={`${buttonVariants.softGreen} mx-auto mt-6 inline-flex font-semibold !text-[#1C7800] md:mx-0`}
+              >
+                {cta.buttonLabel}
+              </Link>
+            )}
           </div>
           <FooterCtaGraphic />
         </div>

@@ -160,6 +160,13 @@ const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [mobileOpenIndex, setMobileOpenIndex] = useState<number | null>(null);
   const drawerTitleId = useId();
+  const normalizedPath = pathname?.replace(/\/+$/, "") || "/";
+  const hideEnrollCta =
+    normalizedPath === "/application" ||
+    normalizedPath.endsWith("/application");
+  const visibleCta = cta.filter(
+    (item) => !(hideEnrollCta && item.href === "/application"),
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -310,7 +317,7 @@ const Header: React.FC = () => {
                   : "0ms",
               }}
             >
-              {cta.map((item, index) => (
+              {visibleCta.map((item, index) => (
                 <HeaderLinkButton
                   key={item.label + item.href}
                   intent="cta"
@@ -363,7 +370,7 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="hidden shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3 lg:flex">
-          {cta.map((item, index) => (
+          {visibleCta.map((item, index) => (
             <HeaderLinkButton
               key={item.label + item.href}
               intent="cta"

@@ -24,10 +24,10 @@ export default function RootLayout({
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>DLT Africa Official Website</title>
-          <meta name="description" content="DLT Africa Official Website" />
+          <title>DLT Africa Bootcamp Website</title>
+          <meta name="description" content="DLT Africa Bootcamp - Learn to code and build your future" />
 
-          <link rel="icon" href={withBasePath("/images/ban.png")} type="image/png" />
+          <link rel="icon" href={withBasePath("/images/dlt.png")} type="image/png" />
         </head>
         <body className={inter.className}>
           <ConditionalLayout>{children}</ConditionalLayout>

@@ -17,6 +17,7 @@ const partnerItems: PartnerItem[] = [
   { id: 4, img: withBasePath("/images/bitmama.png"), url: "https://bitmama.io" },
   { id: 5, img: withBasePath("/images/cartesi.png"), url: "https://cartesi.io" },
   { id: 6, img: withBasePath("/images/kotanipay.png"), url: "https://kotanipay.com" },
+  { id: 7, img: withBasePath("/images/arbitrum.png"), url: "https://arbitrum.io" },
 ];
 
 /** Pause between each nudge (ms). */

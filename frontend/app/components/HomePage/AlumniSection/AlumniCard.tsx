@@ -7,8 +7,8 @@ import { withBasePath } from "@/lib/basePath";
 import type { AlumniCardProps } from "./alumniCard.types";
 
 const themeShell: Record<AlumniCardProps["theme"], string> = {
-  coral: "bg-[#FFE8D6] text-[#1C1C1C]",
-  brown: "bg-[#4A3728] text-white",
+  coral: "bg-[#FFA751] text-[#1C1C1C]",
+  brown: "bg-[#441606] text-white",
   green: "bg-[#1C7800] text-white",
 };
 
@@ -63,15 +63,7 @@ export function AlumniCard({
       >
         {quote}
       </p>
-      {/* <div className="mt-6 flex justify-end">
-        <Image
-          src={LOGO_SRC}
-          alt="DLT Africa"
-          width={40}
-          height={40}
-          className={`h-9 w-auto object-contain opacity-90 sm:h-10 ${logoNeedsInvert ? "brightness-0 invert" : ""}`}
-        />
-      </div> */}
+     
     </article>
   );
 }

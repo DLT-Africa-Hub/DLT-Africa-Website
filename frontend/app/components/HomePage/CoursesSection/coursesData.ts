@@ -32,7 +32,7 @@ export const homeOnlineCourses: Extract<
     title: "Product Design",
     duration: "4 months",
     location: "Virtual",
-    price: "₦50,000",
+    price: "₦70,000",
     enrollHref: "/application",
   },
   {
@@ -61,6 +61,6 @@ export const homeOnsiteCourse: Extract<
     "Build end-to-end web applications with modern front-end frameworks, APIs, databases, and deployment—intensive onsite training at our bootcamp for deeper focus and mentorship.",
   duration: "6 months",
   location: "On-Site",
-  price: "₦640,000",
+  price: "₦630,000",
   enrollHref: "/application",
 };

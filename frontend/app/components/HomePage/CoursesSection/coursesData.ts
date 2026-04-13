@@ -22,6 +22,7 @@ export const homeOnlineCourses: Extract<
     duration: "4 months",
     location: "Virtual",
     price: "₦100,000",
+    courseHref: "/frontend",
     enrollHref: "/application",
   },
   {
@@ -33,6 +34,7 @@ export const homeOnlineCourses: Extract<
     duration: "4 months",
     location: "Virtual",
     price: "₦70,000",
+    courseHref: "/product",
     enrollHref: "/application",
   },
   {
@@ -44,6 +46,7 @@ export const homeOnlineCourses: Extract<
     duration: "4 months",
     location: "Virtual",
     price: "₦40,000",
+    courseHref: "/graphics-design",
     enrollHref: "/application",
   },
 ];
@@ -62,5 +65,6 @@ export const homeOnsiteCourse: Extract<
   duration: "6 months",
   location: "On-Site",
   price: "₦630,000",
+  courseHref: "/fullstack",
   enrollHref: "/application",
 };

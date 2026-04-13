@@ -5,7 +5,6 @@ import { forwardRef } from "react";
 
 import { buttonVariants } from "@/app/constants/buttonStyles";
 import { withBasePath } from "@/lib/basePath";
-import Image from "next/image";
 
 interface HeroSectionProps {
   className?: string;
@@ -50,19 +49,19 @@ function HeroIllustration() {
       aria-hidden
     >
       <div className="absolute -left-24 top-0 h-[300px] w-[360px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
-        <Image
+        <img
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
-          fill
-          className="object-contain opacity-80"
+          className="h-full w-full object-contain opacity-80"
+          loading="lazy"
         />
       </div>
       <div className="absolute -right-20 bottom-4 h-[280px] w-[340px] xl:-right-24 xl:h-[320px] xl:w-[390px]">
-        <Image
+        <img
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
-          fill
-          className="object-contain opacity-70"
+          className="h-full w-full object-contain opacity-70"
+          loading="lazy"
         />
       </div>
     </div>
@@ -77,7 +76,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
         className={`relative overflow-hidden ${className}`.trim()}
       >
         <div
-          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8 h-[550px]"
+          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8 h-[800px]"
           style={{
             background:
               "radial-gradient(ellipse 115% 75% at 50% -5%, rgba(239, 255, 226, 0.42) 0%, transparent 52%), linear-gradient(180deg, #FFFFFF 0%, #FAFDF9 22%, #F2FCE8 40%, #E2F5D4 58%, #D0ECC4 78%, #C2E2B6 100%)",
@@ -86,7 +85,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
           <HeroSparkles />
           <HeroIllustration />
 
-          <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+          <div className="relative z-10 mx-auto flex h-full max-w-3xl flex-col items-center justify-center text-center">
             <h1 className="font-sfPro text-[25px] font-bold leading-[1.2] tracking-tight text-[#083700] sm:text-4xl md:text-[48px] lg:text-[48px] lg:leading-[1.15]">
               Join our intensive{" "}
               <span className="font-dmSerifDisplay text-[48px] font-normal italic text-[#1C7800]">

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiMonitor } from "react-icons/fi";
 import { LuClock, LuMapPin } from "react-icons/lu";
 
@@ -71,7 +72,25 @@ function CourseFooter({
 }
 
 export function CourseCard(props: CourseCardProps) {
+  const router = useRouter();
+  const courseHref = props.courseHref;
   const enrollHref = props.enrollHref ?? "/courses";
+  const clickableCardClass = courseHref
+    ? "cursor-pointer transition-shadow hover:shadow-md"
+    : "";
+
+  const handleCardActivate = () => {
+    if (!courseHref) return;
+    router.push(courseHref);
+  };
+
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (!courseHref) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      router.push(courseHref);
+    }
+  };
 
   if (props.variant === "horizontal") {
     const compact = props.compactImage === true;
@@ -84,7 +103,13 @@ export function CourseCard(props: CourseCardProps) {
       : "flex w-full shrink-0 flex-col p-3 sm:p-4 lg:w-[min(46%,420px)] lg:min-h-0 lg:max-w-none lg:self-stretch lg:p-5";
 
     return (
-      <article className={`${cardShell} flex-col lg:flex-row lg:items-stretch`}>
+      <article
+        className={`${cardShell} ${clickableCardClass} flex-col lg:flex-row lg:items-stretch`}
+        onClick={handleCardActivate}
+        onKeyDown={handleCardKeyDown}
+        role={courseHref ? "link" : undefined}
+        tabIndex={courseHref ? 0 : undefined}
+      >
         <div className={imageColumnClass}>
           <div className={imageShell}>
             <Image
@@ -116,7 +141,13 @@ export function CourseCard(props: CourseCardProps) {
   }
 
   return (
-    <article className={`${cardShell} h-full flex-col`}>
+    <article
+      className={`${cardShell} ${clickableCardClass} h-full flex-col`}
+      onClick={handleCardActivate}
+      onKeyDown={handleCardKeyDown}
+      role={courseHref ? "link" : undefined}
+      tabIndex={courseHref ? 0 : undefined}
+    >
       <div className="px-3 pt-3 sm:px-4 sm:pt-4">
         <div
           className={`relative h-[148px] w-full shrink-0 sm:h-[168px] ${imageFrame}`}

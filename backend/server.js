@@ -33,7 +33,7 @@ const missingEnvVars = requiredEnvVars.filter((envVar) => !process.env[envVar]);
 if (missingEnvVars.length > 0) {
   console.error(
     "❌ Missing required environment variables:",
-    missingEnvVars.join(", ")
+    missingEnvVars.join(", "),
   );
   process.exit(1);
 }
@@ -60,7 +60,7 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
-  })
+  }),
 );
 
 // Compression middleware
@@ -114,6 +114,8 @@ const corsOptions = {
       "https://dltafrica.io",
       "https://www.dltafrica.io",
       "https://dltafrica.vercel.app",
+      "https://dlthub.org",
+      "https://www.dlthub.org/bootcamp/",
     ];
 
     // Allow requests with no origin (mobile apps, Postman, etc.)
@@ -198,7 +200,7 @@ app.use(
     } else if (req.path.endsWith(".png") || req.path.endsWith(".ico")) {
       res.setHeader(
         "Content-Type",
-        req.path.endsWith(".png") ? "image/png" : "image/x-icon"
+        req.path.endsWith(".png") ? "image/png" : "image/x-icon",
       );
     }
     next();
@@ -215,7 +217,7 @@ app.use(
       showExtensions: true,
       showCommonExtensions: true,
     },
-  })
+  }),
 );
 
 // Static files (moved after Swagger UI to avoid conflicts)

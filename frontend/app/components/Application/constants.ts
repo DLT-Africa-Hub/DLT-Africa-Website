@@ -85,7 +85,7 @@ export const CLASS_TYPES: Option[] = [
 /** `fee` = amount shown on enrollment summary & fee-acknowledgement (NGN) */
 export const ONLINE_COURSES: Option[] = [
     { id: 1, tag: "Frontend Development", fee: 100_000 },
-    { id: 2, tag: "Product UI/UX Design", fee: 50_000 },
+    { id: 2, tag: "Product UI/UX Design", fee: 70_000 },
     { id: 3, tag: "Graphics Design", fee: 40_000 },
 ];
 

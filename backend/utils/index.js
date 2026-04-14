@@ -6,45 +6,34 @@ const nodemailer = require("nodemailer");
 const COURSE_PRICING = {
   // Regular courses - Physical class pricing
   PHYSICAL: {
-    "Frontend Development": { basePrice: 420000, discount: 0.5 },
-    "Graphics Design": { basePrice: 150000, discount: 0.8 },
-    "Product UI/UX Design": { basePrice: 170000, discount: 0.5 },
-    "Full-Stack Development": { basePrice: 630000, discount: 0.5 },
-    "Backend Development": { basePrice: 450000, discount: 0.5 },
-    "Mobile Development": { basePrice: 500000, discount: 0.5 },
+    "Frontend Development": 420000,
+    "Full-Stack Development": 630000,
+    "Product UI/UX Design": 170000,
+    "Graphics Design": 150000,
   },
-  // Regular courses - Online class pricing
-  ONLINE: {
-    "Frontend Development": { basePrice: 370000, discount: 0.5 },
-    "Graphics Design": { basePrice: 150000, discount: 0.8 },
-    "Product UI/UX Design": { basePrice: 170000, discount: 0.5 },
-    "Blockchain Development": { basePrice: 0, discount: 0 },
-    "Backend Development": { basePrice: 400000, discount: 0.5 },
-    "Mobile Development": { basePrice: 450000, discount: 0.5 },
+  // Regular courses - Virtual class pricing
+  VIRTUAL: {
+    "Frontend Development": 100000,
+    "Product UI/UX Design": 70000,
+    "Graphics Design": 40000,
   },
   // Corpers courses
   CORPERS: {
-    "Web Start Essential": 70000,
-    "Product UI/UX Design": 70000,
-    "Code Master Intermediate": 150000,
-    "Frontend Fundamentals": 70000,
-    "Backend Fundamentals": 70000,
+    "Web Start Essentials": 70000,
+    "CodeMaster Intermediate": 150000,
+    "Product Management": 70000,
   },
 };
 
-const VALID_CLASS_TYPES = ["Physical", "Virtual", "Online", "Hybrid"];
+const VALID_CLASS_TYPES = ["Physical", "Virtual"];
 const VALID_COURSES = [
   "Frontend Development",
   "Graphics Design",
   "Product UI/UX Design",
   "Full-Stack Development",
-  "Backend Development",
-  "Mobile Development",
-  "Blockchain Development",
-  "Web Start Essential",
-  "Code Master Intermediate",
-  "Frontend Fundamentals",
-  "Backend Fundamentals",
+  "Web Start Essentials",
+  "CodeMaster Intermediate",
+  "Product Management",
 ];
 
 /**
@@ -145,7 +134,7 @@ const createEmailTransporter = () => {
   }
 
   if (process.env.SMTP_HOST) {
-    const port = Number(process.env.SMTP_PORT) || 587;
+    const port = Number(process.env.EMAIL_PORT) || 587;
     let secure = false;
     if (process.env.SMTP_SECURE === "true") secure = true;
     else if (process.env.SMTP_SECURE === "false") secure = false;
@@ -259,7 +248,7 @@ const validateCourseInputs = (courseSelected, classType) => {
 /**
  * Calculates tuition fee for regular courses
  * @param {string} courseSelected - Selected course
- * @param {string} classType - Class type (Physical, Virtual, Online, Hybrid)
+ * @param {string} classType - Class type (Physical, Virtual)
  * @returns {number} Calculated tuition fee
  */
 const calculateTuitionFee = (courseSelected, classType) => {
@@ -267,11 +256,11 @@ const calculateTuitionFee = (courseSelected, classType) => {
 
   let pricingConfig;
 
-  // Map class types to pricing configurations
+  // Map class types to frontend pricing configurations
   if (classType === "Physical") {
     pricingConfig = COURSE_PRICING.PHYSICAL;
-  } else if (["Virtual", "Online", "Hybrid"].includes(classType)) {
-    pricingConfig = COURSE_PRICING.ONLINE;
+  } else if (classType === "Virtual") {
+    pricingConfig = COURSE_PRICING.VIRTUAL;
   } else {
     throw new Error(`Unsupported class type: ${classType}`);
   }
@@ -285,8 +274,7 @@ const calculateTuitionFee = (courseSelected, classType) => {
     return 0;
   }
 
-  const { basePrice, discount } = coursePricing;
-  return Math.round(basePrice * discount);
+  return coursePricing;
 };
 
 /**
@@ -323,8 +311,8 @@ const getAvailableCourses = (classType) => {
 
   if (classType === "Physical") {
     return Object.keys(COURSE_PRICING.PHYSICAL);
-  } else if (["Virtual", "Online", "Hybrid"].includes(classType)) {
-    return Object.keys(COURSE_PRICING.ONLINE);
+  } else if (classType === "Virtual") {
+    return Object.keys(COURSE_PRICING.VIRTUAL);
   }
 
   return [];

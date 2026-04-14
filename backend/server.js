@@ -115,7 +115,7 @@ const corsOptions = {
       "https://www.dltafrica.io",
       "https://dltafrica.vercel.app",
       "https://dlthub.org",
-      "https://www.dlthub.org/bootcamp/",
+      "https://www.dlthub.org",
     ];
 
     // Allow requests with no origin (mobile apps, Postman, etc.)

@@ -6,7 +6,7 @@
     "buttonHref": "/application"
   },
   "brand": {
-    "logoSrc": "/images/dlt-logo.png",
+    "logoSrc": "/images/footer-brand.png",
     "logoAlt": "DLT Africa",
     "logoHref": "/",
     "tagline": "Innovating through technology"
@@ -15,7 +15,7 @@
     "address": "2, Sheikh Zakariyah Adebayo Yusuf Street, PEGAMUT, 102112, Ota, Ogun State",
     "phone": "(234) 815 650 9701",
     "phoneRaw": "+2348156509701",
-    "email": "info@dltafrica.io"
+    "email": "info@dlthub.org"
   },
   "quickLinks": [
     { "label": "About Us", "href": "/" },
@@ -40,12 +40,12 @@
     },
     {
       "label": "Twitter",
-      "href": "https://twitter.com/dlt_africa",
+      "href": "https://x.com/dlt_africa",
       "icon": "twitter"
     },
     {
       "label": "GitHub",
-      "href": "https://github.com/DLT-Africa",
+      "href": "https://github.com/DLT-Africa-Hub/DLT-Africa-Website",
       "icon": "github"
     }
   ]

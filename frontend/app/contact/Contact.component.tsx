@@ -85,7 +85,7 @@ function ContactRowBlock({ row }: { row: ContactRow }) {
 
 export default function ContactComponent() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+    <div className="w-full px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
       <div className="grid items-start gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-12 xl:gap-16">
         <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl bg-[#F0F2F4] lg:mx-0 lg:max-w-none lg:min-h-[min(100%,520px)] lg:aspect-auto">
           <Image

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiMonitor } from "react-icons/fi";
 import { LuClock, LuMapPin } from "react-icons/lu";
 
@@ -71,20 +72,44 @@ function CourseFooter({
 }
 
 export function CourseCard(props: CourseCardProps) {
+  const router = useRouter();
+  const courseHref = props.courseHref;
   const enrollHref = props.enrollHref ?? "/courses";
+  const clickableCardClass = courseHref
+    ? "cursor-pointer transition-shadow hover:shadow-md"
+    : "";
+
+  const handleCardActivate = () => {
+    if (!courseHref) return;
+    router.push(courseHref);
+  };
+
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (!courseHref) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      router.push(courseHref);
+    }
+  };
 
   if (props.variant === "horizontal") {
     const compact = props.compactImage === true;
     const imageShell = compact
-      ? `relative mx-auto h-[200px] w-full max-w-[260px] shrink-0 ${imageFrame} sm:h-[210px] sm:max-w-[280px] lg:mx-0 lg:h-[220px] lg:w-[240px] lg:max-w-[240px] xl:w-[260px] xl:max-w-[260px]`
-      : `relative aspect-[16/10] w-full shrink-0 ${imageFrame} lg:aspect-auto lg:min-h-[280px] lg:w-full lg:flex-1`;
+      ? `relative mx-auto h-[230px] w-full max-w-[300px] shrink-0 ${imageFrame} sm:h-[250px] sm:max-w-[320px] lg:mx-0 lg:h-[280px] lg:w-[300px] lg:max-w-[300px] xl:w-[320px] xl:max-w-[320px]`
+      : `relative aspect-[16/10] w-full shrink-0 ${imageFrame} lg:aspect-auto lg:min-h-[290px] lg:w-full lg:flex-1`;
 
     const imageColumnClass = compact
       ? "w-full shrink-0 p-3 sm:p-4"
       : "flex w-full shrink-0 flex-col p-3 sm:p-4 lg:w-[min(46%,420px)] lg:min-h-0 lg:max-w-none lg:self-stretch lg:p-5";
 
     return (
-      <article className={`${cardShell} flex-col lg:flex-row lg:items-stretch`}>
+      <article
+        className={`${cardShell} ${clickableCardClass} flex-col lg:flex-row lg:items-stretch`}
+        onClick={handleCardActivate}
+        onKeyDown={handleCardKeyDown}
+        role={courseHref ? "link" : undefined}
+        tabIndex={courseHref ? 0 : undefined}
+      >
         <div className={imageColumnClass}>
           <div className={imageShell}>
             <Image
@@ -116,10 +141,16 @@ export function CourseCard(props: CourseCardProps) {
   }
 
   return (
-    <article className={`${cardShell} h-full flex-col`}>
+    <article
+      className={`${cardShell} ${clickableCardClass} h-full min-h-[430px] flex-col sm:min-h-[460px]`}
+      onClick={handleCardActivate}
+      onKeyDown={handleCardKeyDown}
+      role={courseHref ? "link" : undefined}
+      tabIndex={courseHref ? 0 : undefined}
+    >
       <div className="px-3 pt-3 sm:px-4 sm:pt-4">
         <div
-          className={`relative h-[148px] w-full shrink-0 sm:h-[168px] ${imageFrame}`}
+          className={`relative h-[230px] w-full shrink-0 sm:h-[265px] ${imageFrame}`}
         >
           <Image
             src={props.image}

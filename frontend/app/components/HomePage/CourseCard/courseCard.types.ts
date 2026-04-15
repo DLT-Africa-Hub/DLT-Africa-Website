@@ -8,6 +8,8 @@ type CourseCardShared = {
   duration: string;
   location: string;
   price: string;
+  /** Route opened when the card surface is clicked. */
+  courseHref?: string;
   /** Defaults to `/courses` when omitted. */
   enrollHref?: string;
 };

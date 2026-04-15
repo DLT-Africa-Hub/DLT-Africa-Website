@@ -7,6 +7,7 @@ import HeroSection from "./HeroSection/HeroSection";
 import HomeFaqSection from "./HomeFaqSection/HomeFaqSection";
 import JourneySection from "./JourneySection/JourneySection";
 import Partners from "./Partners/Partners";
+import InternOpportunity from "./Internship/InternOpportunity";
 
 const IndexHome: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const IndexHome: React.FC = () => {
       <JourneySection />
       <HomeFaqSection />
       <AlumniSection />
+      <InternOpportunity />
     </div>
   );
 };

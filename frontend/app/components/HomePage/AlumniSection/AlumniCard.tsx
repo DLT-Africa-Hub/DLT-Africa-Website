@@ -7,8 +7,8 @@ import { withBasePath } from "@/lib/basePath";
 import type { AlumniCardProps } from "./alumniCard.types";
 
 const themeShell: Record<AlumniCardProps["theme"], string> = {
-  coral: "bg-[#FFE8D6] text-[#1C1C1C]",
-  brown: "bg-[#4A3728] text-white",
+  coral: "bg-[#FFA751] text-[#1C1C1C]",
+  brown: "bg-[#441606] text-white",
   green: "bg-[#1C7800] text-white",
 };
 
@@ -24,7 +24,7 @@ const themeRoleMuted: Record<AlumniCardProps["theme"], string> = {
   green: "text-white/80",
 };
 
-const LOGO_SRC = withBasePath("/images/ban.png");
+const LOGO_SRC = withBasePath("/images/coral.png");
 
 export function AlumniCard({
   name,
@@ -57,21 +57,22 @@ export function AlumniCard({
             {role}
           </p>
         </div>
+        <div className="relative ml-auto h-8 w-8 shrink-0">
+          <Image
+            src={LOGO_SRC}
+            alt=""
+            fill
+            className={`object-contain ${logoNeedsInvert ? "brightness-0 invert" : ""}`}
+            sizes="32px"
+          />
+        </div>
       </div>
       <p
         className={`mt-4 font-poppins text-sm leading-relaxed sm:text-[15px] ${themeQuoteMuted[theme]}`}
       >
         {quote}
       </p>
-      {/* <div className="mt-6 flex justify-end">
-        <Image
-          src={LOGO_SRC}
-          alt="DLT Africa"
-          width={40}
-          height={40}
-          className={`h-9 w-auto object-contain opacity-90 sm:h-10 ${logoNeedsInvert ? "brightness-0 invert" : ""}`}
-        />
-      </div> */}
+     
     </article>
   );
 }

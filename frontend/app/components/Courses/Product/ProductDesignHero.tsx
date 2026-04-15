@@ -24,11 +24,11 @@ const sectionData: SectionDataItem[] = [
       "Step into our immersive program to master the principles of product design. Learn UX/UI, prototyping, user research, and design thinking. Dive into real-world projects to create impactful designs.",
     virtual: "Virtual",
     physical: "On-site",
-    virtualPrice: "₦40,000",
-    physicalPrice: "₦150,000",
+    virtualPrice: "₦70,000",
+    physicalPrice: "₦170,000",
     button1: "Enroll now",
     button2: "Speak with Us",
-    img: withBasePath("/images/full-stack-hero.png"),
+    img: withBasePath("/images/home-pd.jpg"),
   },
 ];
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
-import { LuLaptop, LuPhoneForwarded, LuX } from "react-icons/lu";
+import { LuLaptop, LuMessageCircle, LuPhoneForwarded, LuX } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
 import Link from "next/link";
@@ -38,6 +38,7 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
 
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const { phone, phoneRaw, email } = footerConfig.contact;
+  const whatsappNumber = phoneRaw.replace(/\D/g, "");
 
   const hasPricingData = Boolean(
     props.virtual ||
@@ -191,6 +192,20 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
               Contact us
             </h2>
             <ul className="mt-4 space-y-3 font-sfPro text-sm md:text-base">
+              <li className="flex items-start gap-2">
+                <LuMessageCircle
+                  className="mt-0.5 h-5 w-5 shrink-0 text-[#1B7700]"
+                  aria-hidden
+                />
+                <a
+                  href={`https://wa.me/${whatsappNumber}`}
+                  className="text-[#1B7700] underline-offset-2 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {phone}
+                </a>
+              </li>
               <li className="flex items-start gap-2">
                 <LuPhoneForwarded
                   className="mt-0.5 h-5 w-5 shrink-0 text-[#1B7700]"

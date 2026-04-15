@@ -11,7 +11,7 @@ const CoursesSection: React.FC = () => {
       className="scroll-mt-24 bg-white px-4 py-16 sm:px-6 sm:py-20 sm:scroll-mt-28 lg:px-8 lg:py-24"
       aria-labelledby="home-courses-online-heading"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="w-full">
         <div>
           <h2
             id="home-courses-online-heading"

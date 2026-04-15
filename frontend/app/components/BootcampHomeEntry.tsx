@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamicImport from "next/dynamic";
+import CookieConsentDrawer from "@/app/components/CookieConsent/CookieConsentDrawer";
 
 const Loader = dynamicImport(() => import("./Loader/Loader"), {
   ssr: false,
@@ -94,15 +95,11 @@ export default function BootcampHomeEntry() {
     return () => clearTimeout(t);
   }, []);
 
-  // if (!mounted) return <Loader />;
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-white">
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
-
-  return <IndexHome />;
+  return (
+    <>
+      <IndexHome />
+      <CookieConsentDrawer />
+    </>
+  );
 }

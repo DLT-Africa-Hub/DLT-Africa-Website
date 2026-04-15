@@ -33,10 +33,8 @@ const sectionData: SectionDataItem[] = [
 
 const FrontendHero: React.FC = () => {
   return (
-    <section
-      className="course bg-hero-bg"
-      id="course"
-    >
+    <section className="course bg-hero-bg relative overflow-hidden" id="course">
+      <div className="absolute top-[500px]  blur-[300px]  w-[1832px] h-[1832px] rounded-full bg-[#89FF44] opacity-50" />
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />

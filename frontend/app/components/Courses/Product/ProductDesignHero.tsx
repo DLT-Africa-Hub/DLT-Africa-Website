@@ -34,7 +34,8 @@ const sectionData: SectionDataItem[] = [
 
 const ProductDesignHero: React.FC = () => {
   return (
-    <section className="course bg-[#FFA751]" id="course">
+    <section className="course relative overflow-hidden bg-[#000000]" id="course">
+      <div className="absolute top-[578px]  blur-[300px]  w-[1832px] h-[1832px] rounded-full bg-[#89FF44] opacity-30" />
       <div>
         {sectionData.map(({ id, ...rest }) => (
           <CourseSection key={id} {...rest} showCheckbox={true} />

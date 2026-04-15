@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="840" viewBox="0 0 640 840" role="img" aria-label="Journey image placeholder">
+  <rect width="100%" height="100%" fill="#0f3d0a"/>
+  <rect x="40" y="40" width="560" height="760" rx="28" fill="#164f10"/>
+  <text x="320" y="420" text-anchor="middle" fill="#6BBF59" font-family="system-ui,sans-serif" font-size="20">Journey image</text>
+</svg>

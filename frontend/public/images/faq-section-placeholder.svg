@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="720" viewBox="0 0 640 720" role="img" aria-label="FAQ section image placeholder">
+  <rect width="100%" height="100%" fill="#F4F6F8"/>
+  <rect x="32" y="32" width="576" height="656" rx="28" fill="#E8ECF0"/>
+  <text x="320" y="360" text-anchor="middle" fill="#94A3B8" font-family="system-ui,sans-serif" font-size="18">FAQ image</text>
+</svg>

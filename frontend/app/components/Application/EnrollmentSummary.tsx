@@ -46,12 +46,6 @@ export default function EnrollmentSummary({
               {modeLabel}
             </span>
           </dt>
-          <dt className="font-sfPro text-xs font-semibold text-[#083700] flex justify-between items-center">
-            Payment plan:
-            <span className="font-poppins text-sm text-[#252A24]">
-              Full payment
-            </span>
-          </dt>
         </dl>
 
         <div className="mt-6 rounded-xl bg-[#E8E8E8] px-4 py-4">

@@ -40,6 +40,83 @@ export default function EnrollmentFormFields({
 
   return (
     <div className="space-y-8">
+      <div className="border-t border-[#EEF1F4] pt-8">
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="firstName" className={labelClass}>
+              First name
+            </label>
+            <input
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={onInputChange}
+              className={inputClass}
+              placeholder="First name"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName" className={labelClass}>
+              Last name
+            </label>
+            <input
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={onInputChange}
+              className={inputClass}
+              placeholder="Last name"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="dob" className={labelClass}>
+              Date of birth
+            </label>
+            <input
+              id="dob"
+              name="dob"
+              type="date"
+              value={formData.dob}
+              onChange={onInputChange}
+              className={inputClass}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="phoneNo" className={labelClass}>
+              Phone number <span className="font-normal">(WhatsApp preferably)</span>
+            </label>
+            <input
+              id="phoneNo"
+              name="phoneNo"
+              type="tel"
+              value={formData.phoneNo}
+              onChange={onInputChange}
+              className={inputClass}
+              placeholder="+234…"
+              required
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="emailAddress" className={labelClass}>
+              Email address
+            </label>
+            <input
+              id="emailAddress"
+              name="emailAddress"
+              type="email"
+              value={formData.emailAddress}
+              onChange={onInputChange}
+              className={inputClass}
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="stateOfOrigin" className={labelClass}>
@@ -177,86 +254,6 @@ export default function EnrollmentFormFields({
               </option>
             ))}
           </select>
-        </div>
-      </div>
-
-      <div className="border-t border-[#EEF1F4] pt-8">
-        <h3 className="font-sfPro text-base font-semibold text-[#083700]">
-          Your details
-        </h3>
-        <div className="mt-4 grid gap-5 sm:grid-cols-2">
-          <div>
-            <label htmlFor="firstName" className={labelClass}>
-              First name
-            </label>
-            <input
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={onInputChange}
-              className={inputClass}
-              placeholder="First name"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName" className={labelClass}>
-              Last name
-            </label>
-            <input
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={onInputChange}
-              className={inputClass}
-              placeholder="Last name"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="dob" className={labelClass}>
-              Date of birth
-            </label>
-            <input
-              id="dob"
-              name="dob"
-              type="date"
-              value={formData.dob}
-              onChange={onInputChange}
-              className={inputClass}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="phoneNo" className={labelClass}>
-              Phone number
-            </label>
-            <input
-              id="phoneNo"
-              name="phoneNo"
-              type="tel"
-              value={formData.phoneNo}
-              onChange={onInputChange}
-              className={inputClass}
-              placeholder="+234…"
-              required
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="emailAddress" className={labelClass}>
-              Email address
-            </label>
-            <input
-              id="emailAddress"
-              name="emailAddress"
-              type="email"
-              value={formData.emailAddress}
-              onChange={onInputChange}
-              className={inputClass}
-              placeholder="you@example.com"
-              required
-            />
-          </div>
         </div>
       </div>
     </div>

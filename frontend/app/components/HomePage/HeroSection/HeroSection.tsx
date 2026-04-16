@@ -26,7 +26,7 @@ function HeroSparkles() {
   ];
   return (
     <div
-      className="pointer-events-none absolute inset-x-0 top-0 h-[55%] overflow-hidden"
+      className=" pointer-events-none absolute inset-x-0 top-0 h-[55%] overflow-hidden"
       aria-hidden
     >
       {spots.map((cls, i) => (
@@ -49,12 +49,12 @@ function HeroIllustration() {
       className="pointer-events-none absolute inset-0 hidden lg:block"
       aria-hidden
     >
-      <div className="absolute -left-24 top-0 h-[300px] w-[400px] xl:-left-28 xl:h-[340px] xl:w-[420px]">
+      <div className="absolute -left-24 top-0 h-[300px] w-[400px] xl:-left-[50px] xl:top-[78px] xl:h-[320px] xl:w-[400px]">
         <Image
           src={HERO_SECTION_ILLUSTRATION}
           alt=""
           fill
-          className="object-contain opacity-80"
+          className=" xl:h-[676px] xl:w-[413px] opacity-70"
         />
       </div>
       <div className="absolute -right-20 bottom-4 h-[280px] w-[400px] xl:-right-24 xl:h-[320px] xl:w-[400px]">
@@ -74,17 +74,12 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(
     return (
       <section
         ref={ref}
-        className={`relative overflow-hidden ${className}`.trim()}
+        className={`relative h-[80vh] overflow-hidden ${className}`.trim()}
       >
-        <div
-          className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8 h-[800px]"
-          style={{
-            background:
-              "radial-gradient(ellipse 115% 75% at 50% -5%, rgba(239, 255, 226, 0.42) 0%, transparent 52%), linear-gradient(180deg, #FFFFFF 0%, #FAFDF9 22%, #F2FCE8 40%, #E2F5D4 58%, #D0ECC4 78%, #C2E2B6 100%)",
-          }}
-        >
+        <div className="relative px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-16 md:pb-0 md:pt-20 lg:px-8 h-[800px]">
           <HeroSparkles />
           <HeroIllustration />
+          <div className="absolute top-[500px]  blur-[300px]  w-[1832px] h-[1832px] rounded-full bg-[#89FF44] opacity-40" />
 
           <div className="relative z-10 mx-auto flex h-full max-w-3xl flex-col items-center justify-center text-center">
             <h1 className="font-sfPro text-[25px] font-bold leading-[1.2] tracking-tight text-[#083700] sm:text-4xl md:text-[48px] lg:text-[48px] lg:leading-[1.15]">

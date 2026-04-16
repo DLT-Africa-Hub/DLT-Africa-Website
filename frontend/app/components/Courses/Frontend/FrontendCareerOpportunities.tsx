@@ -1,7 +1,7 @@
 import React from "react";
 import {
   LuComponent,
-  LuGlobe2,
+  LuGlobe,
   LuLayers,
   LuMonitor,
   LuPalette,
@@ -32,7 +32,7 @@ const FrontendCareerOpportunities: React.FC = () => {
         {
           id: 4,
           title: "Web Developer",
-          icon: <LuGlobe2 className="h-5 w-5" />,
+          icon: <LuGlobe className="h-5 w-5" />,
         },
         {
           id: 5,

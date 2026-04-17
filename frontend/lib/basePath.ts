@@ -9,3 +9,10 @@ export function withBasePath(path: string): string {
   if (!BASE_PATH) return path;
   return `${BASE_PATH}${path}`;
 }
+
+/** True when `pathname` from `usePathname()` is the app root (respects `basePath`). */
+export function isHomePathname(pathname: string): boolean {
+  const p = pathname.replace(/\/+$/, "") || "/";
+  const home = (BASE_PATH || "/").replace(/\/+$/, "") || "/";
+  return p === home;
+}

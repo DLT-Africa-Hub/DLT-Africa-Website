@@ -56,7 +56,7 @@ const teamMembers: TeamMember[] = [
     id: 4,
     img: withBasePath("/images/abdullah.jpeg"),
     name: "Abdullah Raji",
-    role: "Software Developer",
+    role: "Data and Infra Engineer",
     description:
       "With a passion for coding, I dedicate my expertise to shaping innovative solutions in technology.",
     linkedinLink: "https://www.linkedin.com/in/alameer98",
@@ -66,7 +66,7 @@ const teamMembers: TeamMember[] = [
     id: 5,
     img: withBasePath("/images/anate.jpeg"),
     name: "Aliyu Anate",
-    role: "Software Developer",
+    role: "Full Stack Developer",
     description:
       "Creative software engineer blending innovation with hard work and humor for impactful solutions.",
     linkedinLink: "https://www.linkedin.com/in/aliyu-anate-9773b22b8",
@@ -76,10 +76,10 @@ const teamMembers: TeamMember[] = [
     id: 6,
     img: withBasePath("/images/fawaz.jpeg"),
     name: "Fawaz Dada",
-    role: "Graphic Designer",
+    role: "Design Lead | Branding, Visual & Logo design",
     description:
       "A highly creative, fast-working designer who grasps briefs quickly and applies strong design principles to craft clear, visually effective work.",
-    linkedinLink: null,
+    linkedinLink: "https://www.linkedin.com/in/dada-fawaz-3399bb1a6",
     twitterLink: "https://twitter.com/dadaXxf",
   },
   {
@@ -107,77 +107,97 @@ const teamMembers: TeamMember[] = [
 const Team: React.FC = () => {
   return (
     <section
-      className="bg-white px-4 pb-28 pt-24 sm:px-6 lg:px-8"
+      className="relative overflow-hidden bg-gradient-to-b from-[#FAFBFA] via-white to-[#F4F9F2] px-4 pb-28 pt-24 sm:px-6 lg:px-8"
       aria-labelledby="team-heading"
     >
-      <div className="mx-auto max-w-3xl">
-        <header className="mb-16 text-center">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(28,120,0,0.08),transparent)]"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto max-w-6xl">
+        <header className="mb-14 text-center sm:mb-16">
+          <p className="font-sfPro text-xs font-semibold uppercase tracking-[0.2em] text-[#1C7800]/90">
+            People
+          </p>
           <h1
             id="team-heading"
-            className="font-sfPro text-3xl font-bold tracking-tight text-[#1C1C1C] sm:text-4xl"
+            className="font-sfPro mt-3 text-3xl font-bold tracking-tight text-[#1C1C1C] sm:text-4xl lg:text-[2.5rem] lg:leading-tight"
           >
-            Meet the Team
+            Meet the{" "}
+            <span className="bg-gradient-to-r from-[#1C7800] to-[#2a9d00] bg-clip-text text-transparent">
+              team
+            </span>
           </h1>
-          <p className="mx-auto mt-3 max-w-lg font-poppins text-sm leading-relaxed text-[#1C1C1C]/55 sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl font-poppins text-sm leading-relaxed text-[#1C1C1C]/60 sm:text-base">
             The people behind DLT Africa—building products, curriculum, and
             community.
           </p>
+          <div
+            className="mx-auto mt-8 h-px w-16 bg-gradient-to-r from-transparent via-[#FC7C13]/60 to-transparent"
+            aria-hidden
+          />
         </header>
 
-        <ul className="list-none divide-y divide-[#EAEAEA]">
+        <ul className="grid list-none gap-6 sm:gap-8 md:grid-cols-2">
           {teamMembers.map((member) => (
-            <li key={member.id} className="py-12 first:pt-0">
-              <article className="flex flex-col gap-8 sm:flex-row sm:gap-10">
-                <div className="relative mx-auto aspect-square h-[7.5rem] w-[7.5rem] shrink-0 overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/[0.06] sm:mx-0 sm:h-[8.5rem] sm:w-[8.5rem]">
+            <li key={member.id}>
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#E8ECF0] bg-white/90 shadow-[0_4px_24px_-4px_rgba(28,28,28,0.06)] transition duration-300 hover:border-[#1C7800]/25 hover:shadow-[0_20px_40px_-12px_rgba(28,120,0,0.12)] sm:flex-row sm:items-stretch">
+                <div
+                  className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#1C7800] via-[#2a9d00] to-[#FC7C13] opacity-90 transition group-hover:opacity-100"
+                  aria-hidden
+                />
+
+                <div className="relative aspect-[5/4] w-full shrink-0 overflow-hidden bg-neutral-100 sm:aspect-square sm:w-[42%] sm:max-w-[13rem]">
                   <Image
                     src={member.img}
                     alt={member.name}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 120px, 136px"
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 220px"
                     loading="lazy"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/[0.08] to-transparent opacity-0 transition group-hover:opacity-100"
+                    aria-hidden
                   />
                 </div>
 
-                <div className="min-w-0 flex-1 text-left">
-                  <h2 className="font-sfPro text-xl font-semibold text-[#1C1C1C] sm:text-[1.35rem]">
+                <div className="flex min-w-0 flex-1 flex-col justify-center p-6 sm:p-7">
+                  <h2 className="font-sfPro text-xl font-semibold tracking-tight text-[#1C1C1C] sm:text-[1.35rem]">
                     {member.name}
                   </h2>
-                  <p className="mt-1 font-poppins text-sm font-medium text-[#1C7800]">
+                  <p className="mt-2 inline-flex w-fit rounded-full bg-[#EFFFE2] px-3 py-1 font-poppins text-xs font-semibold text-[#1C7800]">
                     {member.role}
                   </p>
-                  <p className="mt-4 max-w-prose font-poppins text-[0.9375rem] leading-relaxed text-[#1C1C1C]/72">
+                  <p className="mt-4 font-poppins text-[0.9375rem] leading-relaxed text-[#1C1C1C]/75">
                     {member.description}
                   </p>
 
                   <div
-                    className="mt-6 flex items-center gap-2"
+                    className="mt-6 flex flex-wrap items-center gap-2"
                     aria-label={`Social links for ${member.name}`}
                   >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center">
-                      {member.linkedinLink ? (
-                        <a
-                          href={withHttps(member.linkedinLink)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#0A66C2] transition hover:opacity-80 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A66C2]"
-                          aria-label={`${member.name} on LinkedIn`}
-                        >
-                          <BsLinkedin className="h-6 w-6" aria-hidden />
-                        </a>
-                      ) : null}
-                    </span>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center">
+                    {member.linkedinLink ? (
                       <a
-                        href={withHttps(member.twitterLink)}
+                        href={withHttps(member.linkedinLink)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#1C1C1C] transition hover:opacity-70 focus-visible:rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C1C1C]"
-                        aria-label={`${member.name} on X`}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F5F5F5] text-[#0A66C2] transition hover:bg-[#E8F3FC] hover:text-[#084d94] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A66C2]"
+                        aria-label={`${member.name} on LinkedIn`}
                       >
-                        <BsTwitterX className="h-6 w-6" aria-hidden />
+                        <BsLinkedin className="h-[1.35rem] w-[1.35rem]" aria-hidden />
                       </a>
-                    </span>
+                    ) : null}
+                    <a
+                      href={withHttps(member.twitterLink)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F5F5F5] text-[#1C1C1C] transition hover:bg-[#EAEAEA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1C1C1C]"
+                      aria-label={`${member.name} on X`}
+                    >
+                      <BsTwitterX className="h-[1.35rem] w-[1.35rem]" aria-hidden />
+                    </a>
                   </div>
                 </div>
               </article>

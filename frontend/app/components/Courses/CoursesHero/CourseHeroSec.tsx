@@ -57,13 +57,13 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
   }, [contactModalOpen]);
 
   return (
-    <div className="flex flex-col gap-[63px] font-sfPro">
+    <div className="flex flex-col gap-[63px] font-sfPro ">
       <div className="flex flex-col-reverse md:flex-row md:justify-between lg:gap-[40px] lg:px-[70px] lg:pt-[70px] md:gap-[63px]">
         <div className="lg:w-[673px] md:w-[345px] sm:w-[390px] lg:pl-[50px] md:px-[50px] px-[32px] lg:mt-[28px] mt-[24px]">
           <p
             className={`w-fit rounded-full px-[15px] py-[10px] border font-[400] leading-normal text-[20px] hidden lg:block ${
               isGraphicsOrProduct
-                ? "border-[#1C7800] text-[#1C7800]"
+                ? "border-white text-black bg-white"
                 : "border-[#FFA751] text-[#FAAF5A]"
             }`}
           >
@@ -99,7 +99,7 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
                 </p>
                 <p
                   className={`mt-2 text-[32px] leading-none font-semibold ${
-                    isGraphicsOrProduct ? "text-[#1C7800]" : ""
+                    isGraphicsOrProduct ? "text-white" : ""
                   }`}
                 >
                   {props.virtualPrice}
@@ -113,7 +113,7 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
                 </p>
                 <p
                   className={`mt-2 text-[32px] leading-none font-semibold ${
-                    isGraphicsOrProduct ? "text-[#1C7800]" : ""
+                    isGraphicsOrProduct ? "text-white" : ""
                   }`}
                 >
                   {props.physicalPrice}
@@ -154,11 +154,12 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
           />
         </div>
       </div>
+   
 
-      <div className="relative flex w-full flex-col items-center gap-2 overflow-x-hidden pb-[41px] pt-8 text-center text-[16px] text-offWhite">
+      <div className="relative  flex w-full flex-col items-center gap-2 overflow-x-hidden pb-[41px] pt-8 text-center text-[16px] text-offWhite">
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[min(380px,70vw)] w-[min(120%,56rem)] max-w-[100vw] -translate-x-1/2 bg-[radial-gradient(ellipse_130%_100%_at_50%_100%,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0.11)_24%,rgba(255,255,255,0.04)_48%,rgba(255,255,255,0.012)_72%,rgba(255,255,255,0)_92%)] blur-3xl"
+          className="pointer-events-none absolute bottom-0 left-1/2 h-[min(380px,70vw)] w-[min(120%,56rem)] max-w-[100vw] -translate-x-1/2"
         />
         <p className="relative z-10">Scroll down to see more</p>
         <FaArrowDown className="relative z-10" />

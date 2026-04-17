@@ -1,9 +1,6 @@
 "use client";
 
-function formatNgn(amount: number): string {
-  if (!amount) return "—";
-  return `NGN ${amount.toLocaleString("en-NG")}`;
-}
+import { formatTuitionNgn } from "./applicationFees";
 
 type Props = {
   courseName: string;
@@ -46,19 +43,13 @@ export default function EnrollmentSummary({
               {modeLabel}
             </span>
           </dt>
-          <dt className="font-sfPro text-xs font-semibold text-[#083700] flex justify-between items-center">
-            Payment plan:
-            <span className="font-poppins text-sm text-[#252A24]">
-              Full payment
-            </span>
-          </dt>
         </dl>
 
         <div className="mt-6 rounded-xl bg-[#E8E8E8] px-4 py-4">
           <p className="font-poppins text-xs text-[#083700] flex justify-between items-center">
             Total course cost:{" "}
             <span className="font-semibold text-[#083700] ">
-              {formatNgn(tuitionFee)}
+              {formatTuitionNgn(tuitionFee)}
             </span>
           </p>
         </div>

@@ -23,3 +23,9 @@ export function computeTuitionFee(
   const option = list.find((o) => o.tag === courseSelected);
   return option?.fee ?? 0;
 }
+
+/** Tuition label for summary UI and post-registration WhatsApp text (matches enrollment sidebar). */
+export function formatTuitionNgn(amount: number): string {
+  if (!amount) return "—";
+  return `NGN ${amount.toLocaleString("en-NG")}`;
+}

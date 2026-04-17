@@ -7,7 +7,7 @@
   "nav": [
     {
       "label": "Start Learning",
-      "href": "/courses",
+      "href": "",
       "items": [
         { "label": "Full Stack Development", "href": "/fullstack" },
         { "label": "Frontend Development", "href": "/frontend" },

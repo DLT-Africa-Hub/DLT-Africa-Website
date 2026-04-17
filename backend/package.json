@@ -4,6 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "build": "node scripts/check-syntax.js",
+    "verify": "npm run build",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },

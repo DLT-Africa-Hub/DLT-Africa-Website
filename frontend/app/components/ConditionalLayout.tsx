@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
+import { isHomePathname } from "@/lib/basePath";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Loader from "./Loader/Loader";
@@ -13,13 +14,19 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({
   children,
 }: ConditionalLayoutProps) {
-  const pathname = usePathname();
-  const [showLoader, setShowLoader] = useState(true);
+  const pathname = usePathname() ?? "";
+  const onHomePage = isHomePathname(pathname);
+  const [showLoader, setShowLoader] = useState(onHomePage);
 
   useEffect(() => {
+    if (!onHomePage) {
+      setShowLoader(false);
+      return;
+    }
+    setShowLoader(true);
     const timer = setTimeout(() => setShowLoader(false), 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [onHomePage]);
 
   const hideHeaderFooterRoutes: string[] = [];
 

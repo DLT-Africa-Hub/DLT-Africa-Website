@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
-import { computeTuitionFee } from "../applicationFees";
+import { computeTuitionFee, formatTuitionNgn } from "../applicationFees";
 import { FormData, CheckboxesChecked, APPLICATION_DEADLINE } from "../constants";
+import { persistRegistrationSuccess } from "../registrationSuccess";
 import { validateApplicationFields, normalizePhoneForValidation } from "../applicationValidation";
 
 export const useApplicationForm = () => {
@@ -118,6 +119,20 @@ export const useApplicationForm = () => {
         try {
             await apiClient.post("/cohorts/studentreg", submitData);
             setIsSubmitting(false);
+            const fee = computeTuitionFee(
+                submitData.classType,
+                submitData.courseSelected,
+            );
+            persistRegistrationSuccess({
+                fullName: `${submitData.firstName} ${submitData.lastName}`.trim(),
+                courseName: submitData.courseSelected,
+                mode:
+                    submitData.classType === "Physical" ||
+                    submitData.classType === "Virtual"
+                        ? submitData.classType
+                        : "",
+                priceLabel: formatTuitionNgn(fee),
+            });
             router.push("/congrats");
         } catch (error: unknown) {
             setIsSubmitting(false);

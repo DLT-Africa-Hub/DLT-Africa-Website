@@ -16,7 +16,6 @@ const swaggerSpecs = require("./config/swagger");
 
 // Import routes
 const userRoute = require("./routes/user.route");
-const eventRoute = require("./routes/event.route");
 const teamRoute = require("./routes/team.route");
 const contactRoute = require("./routes/contact.route");
 const waitlistRoute = require("./routes/waitlist.route");
@@ -182,7 +181,6 @@ app.get("/api/status", (req, res) => {
 
 // API Routes
 app.use("/api/v1/cohorts", userRoute);
-app.use("/api/v1/events", eventRoute);
 app.use("/api/v1/team", teamRoute);
 app.use("/api/v1/contact", contactRoute);
 app.use("/api/v1/waitlist", waitlistRoute);

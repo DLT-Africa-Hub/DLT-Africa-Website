@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
-import { LuLaptop, LuMessageCircle, LuPhoneForwarded, LuX } from "react-icons/lu";
+import {
+  LuLaptop,
+  LuMessageCircle,
+  LuPhoneForwarded,
+  LuX,
+} from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { BsEnvelope } from "react-icons/bs";
 import Link from "next/link";
@@ -35,6 +40,8 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
   const isGraphicsOrProduct =
     pathname != null &&
     GRAPHICS_OR_PRODUCT_PATHS.has(pathname.replace(/\/$/, "") || "/");
+  const isBackend =
+    pathname != null && pathname.replace(/\/$/, "") === "/backend";
 
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const { phone, phoneRaw, email } = footerConfig.contact;
@@ -106,19 +113,21 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <p className="flex items-center gap-2 text-[20px] text-offWhite">
-                  <IoLocationOutline />
-                  {props.physical}
-                </p>
-                <p
-                  className={`mt-2 text-[32px] leading-none font-semibold ${
-                    isGraphicsOrProduct ? "text-white" : ""
-                  }`}
-                >
-                  {props.physicalPrice}
-                </p>
-              </div>
+              {!isBackend && (
+                <div className="flex flex-col gap-4">
+                  <p className="flex items-center gap-2 text-[20px] text-offWhite">
+                    <IoLocationOutline />
+                    {props.physical}
+                  </p>
+                  <p
+                    className={`mt-2 text-[32px] leading-none font-semibold ${
+                      isGraphicsOrProduct ? "text-white" : ""
+                    }`}
+                  >
+                    {props.physicalPrice}
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
@@ -154,7 +163,6 @@ const CourseSection: React.FC<CourseSectionProps> = (props) => {
           />
         </div>
       </div>
-   
 
       <div className="relative  flex w-full flex-col items-center gap-2 overflow-x-hidden pb-[41px] pt-8 text-center text-[16px] text-offWhite">
         <div

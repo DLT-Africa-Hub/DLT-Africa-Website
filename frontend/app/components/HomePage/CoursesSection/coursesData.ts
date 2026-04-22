@@ -8,48 +8,60 @@ export const FrontendImage = withBasePath("/images/home-frontend.jpg");
 export const FullStackImage = withBasePath("/images/hm-fs.jpg");
 export const ProductDesignImage = withBasePath("/images/home-pd.jpg");
 export const GraphicDesignImage = withBasePath("/images/home-gd.png");
-
+export const BackendImage = withBasePath("/images/backend-dev.jpg");
 export const homeOnlineCourses: Extract<
   CourseCardProps,
   { variant: "vertical" }
 >[] = [
-  {
-    variant: "vertical",
-    image: FrontendImage,
-    imageAlt: "Frontend development course",
-    category: "Engineering",
-    title: "FrontEnd Development",
-    duration: "4 months",
-    location: "Virtual",
-    price: "₦100,000",
-    courseHref: "/frontend",
-    enrollHref: "/application",
-  },
-  {
-    variant: "vertical",
-    image: ProductDesignImage,
-    imageAlt: "Product design course",
-    category: "Design",
-    title: "Product Design",
-    duration: "4 months",
-    location: "Virtual",
-    price: "₦70,000",
-    courseHref: "/product",
-    enrollHref: "/application",
-  },
-  {
-    variant: "vertical",
-    image: GraphicDesignImage,
-    imageAlt: "Graphic design course",
-    category: "Design",
-    title: "Graphic Design",
-    duration: "4 months",
-    location: "Virtual",
-    price: "₦40,000",
-    courseHref: "/graphics-design",
-    enrollHref: "/application",
-  },
-];
+    {
+      variant: "vertical",
+      image: FrontendImage,
+      imageAlt: "Frontend development course",
+      category: "Engineering",
+      title: "Frontend Development",
+      duration: "4 months",
+      location: "Virtual",
+      price: "₦100,000",
+      courseHref: "/frontend",
+      enrollHref: "/application",
+    },
+    {
+      variant: "vertical",
+      image: BackendImage,
+      imageAlt: "Backend development course",
+      category: "Engineering",
+      title: "Backend Development",
+      duration: "4 months",
+      location: "Virtual",
+      price: "₦150,000",
+      courseHref: "/backend",
+      enrollHref: "/application",
+    },
+    {
+      variant: "vertical",
+      image: ProductDesignImage,
+      imageAlt: "Product design course",
+      category: "Design",
+      title: "Product Design",
+      duration: "4 months",
+      location: "Virtual",
+      price: "₦70,000",
+      courseHref: "/product",
+      enrollHref: "/application",
+    },
+    {
+      variant: "vertical",
+      image: GraphicDesignImage,
+      imageAlt: "Graphic design course",
+      category: "Design",
+      title: "Graphic Design",
+      duration: "4 months",
+      location: "Virtual",
+      price: "₦40,000",
+      courseHref: "/graphics-design",
+      enrollHref: "/application",
+    },
+  ];
 
 export const homeOnsiteCourse: Extract<
   CourseCardProps,

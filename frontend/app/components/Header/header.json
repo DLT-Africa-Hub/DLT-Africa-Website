@@ -9,10 +9,11 @@
       "label": "Start Learning",
       "href": "",
       "items": [
+        { "label": "Backend Development", "href": "/backend" },
         { "label": "Full Stack Development", "href": "/fullstack" },
         { "label": "Frontend Development", "href": "/frontend" },
-        { "label": "Product UI/UX Design", "href": "/product" },
-        { "label": "Graphics Design", "href": "/graphics-design" }
+        { "label": "Graphics Design", "href": "/graphics-design" },
+        { "label": "Product UI/UX Design", "href": "/product" }
       ]
     },
     {

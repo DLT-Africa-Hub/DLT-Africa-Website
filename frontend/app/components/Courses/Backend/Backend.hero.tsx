@@ -8,9 +8,9 @@ interface SectionDataItem {
   description: string;
   button1: string;
   virtual: string;
-  // physical: string;
+  physical: string;
   virtualPrice: string;
-  // physicalPrice: string;
+  physicalPrice: string;
   button2: string;
   img: string;
 }
@@ -23,9 +23,9 @@ const sectionData: SectionDataItem[] = [
     description:
       "Master the art of building complete backend web applications from scratch. Combine backend logic, database management, and API development into one powerful skill set.",
     virtual: "Virtual",
-    // physical: "On-site",
+    physical: "On-site",
     virtualPrice: "₦150,000",
-    // physicalPrice: "-",
+    physicalPrice: "Not available",
     button1: "Enroll now",
     button2: "Speak with Us",
     img: withBasePath("/images/backend-dev.jpg"),

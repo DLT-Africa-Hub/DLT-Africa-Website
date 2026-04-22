@@ -5,6 +5,14 @@ import { computeTuitionFee, formatTuitionNgn } from "../applicationFees";
 import { FormData, CheckboxesChecked, APPLICATION_DEADLINE } from "../constants";
 import { persistRegistrationSuccess } from "../registrationSuccess";
 import { validateApplicationFields, normalizePhoneForValidation } from "../applicationValidation";
+import { getCountries, getCountryCallingCode } from "libphonenumber-js";
+
+const countries = getCountries();
+
+const countryList = countries.map((country, index) => ({
+  id: index + 1,
+  tag: `${country} (+${getCountryCallingCode(country)})`,
+}));
 
 export const useApplicationForm = () => {
     const router = useRouter();
@@ -17,6 +25,7 @@ export const useApplicationForm = () => {
         stateOfOrigin: "",
         gender: "",
         phoneNo: "",
+        phoneCountry: "",
         emailAddress: "",
         codeExperience: "",
         stateOfResidence: "",
@@ -110,7 +119,8 @@ export const useApplicationForm = () => {
             classType: formData.classType.trim(),
             stateOfOrigin: formData.stateOfOrigin.trim(),
             gender: formData.gender.trim(),
-            phoneNo: normalizePhoneForValidation(formData.phoneNo),
+            phoneNo: normalizePhoneForValidation(formData.phoneNo,
+                formData.phoneCountry.trim()),
             emailAddress: formData.emailAddress.trim().toLowerCase(),
             codeExperience: formData.codeExperience.trim(),
             stateOfResidence: formData.stateOfResidence.trim(),

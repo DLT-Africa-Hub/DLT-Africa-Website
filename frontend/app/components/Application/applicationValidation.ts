@@ -26,7 +26,7 @@ export const ALLOWED_CODE_EXPERIENCE = [
 const MIN_NAME_LEN = 2;
 const MAX_NAME_LEN = 50;
 
-export function normalizePhoneForValidation(phone: string): string {
+export function normalizePhoneForValidation(phone: string, country: string): string {
   return phone.replace(/[\s-]/g, "");
 }
 
@@ -39,6 +39,7 @@ export function validateApplicationFields(input: {
   stateOfOrigin: string;
   gender: string;
   phoneNo: string;
+  phoneCountry: string;
   emailAddress: string;
   codeExperience: string;
   stateOfResidence: string;
@@ -52,6 +53,7 @@ export function validateApplicationFields(input: {
     "stateOfOrigin",
     "gender",
     "phoneNo",
+    "phoneCountry",
     "emailAddress",
     "codeExperience",
     "stateOfResidence",
@@ -77,7 +79,7 @@ export function validateApplicationFields(input: {
     return "Please enter a valid email address.";
   }
 
-  const phoneNorm = normalizePhoneForValidation(input.phoneNo);
+  const phoneNorm = normalizePhoneForValidation(input.phoneNo, input.phoneCountry);
   if (!NIGERIAN_PHONE_REGEX.test(phoneNorm)) {
     return "Please enter a valid Nigerian phone number (e.g. 08031234567 or +2348031234567).";
   }

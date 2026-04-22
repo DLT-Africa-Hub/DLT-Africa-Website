@@ -16,6 +16,7 @@ export interface FormData {
     emailAddress: string;
     codeExperience: string;
     stateOfResidence: string;
+    phoneCountry: string;
 }
 
 export interface CheckboxesChecked {
@@ -87,6 +88,7 @@ export const ONLINE_COURSES: Option[] = [
     { id: 1, tag: "Frontend Development", fee: 100_000 },
     { id: 2, tag: "Product UI/UX Design", fee: 70_000 },
     { id: 3, tag: "Graphics Design", fee: 40_000 },
+    { id: 4, tag: "Backend Development", fee: 150_000 },
 ];
 
 export const PHYSICAL_COURSES: Option[] = [

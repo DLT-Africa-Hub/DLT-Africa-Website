@@ -14,6 +14,7 @@ const COURSE_PRICING = {
   // Regular courses - Virtual class pricing
   VIRTUAL: {
     "Frontend Development": 100000,
+    "Backend Development": 150000,
     "Product UI/UX Design": 70000,
     "Graphics Design": 40000,
   },
@@ -28,6 +29,7 @@ const COURSE_PRICING = {
 const VALID_CLASS_TYPES = ["Physical", "Virtual"];
 const VALID_COURSES = [
   "Frontend Development",
+  "Backend Development",
   "Graphics Design",
   "Product UI/UX Design",
   "Full-Stack Development",

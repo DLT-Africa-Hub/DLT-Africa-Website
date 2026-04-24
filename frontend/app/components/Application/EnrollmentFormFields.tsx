@@ -9,6 +9,7 @@ import {
   ONLINE_COURSES,
   PHYSICAL_COURSES,
 } from "./constants";
+import PhoneInputField from "./PhoneInputField";
 
 const selectClass =
   "w-full rounded-xl border border-[#E4E8EC] bg-white px-4 py-3 font-poppins text-sm text-[#1C1C1C] outline-none transition focus:border-[#1C7800] focus:ring-1 focus:ring-[#1C7800]/20";
@@ -84,21 +85,15 @@ export default function EnrollmentFormFields({
               required
             />
           </div>
-          <div>
-            <label htmlFor="phoneNo" className={labelClass}>
-              Phone number <span className="font-normal">(WhatsApp preferably)</span>
-            </label>
-            <input
-              id="phoneNo"
-              name="phoneNo"
-              type="tel"
-              value={formData.phoneNo}
-              onChange={onInputChange}
-              className={inputClass}
-              placeholder="+234…"
-              required
-            />
-          </div>
+          <PhoneInputField
+            phoneCountry={formData.phoneCountry}
+            phoneNo={formData.phoneNo}
+            onInputChange={onInputChange}
+            labelClass={labelClass}
+            inputClass={inputClass}
+            selectClass={selectClass}
+          />
+
           <div className="sm:col-span-2">
             <label htmlFor="emailAddress" className={labelClass}>
               Email address

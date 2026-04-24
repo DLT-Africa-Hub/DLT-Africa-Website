@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
-import Link from "next/link";
+import AdminTopNav from "./AdminTopNav";
 
 interface CorperData {
   fullName: string;
@@ -23,11 +23,6 @@ const CorperPreview: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage] = useState<number>(5);
-  const [activeButton, setActiveButton] = useState<string>("/corpers");
-
-  const handleButtonClick = (href: string): void => {
-    setActiveButton(href);
-  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -74,73 +69,21 @@ const CorperPreview: React.FC = () => {
   const paginate = (pageNumber: number): void => setCurrentPage(pageNumber);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Corper&apos;s List</h1>
-
-      <div className="flex mb-4">
-        <div className="flex space-x-4">
-          <Link
-            href="/admin-dashboard"
-            onClick={() => handleButtonClick("/admin-dashboard")}
-            className={`px-4 py-2 rounded-md ${
-              activeButton === "/admin-dashboard"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Admission List
-          </Link>
-          <Link
-            href="/team-list"
-            onClick={() => handleButtonClick("/team-list")}
-            className={`px-4 py-2 rounded-md ${
-              activeButton === "/team-list"
-                ? "bg-green-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Team List
-          </Link>
-          <Link
-            href="/event-list"
-            onClick={() => handleButtonClick("/event-list")}
-            className={`px-4 py-2 rounded-md ${
-              activeButton === "/event-list"
-                ? "bg-red-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Event List
-          </Link>
-          <Link
-            href="/corpers"
-            onClick={() => handleButtonClick("/corpers")}
-            className={`px-4 py-2 rounded-md ${
-              activeButton === "/corpers"
-                ? "bg-pink-800 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Corper&apos;s List
-          </Link>
-          <Link
-            href="/waitlist"
-            onClick={() => handleButtonClick("/waitlist")}
-            className={`px-4 py-2 rounded-md ${
-              activeButton === "/waitlist"
-                ? "bg-[#FC7C13] text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Waitlist
-          </Link>
+    <div className="min-h-screen bg-[#F7FAF8] p-4 md:p-8">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="font-sfPro text-3xl font-bold text-[#083700]">Corpers List</h1>
+        <p className="mt-1 font-poppins text-sm text-[#5C6670]">
+          Browse corpers by name and batch resumption.
+        </p>
+        <div className="mt-5">
+          <AdminTopNav activePath="/corpers" />
         </div>
       </div>
 
       <input
         type="text"
         placeholder="Search"
-        className="w-full mb-4 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500 bg-[#FFF8ED]"
+        className="mt-6 w-full rounded-xl border border-[#E4E8EC] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -149,16 +92,16 @@ const CorperPreview: React.FC = () => {
         <p>No corper&apos;s data found...</p>
       ) : (
         <>
-          <div className="overflow-x-auto">
-            <table className="table-auto w-full">
+          <div className="mt-4 overflow-hidden rounded-2xl border border-[#E4E8EC] bg-white">
+            <table className="min-w-full text-sm">
               <thead>
-                <tr>
-                  <th className="px-4 py-2">S/N</th>
-                  <th className="px-4 py-2">Full Name</th>
-                  <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">Course Selected</th>
-                  <th className="px-4 py-2">Phone</th>
-                  <th className="px-4 py-2">Batch</th>
+                <tr className="bg-[#F8FAFC] text-left text-[#324054]">
+                  <th className="px-4 py-3 font-semibold">S/N</th>
+                  <th className="px-4 py-3 font-semibold">Full Name</th>
+                  <th className="px-4 py-3 font-semibold">Email</th>
+                  <th className="px-4 py-3 font-semibold">Course Selected</th>
+                  <th className="px-4 py-3 font-semibold">Phone</th>
+                  <th className="px-4 py-3 font-semibold">Batch</th>
                 </tr>
               </thead>
 
@@ -168,28 +111,42 @@ const CorperPreview: React.FC = () => {
                     fullName,
                     emailAddress,
                     phone_number,
-                    gender,
-                    stateOfOrigin,
-                    corp_id,
                     course_selected,
                     batchResumption,
                   } = corper;
 
                   return (
                     <tr key={index}>
-                      <td className="border px-4 py-2">{index + 1}</td>
-                      <td className="border px-4 py-2">{fullName}</td>
-                      <td className="border px-4 py-2">{emailAddress}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{index + 1}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{fullName}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{emailAddress}</td>
 
-                      <td className="border px-4 py-2">{course_selected}</td>
-                      <td className="border px-4 py-2">{phone_number}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{course_selected}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{phone_number}</td>
 
-                      <td className="border px-4 py-2">{batchResumption}</td>
+                      <td className="border-t border-[#EEF1F4] px-4 py-3">{batchResumption}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="mt-4">
+            <ul className="flex flex-wrap gap-2">
+              {Array.from(
+                { length: Math.ceil(searchResults.length / itemsPerPage) },
+                (_, number) => (
+                  <li key={number}>
+                    <button
+                      onClick={() => paginate(number + 1)}
+                      className="rounded-lg border border-[#D6DEE6] bg-white px-3 py-1.5 text-sm text-[#324054] transition hover:border-[#1C7800] hover:text-[#1C7800]"
+                    >
+                      {number + 1}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
           </div>
         </>
       )}

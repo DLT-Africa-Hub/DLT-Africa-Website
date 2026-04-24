@@ -24,7 +24,7 @@ const CoursesSection: React.FC = () => {
             in the world.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
             {homeOnlineCourses.map((course) => (
               <CourseCard key={course.title} {...course} />
             ))}

@@ -33,17 +33,18 @@ const ChangeStatus: React.FC<ChangeStatusProps> = ({ id }) => {
   };
 
   return (
-    <div>
+    <div className="flex items-center gap-2">
       <select
         value={studentStatus}
         onChange={(e) => setStudentStatus(e.target.value)}
+        className="rounded-lg border border-[#D6DEE6] bg-white px-2 py-1.5 text-xs text-[#324054] outline-none focus:border-[#1C7800]"
       >
         <option value="Not Paid">-- select status --</option>
-        <option value="paid">Paid</option>
-        <option value="accepted">Accepted</option>
+        <option value="Paid">Paid</option>
+        <option value="Accepted">Accepted</option>
       </select>
       <button
-        className="--btn --btn-primary"
+        className="rounded-lg border border-[#1C7800]/30 bg-[#1C7800]/10 p-2 transition hover:bg-[#1C7800]/20 disabled:opacity-60"
         onClick={changeRole}
         disabled={isLoading}
       >

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
-import Link from "next/link";
+import AdminTopNav from "../components/Admins/AdminTopNav";
 
 const WaitlistAdmin = () => {
   interface WaitlistEntry {
@@ -153,59 +153,37 @@ const WaitlistAdmin = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-lg">Loading waitlist data...</div>
+      <div className="min-h-screen bg-[#F7FAF8] p-4 md:p-8">
+        <div className="mx-auto flex h-64 max-w-7xl items-center justify-center rounded-2xl border border-[#E4E8EC] bg-white">
+          <div className="text-lg text-[#324054]">Loading waitlist data...</div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Waitlist Management
-        </h1>
-        <p className="text-gray-600">
+    <div className="min-h-screen bg-[#F7FAF8] p-4 md:p-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8">
+          <h1 className="font-sfPro text-3xl font-bold text-[#083700]">
+            Waitlist Management
+          </h1>
+          <p className="mt-1 font-poppins text-sm text-[#5C6670]">
           Manage and monitor waitlist entries for upcoming cohorts
-        </p>
-      </div>
-
-      {/* Navigation Buttons */}
-      <div className="flex flex-wrap gap-4 mb-8">
-        <Link href="/admin-dashboard">
-          <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200">
-            Admission List
-          </button>
-        </Link>
-        <Link href="/team-list">
-          <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200">
-            Team List
-          </button>
-        </Link>
-        <Link href="/event-list">
-          <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200">
-            Event List
-          </button>
-        </Link>
-        <Link href="/corpers">
-          <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200">
-            Corper's List
-          </button>
-        </Link>
-        <button className="px-4 py-2 bg-[#FC7C13] text-white rounded-lg">
-          Waitlist
-        </button>
-      </div>
+          </p>
+          <div className="mt-5">
+            <AdminTopNav activePath="/waitlist" onExportCsv={exportToCSV} />
+          </div>
+        </div>
 
       {/* Waitlist Status Toggle */}
-      <div className="bg-white p-6 rounded-lg shadow-md border mb-8">
+      <div className="mb-8 rounded-2xl border border-[#E4E8EC] bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">
+            <h3 className="mb-2 text-lg font-semibold text-[#2E3A46]">
               Waitlist Status
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[#5C6670]">
               {waitlistActive
                 ? "Waitlist is currently ACTIVE - Users will see 'Join Waitlist' button"
                 : "Waitlist is INACTIVE - Users will see 'Register' button"}
@@ -214,9 +192,9 @@ const WaitlistAdmin = () => {
           <button
             onClick={toggleWaitlistStatus}
             disabled={isUpdatingStatus}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#FC7C13] focus:ring-offset-2 ${
-              waitlistActive ? "bg-[#FC7C13]" : "bg-gray-200"
-            } ${isUpdatingStatus ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#1C7800] focus:ring-offset-2 ${
+              waitlistActive ? "bg-[#1C7800]" : "bg-gray-200"
+            } ${isUpdatingStatus ? "cursor-not-allowed opacity-50" : ""}`}
           >
             <span
               className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
@@ -226,21 +204,21 @@ const WaitlistAdmin = () => {
           </button>
         </div>
         {isUpdatingStatus && (
-          <div className="mt-2 text-sm text-gray-500">Updating status...</div>
+          <div className="mt-2 text-sm text-[#5C6670]">Updating status...</div>
         )}
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-md border">
-          <h3 className="text-lg font-semibold text-gray-700">Total Entries</h3>
-          <p className="text-3xl font-bold text-[#FC7C13]">
+        <div className="rounded-2xl border border-[#E4E8EC] bg-white p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-[#2E3A46]">Total Entries</h3>
+          <p className="text-3xl font-bold text-[#1C7800]">
             {waitlistData.length}
           </p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md border">
-          <h3 className="text-lg font-semibold text-gray-700">This Month</h3>
-          <p className="text-3xl font-bold text-[#FC7C13]">
+        <div className="rounded-2xl border border-[#E4E8EC] bg-white p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-[#2E3A46]">This Month</h3>
+          <p className="text-3xl font-bold text-[#1C7800]">
             {
               waitlistData.filter(
                 (entry: WaitlistEntry) =>
@@ -252,16 +230,16 @@ const WaitlistAdmin = () => {
             }
           </p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md border">
-          <h3 className="text-lg font-semibold text-gray-700">With Phone</h3>
-          <p className="text-3xl font-bold text-[#FC7C13]">
+        <div className="rounded-2xl border border-[#E4E8EC] bg-white p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-[#2E3A46]">With Phone</h3>
+          <p className="text-3xl font-bold text-[#1C7800]">
             {waitlistData.filter((entry: WaitlistEntry) => entry.phone).length}
           </p>
         </div>
       </div>
 
       {/* Search and Actions */}
-      <div className="bg-white p-6 rounded-lg shadow-md border mb-6">
+      <div className="mb-6 rounded-2xl border border-[#E4E8EC] bg-white p-6 shadow-sm">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
           <div className="flex-1 max-w-md">
             <input
@@ -271,73 +249,67 @@ const WaitlistAdmin = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSearch(e.target.value)
               }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FC7C13] focus:border-transparent"
+              className="w-full rounded-xl border border-[#E4E8EC] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
             />
           </div>
-          <button
-            onClick={exportToCSV}
-            className="px-6 py-2 bg-[#FC7C13] text-white rounded-lg hover:bg-[#e66a0a] transition duration-300"
-          >
-            Export CSV
-          </button>
         </div>
       </div>
 
       {/* Message Display */}
       {message && (
-        <div className="mb-4 p-4 bg-green-100 text-green-700 border border-green-200 rounded-lg">
+        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700">
           {message}
         </div>
       )}
 
       {/* Waitlist Table */}
-      <div className="bg-white rounded-lg shadow-md border overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-[#E4E8EC] bg-white shadow-sm">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full text-sm">
+            <thead className="bg-[#F8FAFC]">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#5C6670]">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#5C6670]">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#5C6670]">
                   Phone
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#5C6670]">
                   Joined Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#5C6670]">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white">
               {currentItems.map((entry: WaitlistEntry) => (
-                <tr key={entry._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                <tr key={entry._id} className="border-t border-[#EEF1F4] hover:bg-[#F9FBFA]">
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <div className="text-sm font-medium text-[#1C1C1C]">
                       {entry.name}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{entry.email}</div>
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <div className="text-sm text-[#1C1C1C]">{entry.email}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <div className="text-sm text-[#1C1C1C]">
                       {entry.phone || "N/A"}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                  <td className="whitespace-nowrap px-6 py-4">
+                    <div className="text-sm text-[#1C1C1C]">
                       {formatDate(entry.createdAt)}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-medium">
                     <button
                       onClick={() => handleDelete(entry._id)}
-                      className="text-red-600 hover:text-red-900 transition duration-200"
+                      className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-red-600 transition hover:bg-red-100"
                     >
                       Delete
                     </button>
@@ -350,26 +322,26 @@ const WaitlistAdmin = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+          <div className="flex items-center justify-between border-t border-[#EEF1F4] bg-white px-4 py-3 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
               <button
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                className="relative inline-flex items-center rounded-md border border-[#D6DEE6] bg-white px-4 py-2 text-sm font-medium text-[#324054] hover:bg-[#F8FAFC] disabled:opacity-50"
               >
                 Previous
               </button>
               <button
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                className="ml-3 relative inline-flex items-center rounded-md border border-[#D6DEE6] bg-white px-4 py-2 text-sm font-medium text-[#324054] hover:bg-[#F8FAFC] disabled:opacity-50"
               >
                 Next
               </button>
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-[#5C6670]">
                   Showing{" "}
                   <span className="font-medium">{indexOfFirstItem + 1}</span> to{" "}
                   <span className="font-medium">
@@ -380,7 +352,7 @@ const WaitlistAdmin = () => {
                 </p>
               </div>
               <div>
-                <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                <nav className="relative z-0 inline-flex -space-x-px rounded-md">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                     (page) => (
                       <button
@@ -388,8 +360,8 @@ const WaitlistAdmin = () => {
                         onClick={() => paginate(page)}
                         className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                           currentPage === page
-                            ? "z-10 bg-[#FC7C13] border-[#FC7C13] text-white"
-                            : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                            ? "z-10 border-[#1C7800] bg-[#1C7800] text-white"
+                            : "border-[#D6DEE6] bg-white text-[#5C6670] hover:bg-[#F8FAFC]"
                         }`}
                       >
                         {page}
@@ -406,12 +378,13 @@ const WaitlistAdmin = () => {
       {/* Empty State */}
       {waitlistData.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-gray-500 text-lg">No waitlist entries found</div>
-          <div className="text-gray-400 text-sm mt-2">
+          <div className="text-lg text-[#5C6670]">No waitlist entries found</div>
+          <div className="mt-2 text-sm text-[#98A2B3]">
             Waitlist entries will appear here once users start joining
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

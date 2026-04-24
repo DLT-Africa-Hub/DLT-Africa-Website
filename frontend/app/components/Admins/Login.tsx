@@ -3,8 +3,8 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
-import { Button, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
+import AdminAuthShell from "./AdminAuthShell";
 
 interface LoginFormData {
   email: string;
@@ -18,15 +18,14 @@ const Login: React.FC = () => {
     password: "",
   });
   const [formValidMessage, setFormValidMessage] = useState<string>("");
-  const [formCompleted, setFormCompleted] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     if (loggedIn === "true") {
-      setFormCompleted(true);
+      router.push("/admin-dashboard");
     }
-  }, []);
+  }, [router]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -49,10 +48,9 @@ const Login: React.FC = () => {
 
     apiClient
       .post("/team/login", formData)
-      .then((response) => {
+      .then(() => {
         setIsSubmitting(false);
         localStorage.setItem("isLoggedIn", "true");
-        setFormCompleted(true);
         router.push("/admin-dashboard");
       })
       .catch((error: unknown) => {
@@ -71,75 +69,59 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="mt-5 mb-20 p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-2xl bg-[#FFEFD4] py-[69px] px-8 lg:px-[86px] mx-auto lg:min-w-[65%] 2xl:min-w-[50%] lg:max-w-[65%] 2xl:max-w-[50%]"
-      >
-        <Typography
-          className="font-normal md:text-[36px] sm:text-[25px] text-black mb-[39px] text-center"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          Login as an Admin
-        </Typography>
-        <div className="grid grid-cols-none gap-y-14 text-center">
-          <Input
-            size="lg"
+    <AdminAuthShell
+      title="Admin Login"
+      subtitle="Sign in to access admissions, team and event controls."
+    >
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-[#083700]">
+            Email Address
+          </label>
+          <input
+            id="email"
             type="email"
             name="email"
-            variant="static"
-            label="Email Address"
-            className="pl-4 text-xl"
-            labelProps={{ className: "!text-black" }}
-            containerProps={{ className: "h-14" }}
-            placeholder="yourname@gmail.com"
             value={formData.email}
             onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-          <Input
-            size="lg"
-            type="password"
-            name="password"
-            variant="static"
-            label="Password"
-            className="pl-4 text-xl"
-            labelProps={{ className: "!text-black" }}
-            containerProps={{ className: "h-14" }}
-            placeholder="******"
-            value={formData.password}
-            onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
+            placeholder="yourname@gmail.com"
+            className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
           />
         </div>
-        <Button
+        <div>
+          <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-[#083700]">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="******"
+            className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
+          />
+        </div>
+        <button
           type="submit"
-          size="lg"
-          className="capitalize px-16 py-4 bg-[#FC7C13] my-[35px] w-full text-[16px] transition duration-500 ease-in-out transform hover:-translate-y-1"
           disabled={isSubmitting}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
+          className="w-full rounded-xl bg-[#1C7800] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#166100] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Loading..." : "Sign In"}
-        </Button>
+        </button>
         {formValidMessage && (
-          <div className="text-red-600 mt-4">{formValidMessage}</div>
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {formValidMessage}
+          </div>
         )}
-        <p className="mt-[10px]">
+        <p className="text-sm text-[#5C6670]">
           Don&apos;t have an account?{" "}
-          <Link href="/admin" className="underline">
+          <Link href="/admin" className="font-medium text-[#1C7800] underline">
             Register
           </Link>
         </p>
       </form>
-    </div>
+    </AdminAuthShell>
   );
 };
 

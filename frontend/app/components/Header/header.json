@@ -20,7 +20,7 @@
       "label": "About Us",
       "href": "/",
       "items": [
-        { "label": "About Us", "href": "/#" },
+        { "label": "About Us", "href": "/about-us" },
         { "label": "Our Team", "href": "/team" }
       ]
     },

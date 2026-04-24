@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { apiClient, getApiErrorMessage } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
-import { Button, Input, Typography } from "@material-tailwind/react";
+import AdminAuthShell from "./AdminAuthShell";
 
 interface RegisterFormData {
   name: string;
@@ -25,12 +25,11 @@ const Register: React.FC = () => {
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     if (loggedIn === "true") {
-      setFormCompleted(true);
+      router.push("/admin-dashboard");
     }
-  }, []);
+  }, [router]);
 
   const [formValidMessage, setFormValidMessage] = useState<string>("");
-  const [formCompleted, setFormCompleted] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -56,10 +55,9 @@ const Register: React.FC = () => {
 
     apiClient
       .post("/team/register-team", formData)
-      .then((response) => {
+      .then(() => {
         setIsSubmitting(false);
         localStorage.setItem("isLoggedIn", "true");
-        setFormCompleted(true);
         router.push("/admin-dashboard");
       })
       .catch((error: unknown) => {
@@ -69,125 +67,91 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="mt-5 mb-20 p-4">
-      <Typography
-        className="font-normal md:text-[36px] sm:text-[25px] text-black mb-[39px] text-center"
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        Register as an Admin
-      </Typography>
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-2xl bg-[#FFEFD4] py-[69px] px-8 lg:px-[86px] mx-auto lg:min-w-[65%] 2xl:min-w-[50%] lg:max-w-[65%] 2xl:max-w-[50%]"
-      >
-        <div className="grid grid-cols-none md:grid-cols-none gap-y-14 gap-x-14 text-center">
-          <Input
-            size="lg"
+    <AdminAuthShell
+      title="Admin Registration"
+      subtitle="Create an admin account to manage admissions, teams and events."
+    >
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-[#083700]">
+            Full Name
+          </label>
+          <input
+            id="name"
+            type="text"
             name="name"
-            variant="static"
-            label="Name"
-            className="pl-4 text-xl"
-            labelProps={{
-              className: "!text-black",
-            }}
-            containerProps={{
-              className: "h-14",
-            }}
-            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-          <Input
-            size="lg"
-            type="email"
-            name="email"
-            variant="static"
-            label="Email Address"
-            className="pl-4 text-xl"
-            labelProps={{
-              className: "!text-black",
-            }}
-            containerProps={{
-              className: "h-14",
-            }}
-            placeholder="yourname@gmail.com"
-            value={formData.email}
-            onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-          <Input
-            type="password"
-            size="lg"
-            name="password"
-            variant="static"
-            label="Password"
-            className="pl-4 text-xl"
-            labelProps={{
-              className: "!text-black",
-            }}
-            containerProps={{
-              className: "h-14",
-            }}
-            placeholder=""
-            value={formData.password}
-            onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-          <Input
-            size="lg"
-            type="text"
-            name="phone"
-            variant="static"
-            label="Phone Number"
-            className="pl-4 text-xl"
-            labelProps={{
-              className: "!text-black",
-            }}
-            containerProps={{
-              className: "h-14",
-            }}
-            placeholder="08123456789"
-            value={formData.phone}
-            onChange={handleChange}
-            crossOrigin={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
+            placeholder="Full Name"
+            className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
           />
         </div>
-
-        <Button
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-[#083700]">
+            Email Address
+          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="yourname@gmail.com"
+            className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
+          />
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-1.5 block text-sm font-semibold text-[#083700]"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-[#083700]">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="08123456789"
+              className="w-full rounded-xl border border-[#E4E8EC] px-4 py-3 text-sm outline-none transition focus:border-[#1C7800] focus:ring-2 focus:ring-[#1C7800]/20"
+            />
+          </div>
+        </div>
+        <button
           type="submit"
-          size="lg"
-          className="capitalize px-16 py-4 bg-[#FC7C13] my-[35px] w-full text-[16px] transition duration-500 ease-in-out transform hover:-translate-y-1"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
+          disabled={isSubmitting}
+          className="w-full rounded-xl bg-[#1C7800] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#166100] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isSubmitting ? "Submitting..." : "Register"}
-        </Button>
+          {isSubmitting ? "Submitting..." : "Create Admin Account"}
+        </button>
         {formValidMessage && (
-          <div className="event-page-registration-error-message text-red-600 mt-4">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {formValidMessage}
           </div>
         )}
-
-        <p className="mt-[10px]">
+        <p className="text-sm text-[#5C6670]">
           Already have an account?{" "}
-          <Link href="/admin-login" className="underline">
+          <Link href="/admin-login" className="font-medium text-[#1C7800] underline">
             Login
           </Link>
         </p>
       </form>
-    </div>
+    </AdminAuthShell>
   );
 };
 

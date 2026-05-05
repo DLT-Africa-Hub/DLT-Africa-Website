@@ -163,7 +163,7 @@ const WaitlistAdmin = () => {
 
   return (
     <div className="min-h-screen bg-[#F7FAF8] p-4 md:p-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto">
         <div className="mb-8">
           <h1 className="font-sfPro text-3xl font-bold text-[#083700]">
             Waitlist Management

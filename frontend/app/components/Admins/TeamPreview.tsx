@@ -66,7 +66,7 @@ const TeamPreview: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F7FAF8] p-4 md:p-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto">
         <h1 className="font-sfPro text-3xl font-bold text-[#083700]">Team List</h1>
         <p className="mt-1 font-poppins text-sm text-[#5C6670]">
           View all registered admin team members.

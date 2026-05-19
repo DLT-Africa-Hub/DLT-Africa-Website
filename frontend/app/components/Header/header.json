@@ -29,7 +29,8 @@
       "href": "/",
       "items": [
         { "label": "Dev Studio", "href": "https://dlthub.org" },
-        { "label": "Hire Talent", "href": "/talent-pool" }
+        { "label": "Hire Talent", "href": "/talent-pool" },
+        { "label": "Events", "href": "/events" }
       ]
     }
   ],

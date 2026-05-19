@@ -65,31 +65,55 @@ const options = {
               type: "string",
               description: "Event ID",
             },
-            title: {
+            company: {
               type: "string",
-              description: "Event title",
+              description: "Partner or host company (e.g. CrossFi, Lisk, Celo)",
             },
-            description: {
+            eventName: {
+              type: "string",
+              description: "Event name",
+            },
+            eventCategory: {
+              type: "string",
+              description: "Event category (e.g. Web3)",
+            },
+            eventType: {
+              type: "string",
+              description: "Event type (e.g. Happy Hour)",
+            },
+            startDate: {
+              type: "string",
+              description: "Event start date",
+            },
+            duration: {
+              type: "string",
+              description: "Event duration",
+            },
+            eventRegLink: {
+              type: "string",
+              description: "Registration link URL",
+            },
+            eventVenue: {
+              type: "string",
+              description: "Event venue",
+            },
+            media: {
+              type: "string",
+              description: "Media folder or image URL",
+            },
+            eventDescription: {
               type: "string",
               description: "Event description",
-            },
-            date: {
-              type: "string",
-              format: "date-time",
-              description: "Event date",
-            },
-            location: {
-              type: "string",
-              description: "Event location",
-            },
-            image: {
-              type: "string",
-              description: "Event image URL",
             },
             createdAt: {
               type: "string",
               format: "date-time",
               description: "Event creation date",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+              description: "Event last update date",
             },
           },
         },

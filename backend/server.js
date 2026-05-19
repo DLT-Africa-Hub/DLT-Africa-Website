@@ -20,6 +20,7 @@ const teamRoute = require("./routes/team.route");
 const contactRoute = require("./routes/contact.route");
 const waitlistRoute = require("./routes/waitlist.route");
 const settingsRoute = require("./routes/settings.route");
+const eventRoute = require("./routes/event.route");
 
 // Import middleware
 const errorHandler = require("./middleware/errorHandler.middleware");
@@ -185,6 +186,7 @@ app.use("/api/v1/team", teamRoute);
 app.use("/api/v1/contact", contactRoute);
 app.use("/api/v1/waitlist", waitlistRoute);
 app.use("/api/v1/settings", settingsRoute);
+app.use("/api/v1/events", eventRoute);
 
 // Swagger Documentation with explicit MIME type handling
 app.use(

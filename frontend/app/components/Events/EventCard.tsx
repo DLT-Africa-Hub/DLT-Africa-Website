@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   LuArrowUpRight,
@@ -11,12 +10,14 @@ import {
 } from "react-icons/lu";
 
 import CompanyBadge from "@/app/components/Events/CompanyBadge";
+import EventPosterMedia from "@/app/components/Events/EventPosterMedia";
 
 import type { EventRecord } from "./event.types";
 import {
   formatEventDate,
   getEventImage,
   getEventYear,
+  hasEventGallery,
   isPastEvent,
 } from "./event.utils";
 
@@ -28,20 +29,18 @@ export default function EventCard({
   index?: number;
 }) {
   const imageSrc = getEventImage(event, index);
-  const isExternal = imageSrc.startsWith("http");
+  const posterSrc = event.poster?.trim() || imageSrc;
   const past = isPastEvent(event.startDate);
-  const hasMedia = Boolean(event.media?.trim());
+  const galleryUrl = hasEventGallery(event) ? event.media!.trim() : null;
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#E4E8EC]/80 bg-white shadow-sm transition duration-500 hover:-translate-y-1 hover:border-[#1C7800]/30 hover:shadow-[0_20px_48px_-16px_rgba(28,120,0,0.2)]">
       <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={imageSrc}
+        <EventPosterMedia
+          src={posterSrc}
+          fallbackSrc={imageSrc}
           alt={event.eventName}
-          fill
-          className="object-cover transition duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          unoptimized={isExternal}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#041504]/75 via-transparent to-transparent" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5 sm:left-4 sm:top-4">
@@ -92,9 +91,9 @@ export default function EventCard({
         </ul>
 
         <div className="mt-4 flex gap-2">
-          {hasMedia ? (
+          {galleryUrl ? (
             <Link
-              href={event.media!}
+              href={galleryUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#EFFFE2] py-2.5 font-poppins text-xs font-semibold text-[#1C7800] transition hover:bg-[#DFF5D0] sm:text-sm"

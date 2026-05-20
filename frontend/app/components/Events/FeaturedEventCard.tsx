@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   LuArrowUpRight,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/lu";
 
 import CompanyBadge from "@/app/components/Events/CompanyBadge";
+import EventPosterMedia from "@/app/components/Events/EventPosterMedia";
 import { buttonVariants } from "@/app/constants/buttonStyles";
 
 import type { EventRecord } from "./event.types";
@@ -18,6 +18,7 @@ import {
   formatEventDate,
   getEventImage,
   getEventYear,
+  hasEventGallery,
   isPastEvent,
 } from "./event.utils";
 
@@ -29,21 +30,20 @@ export default function FeaturedEventCard({
   index?: number;
 }) {
   const imageSrc = getEventImage(event, index);
-  const isExternal = imageSrc.startsWith("http");
+  const posterSrc = event.poster?.trim() || imageSrc;
   const past = isPastEvent(event.startDate);
-  const hasMedia = Boolean(event.media?.trim());
+  const galleryUrl = hasEventGallery(event) ? event.media!.trim() : null;
 
   return (
     <article className="group relative overflow-hidden rounded-3xl border border-[#1C7800]/20 bg-white shadow-[0_24px_64px_-24px_rgba(8,55,0,0.35)] transition duration-500 hover:shadow-[0_32px_80px_-20px_rgba(28,120,0,0.25)] lg:grid lg:grid-cols-[1.1fr_1fr]">
       <div className="relative min-h-[280px] overflow-hidden sm:min-h-[320px] lg:min-h-[400px]">
-        <Image
-          src={imageSrc}
+        <EventPosterMedia
+          src={posterSrc}
+          fallbackSrc={imageSrc}
           alt={event.eventName}
-          fill
-          className="object-cover transition duration-700 group-hover:scale-105"
           sizes="(max-width: 1024px) 100vw, 55vw"
           priority
-          unoptimized={isExternal}
+          className="object-cover transition duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#041504]/90 via-[#041504]/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#041504]/10 lg:to-[#041504]/80" />
         <div className="absolute left-4 top-4 flex flex-wrap gap-2 sm:left-6 sm:top-6">
@@ -106,9 +106,9 @@ export default function FeaturedEventCard({
         </ul>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          {hasMedia ? (
+          {galleryUrl ? (
             <Link
-              href={event.media!}
+              href={galleryUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={`${buttonVariants.solidGreen} gap-2 px-5 py-2.5 text-sm`}

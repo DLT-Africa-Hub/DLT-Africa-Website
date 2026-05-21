@@ -9,6 +9,7 @@ export interface EventRecord {
   eventRegLink?: string;
   eventVenue: string;
   media?: string;
+  poster?: string;
   eventDescription: string;
   createdAt?: string;
   updatedAt?: string;

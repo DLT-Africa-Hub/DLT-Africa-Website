@@ -1,4 +1,5 @@
 import { withBasePath } from "@/lib/basePath";
+import { getApiBaseUrl } from "@/lib/apiClient";
 
 import type { EventRecord } from "./event.types";
 
@@ -28,6 +29,42 @@ const KEYWORD_IMAGE_MAP: [RegExp, string][] = [
 
 function isDirectImageUrl(url: string): boolean {
   return /\.(png|jpe?g|gif|webp|svg)(\?|$)/i.test(url);
+}
+
+/** True for direct video files and common hosted video URLs (Cloudinary, Twitter CDN). */
+export function isVideoUrl(url: string): boolean {
+  const trimmed = url.trim();
+  if (!trimmed) return false;
+  if (/video\.twimg\.com/i.test(trimmed)) return true;
+  if (/\.(mp4|webm|mov|m4v|ogv)(\?|$)/i.test(trimmed)) return true;
+  if (/cloudinary\.com/i.test(trimmed) && /\/video\//i.test(trimmed)) {
+    return true;
+  }
+  return false;
+}
+
+/** Twitter blocks hotlinked video in the browser; load via our API proxy instead. */
+export function isTwitterVideoUrl(url: string): boolean {
+  return /video\.twimg\.com/i.test(url.trim());
+}
+
+export function getPosterVideoSrc(url: string): string {
+  const trimmed = url.trim();
+  if (!isTwitterVideoUrl(trimmed)) return trimmed;
+  const params = new URLSearchParams({ url: trimmed });
+  return `${getApiBaseUrl()}/events/proxy-poster-video?${params.toString()}`;
+}
+
+/** True when event has a usable external gallery / moments link. */
+export function hasEventGallery(event: EventRecord): boolean {
+  const media = event.media?.trim();
+  if (!media) return false;
+  try {
+    const parsed = new URL(media);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 export function getEventImage(event: EventRecord, index = 0): string {

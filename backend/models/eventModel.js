@@ -49,6 +49,11 @@ const eventSchema = mongoose.Schema(
       trim: true,
       default: "",
     },
+    poster: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     eventDescription: {
       type: String,
       required: [true, "Event description is required"],

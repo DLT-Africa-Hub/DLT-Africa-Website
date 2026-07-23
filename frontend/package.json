@@ -1,11 +1,12 @@
 {
   "name": "frontend",
-  "homepage": "https://dltafrica.io/",
-  "version": "0.1.0",
+  "homepage": "https://dlthub.org/bootcamp/",
+  "version": "0.1.1",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
+    "dev:next": "next dev",
     "build": "next build",
     "export": "next export",
     "start": "next start"
@@ -35,7 +36,7 @@
     "sharp": "^0.33.3"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.19.43",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.18",

@@ -1,12 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import dynamicImport from "next/dynamic";
 import CookieConsentDrawer from "@/app/components/CookieConsent/CookieConsentDrawer";
 
-const Loader = dynamicImport(() => import("./Loader/Loader"), {
-  ssr: false,
-});
 const IndexHome = dynamicImport(
   () => import("@/app/components/HomePage/Home"),
   {
@@ -26,75 +23,15 @@ const IndexHome = dynamicImport(
             <div className="w-[400px] h-[400px] bg-gray-300 rounded-lg animate-pulse"></div>
           </div>
         </section>
-
-        <div className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="h-12 bg-gray-300 rounded animate-pulse mb-8 mx-auto w-1/2"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="text-center">
-                  <div className="w-16 h-16 bg-gray-300 rounded-full animate-pulse mx-auto mb-4"></div>
-                  <div className="h-6 bg-gray-300 rounded animate-pulse mb-2"></div>
-                  <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4 text-center">
-            <div className="h-12 bg-gray-300 rounded animate-pulse mb-4 mx-auto w-1/3"></div>
-            <div className="h-6 bg-gray-300 rounded animate-pulse mb-8 mx-auto w-1/2"></div>
-            <div className="h-12 bg-gray-300 rounded animate-pulse mx-auto w-48"></div>
-          </div>
-        </div>
-
-        <div className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="h-12 bg-gray-300 rounded animate-pulse mb-8 mx-auto w-1/4"></div>
-            <div className="flex justify-center space-x-8">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div
-                  key={i}
-                  className="w-24 h-16 bg-gray-300 rounded animate-pulse"
-                ></div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="h-12 bg-gray-300 rounded animate-pulse mb-8 mx-auto w-1/4"></div>
-            <div className="max-w-3xl mx-auto space-y-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="border border-gray-200 rounded-lg p-4">
-                  <div className="h-6 bg-gray-300 rounded animate-pulse mb-2"></div>
-                  <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     ),
   }
 );
 
 export default function BootcampHomeEntry() {
-  const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
   useEffect(() => {
     if (typeof window !== "undefined") window.scrollTo(0, 0);
   }, []);
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 4000);
-    return () => clearTimeout(t);
-  }, []);
-
 
   return (
     <>

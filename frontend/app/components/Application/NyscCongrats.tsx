@@ -19,7 +19,7 @@ const NyscCongrats: React.FC = () => {
 
   useEffect(() => {
     if (countdown === 0) {
-      router.push("/bootcamp");
+      router.push("/");
     }
   }, [countdown, router]);
 

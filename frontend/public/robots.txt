@@ -5,4 +5,4 @@ Disallow: /bootcamp/admin/
 Disallow: /bootcamp/admin-login/
 Disallow: /bootcamp/admin-dashboard/
 
-Sitemap: https://dlthub.org/sitemap.xml
+Sitemap: https://dlthub.org/bootcamp/sitemap.xml

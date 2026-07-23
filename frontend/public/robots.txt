@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /bootcamp/admin/
+Disallow: /bootcamp/admin-login/
+Disallow: /bootcamp/admin-dashboard/
+
+Sitemap: https://dlthub.org/sitemap.xml

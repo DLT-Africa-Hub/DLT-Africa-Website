@@ -132,14 +132,14 @@ export default function DestinationScreen({
         window.open("https://dlthub.io/", "_blank", "noopener,noreferrer");
         break;
       case "BOOTCAMP":
-        router.push("/bootcamp");
+        router.push("/");
         break;
       case "INCUBATION":
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
         break;
       default:
-        router.push("/bootcamp");
+        router.push("/");
     }
   };
 

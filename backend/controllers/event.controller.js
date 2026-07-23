@@ -1,5 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const Event = require("../models/eventModel");
+const {
+  parseAllowedPosterVideoUrl,
+  fetchTwitterPosterVideo,
+} = require("../utils/posterVideoProxy");
 
 const objectIdRegex = /^[0-9a-fA-F]{24}$/;
 
@@ -44,6 +48,7 @@ const createEvent = asyncHandler(async (req, res) => {
     eventRegLink: req.body.eventRegLink?.trim() || "",
     eventVenue: req.body.eventVenue.trim(),
     media: req.body.media?.trim() || "",
+    poster: req.body.poster?.trim() || "",
     eventDescription: req.body.eventDescription.trim(),
   });
 
@@ -121,6 +126,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     "eventRegLink",
     "eventVenue",
     "media",
+    "poster",
     "eventDescription",
   ];
 
@@ -175,10 +181,41 @@ const deleteEvent = asyncHandler(async (req, res) => {
   });
 });
 
+const proxyPosterVideo = asyncHandler(async (req, res) => {
+  let url;
+  try {
+    url = parseAllowedPosterVideoUrl(req.query.url);
+  } catch (err) {
+    res.status(400);
+    throw err;
+  }
+
+  let upstream;
+  try {
+    upstream = await fetchTwitterPosterVideo(url);
+  } catch (err) {
+    res.status(err.statusCode || 502);
+    throw err;
+  }
+
+  const contentType = upstream.headers.get("content-type") || "video/mp4";
+  const contentLength = upstream.headers.get("content-length");
+
+  res.setHeader("Content-Type", contentType);
+  res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+  if (contentLength) {
+    res.setHeader("Content-Length", contentLength);
+  }
+
+  const buffer = Buffer.from(await upstream.arrayBuffer());
+  res.send(buffer);
+});
+
 module.exports = {
   createEvent,
   getAllEvents,
   getEvent,
   updateEvent,
   deleteEvent,
+  proxyPosterVideo,
 };

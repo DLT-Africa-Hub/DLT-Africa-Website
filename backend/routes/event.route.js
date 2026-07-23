@@ -5,6 +5,7 @@ const {
   getEvent,
   updateEvent,
   deleteEvent,
+  proxyPosterVideo,
 } = require("../controllers/event.controller");
 
 const router = express.Router();
@@ -37,6 +38,8 @@ const router = express.Router();
  *         description: List of events
  */
 router.get("/get-all-events", getAllEvents);
+
+router.get("/proxy-poster-video", proxyPosterVideo);
 
 /**
  * @swagger
